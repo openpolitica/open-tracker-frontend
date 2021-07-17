@@ -1,6 +1,12 @@
 import { extendTheme } from '@chakra-ui/react';
+import { ButtonStyles as Button } from 'components/ButtonStyles';
+
+const components = {
+  Button,
+};
 
 const themeDefault = {
+  components,
   styles: {
     global: {
       'html, body': {
@@ -26,5 +32,4 @@ const themeDefault = {
     },
   },
 };
-
 export default extendTheme(themeDefault);
