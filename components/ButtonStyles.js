@@ -7,13 +7,13 @@ export const ButtonStyles = {
   },
   variants: {
     solid: {
-      bg: 'teal.500',
+      bg: 'primary.500',
       color: 'white',
     },
     outline: {
-      color: 'gray.700',
+      color: 'secondary.700',
       border: '1px solid',
-      borderColor: 'gray.200',
+      borderColor: 'secondary.200',
     },
   },
   defaultProps: {

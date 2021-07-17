@@ -1,7 +1,7 @@
 export const globalStyles = {
   'html, body': {
     bg: 'white',
-    color: 'gray.700',
+    color: 'secondary.700',
     lineHeight: 'tall',
     fontFamily: 'Inter, -apple-system, Helvetica, Arial, sans-serif',
     scrollBehavior: 'smooth',
@@ -12,11 +12,11 @@ export const globalStyles = {
     minHeight: '100vh',
   },
   '::selection': {
-    bg: 'teal.400',
+    bg: 'primary.400',
     color: 'white',
   },
   '::-moz-selection': {
-    bg: 'teal.400',
+    bg: 'primary.400',
     color: 'white',
   },
 };
