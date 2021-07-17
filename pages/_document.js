@@ -7,6 +7,13 @@ export default class MyDocument extends Document {
         <Head>
           <title>Open Tracker</title>
           <link
+            rel="preload"
+            href="/fonts/inter-var-latin.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+          <link
             href="favicon/favicon.ico"
             rel="icon"
             type="image/png"
