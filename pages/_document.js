@@ -5,7 +5,6 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <title>Open Tracker</title>
           <link
             rel="preload"
             href="/fonts/inter-var-latin.woff2"
