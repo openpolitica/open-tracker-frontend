@@ -2,6 +2,7 @@ import { extendTheme } from '@chakra-ui/react';
 import { createBreakpoints } from '@chakra-ui/theme-tools';
 import { ButtonStyles as Button } from 'components/ButtonStyles';
 import { globalStyles } from 'theme/globalStyles';
+import { colors } from 'theme/colors';
 
 const components = {
   Button,
@@ -17,6 +18,7 @@ const breakpoints = createBreakpoints({
 const themeDefault = {
   components,
   breakpoints,
+  colors,
   styles: {
     global: globalStyles,
   },
