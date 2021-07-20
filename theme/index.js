@@ -1,11 +1,13 @@
 import { extendTheme } from '@chakra-ui/react';
 import { createBreakpoints } from '@chakra-ui/theme-tools';
-import { ButtonStyles as Button } from 'theme/components/Button';
 import { globalStyles } from 'theme/globalStyles';
 import { colors } from 'theme/colors';
+import { ButtonStyles as Button } from 'theme/components/Button';
+import { BreadcrumbStyles as Breadcrumb } from 'theme/components/Breadcrumb';
 
 const components = {
   Button,
+  Breadcrumb,
 };
 
 const breakpoints = createBreakpoints({
