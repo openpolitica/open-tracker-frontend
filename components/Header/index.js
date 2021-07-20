@@ -1,17 +1,17 @@
-import Link from 'next/link';
 import * as CUI from '@chakra-ui/react';
+import Breadcrumb from 'components/Breadcrumb';
 
 const Header = () => {
+  const routes = [
+    { label: 'Inicio', route: '/' },
+    { label: 'Bancadas', route: '/random' },
+    { label: 'Partido AC DC', route: '/random/ac-dc' },
+  ];
+
   return (
-    <header>
-      <Link href="/">
-        <img src="/images/icons/logo.svg" alt="open politica logo" />
-      </Link>
-      <CUI.Button variant="outline">
-        Outline Medium (default) Button!
-      </CUI.Button>
-      <CUI.Button size="sm">Solid(default) Medium Button!</CUI.Button>
-    </header>
+    <CUI.Box p={20}>
+      <Breadcrumb routes={routes} />
+    </CUI.Box>
   );
 };
 
