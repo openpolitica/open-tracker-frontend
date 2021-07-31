@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Button } from '@chakra-ui/react';
+import * as CUI from '@chakra-ui/react';
 
 const Header = () => {
   return (
@@ -7,8 +7,10 @@ const Header = () => {
       <Link href="/">
         <img src="/images/icons/logo.svg" alt="open politica logo" />
       </Link>
-      <Button variant="outline">Outline Medium (default) Button!</Button>
-      <Button size="sm">Solid(default) Medium Button!</Button>
+      <CUI.Button variant="outline">
+        Outline Medium (default) Button!
+      </CUI.Button>
+      <CUI.Button size="sm">Solid(default) Medium Button!</CUI.Button>
     </header>
   );
 };
