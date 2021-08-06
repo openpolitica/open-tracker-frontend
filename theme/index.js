@@ -2,6 +2,7 @@ import { extendTheme } from '@chakra-ui/react';
 import { createBreakpoints } from '@chakra-ui/theme-tools';
 import { globalStyles } from 'theme/globalStyles';
 import { colors } from 'theme/colors';
+import { sizes } from 'theme/sizes';
 import { ButtonStyles as Button } from 'theme/components/Button';
 import { BreadcrumbStyles as Breadcrumb } from 'theme/components/Breadcrumb';
 
@@ -21,6 +22,7 @@ const themeDefault = {
   components,
   breakpoints,
   colors,
+  sizes,
   styles: {
     global: globalStyles,
   },
