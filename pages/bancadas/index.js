@@ -1,9 +1,9 @@
 import SidebarLayout from 'components/layout/SidebarLayout';
 
-export default function Home() {
+export default function Congresistas() {
   return (
     <SidebarLayout>
-      <h1>HomePage</h1>
+      <h1>Bancadas</h1>
     </SidebarLayout>
   );
 }
