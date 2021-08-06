@@ -6,7 +6,7 @@ import * as CUI from '@chakra-ui/react';
   2. Recommended/required: To put your own <a> tag within the <NextLink> tag per the docs
 */
 
-export const NextCUILink = ({
+export default function NextCUILink({
   href,
   as,
   replace,
@@ -15,7 +15,7 @@ export const NextCUILink = ({
   prefetch,
   children,
   ...chakraProps
-}) => {
+}) {
   return (
     <NextLink
       passHref
@@ -30,4 +30,4 @@ export const NextCUILink = ({
       </CUI.Link>
     </NextLink>
   );
-};
+}
