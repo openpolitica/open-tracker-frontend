@@ -3,12 +3,15 @@ import { createBreakpoints } from '@chakra-ui/theme-tools';
 import { globalStyles } from 'theme/globalStyles';
 import { colors } from 'theme/colors';
 import { sizes } from 'theme/sizes';
-import { ButtonStyles as Button } from 'theme/components/Button';
+
+import { BadgeStyles as Badge } from 'theme/components/Badge';
 import { BreadcrumbStyles as Breadcrumb } from 'theme/components/Breadcrumb';
+import { ButtonStyles as Button } from 'theme/components/Button';
 
 const components = {
-  Button,
+  Badge,
   Breadcrumb,
+  Button,
 };
 
 const breakpoints = createBreakpoints({
