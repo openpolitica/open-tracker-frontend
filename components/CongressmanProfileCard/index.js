@@ -7,7 +7,7 @@ import PeopleIcon from 'public/images/icons/people.svg';
 import ExternalLinkIcon from 'public/images/icons/external-link.svg';
 
 export default function CongressmanProfileCard({
-  // TODO: Remove after fetching real data
+  // TODO: Remove default values after fetching real data
   avatarUrl = 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80',
   fullName = 'Posemoscrowte Chagua Payano',
   isActiveMember = true,
@@ -53,17 +53,33 @@ export default function CongressmanProfileCard({
           </CUI.HStack>
           <CUI.VStack align="flex-start" spacing={1} color="secondary.500">
             <CUI.Flex align="center">
-              <CUI.Icon mr="3" fontSize="24" as={MarkIcon} />
-              <CUI.Text fontSize="md">Congresista por {location}</CUI.Text>
+              <CUI.Icon
+                mr="3"
+                fontSize={{ base: '20', md: '24' }}
+                as={MarkIcon}
+              />
+              <CUI.Text fontSize={{ base: 'sm', md: 'md' }}>
+                Congresista por {location}
+              </CUI.Text>
             </CUI.Flex>
             <CUI.Flex align="center">
-              <CUI.Icon mr="3" fontSize="24" as={PeopleIcon} />
-              <CUI.Text fontSize="md">{politicalPartyName}</CUI.Text>
+              <CUI.Icon
+                mr="3"
+                fontSize={{ base: '20', md: '24' }}
+                as={PeopleIcon}
+              />
+              <CUI.Text fontSize={{ base: 'sm', md: 'md' }}>
+                {politicalPartyName}
+              </CUI.Text>
             </CUI.Flex>
             <CUI.Flex align="center">
-              <CUI.Icon mr="3" fontSize="24" as={PeopleIcon} />
+              <CUI.Icon
+                mr="3"
+                fontSize={{ base: '20', md: '24' }}
+                as={PeopleIcon}
+              />
               <CUI.Text
-                fontSize="md"
+                fontSize={{ base: 'sm', md: 'md' }}
                 as={NextCUILink}
                 href={`bancadas/${parliamentaryGroupId}`}
                 color="primary.500"
