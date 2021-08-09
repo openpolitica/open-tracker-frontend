@@ -1,7 +1,7 @@
 import * as CUI from '@chakra-ui/react';
 import NextCUILink from 'components/NextCUILink';
-import FbIcon from 'public/images/icons/social/facebook.svg';
-import TwitterIcon from 'public/images/icons/social/twitter.svg';
+import FbIcon from 'public/images/icons/facebook.svg';
+import TwitterIcon from 'public/images/icons/twitter.svg';
 import MarkIcon from 'public/images/icons/mark-location.svg';
 import PeopleIcon from 'public/images/icons/people.svg';
 import ExternalLinkIcon from 'public/images/icons/external-link.svg';
