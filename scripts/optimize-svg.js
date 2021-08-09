@@ -50,8 +50,8 @@ const config = {
     'mergePaths',
     'convertShapeToPath',
     'sortAttrs',
-    'removeDimensions',
-    { name: 'removeAttrs', params: { attrs: '(stroke|fill)' } },
+    // 'removeDimensions',
+    // { name: 'removeAttrs', params: { attrs: '(stroke|fill)' } },
   ],
 };
 
