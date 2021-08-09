@@ -13,14 +13,11 @@ export default function SidebarLayout({ children }) {
         <SidebarContent display={{ base: 'none', md: 'block' }} />
         <CUI.Drawer
           autoFocus={false}
-          isOpen={isOpen}
           placement="left"
+          isOpen={isOpen}
           onClose={onClose}
           onOverlayClick={onClose}>
-          <CUI.DrawerContent
-            maxW="sidebarWidth"
-            boxShadow="unset"
-            marginTop={14}>
+          <CUI.DrawerContent maxW="sidebarWidth" boxShadow="unset" mt="14">
             <SidebarContent />
           </CUI.DrawerContent>
         </CUI.Drawer>
@@ -30,11 +27,11 @@ export default function SidebarLayout({ children }) {
           onToggle={onToggle}
         />
         <CUI.Box
-          ml={{ base: 0, md: '183px' }}
-          mt={{ base: 0, md: '64px' }}
-          px={{ base: '16px', md: '32px' }}
-          py={{ base: '16px', md: '24px' }}
-          pt={{ base: '72px', md: '24px' }}>
+          ml={{ base: '0', md: '11.5rem' }}
+          mt={{ base: '0', md: '16' }}
+          px={{ base: '4', md: '8' }}
+          py={{ base: '4', md: '6' }}
+          pt={{ base: '4.5rem', md: '6' }}>
           {children}
         </CUI.Box>
       </CUI.Box>
