@@ -6,7 +6,7 @@ export default function Breadcrumb({ routes = [] }) {
   const lastIdxRoute = routes.length - 1;
 
   return routes?.length > 1 ? (
-    <CUI.Breadcrumb separator={<ArrowRightIcon />} spacing="0.25rem">
+    <CUI.Breadcrumb separator={<ArrowRightIcon />} spacing="1">
       {routes.map(({ label, route }, idx) => (
         <CUI.BreadcrumbItem key={label}>
           <CUI.BreadcrumbLink

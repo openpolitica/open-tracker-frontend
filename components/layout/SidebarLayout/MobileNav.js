@@ -25,11 +25,11 @@ export default function MobileNav({ isOpen, onToggle, ...rest }) {
       pos="fixed"
       w="full"
       h="navHeight"
+      px={{ base: '4', md: '24' }}
       bg="white"
       boxShadow="sm"
       alignItems="center"
       justifyContent="space-between"
-      px={{ base: 4, md: 24 }}
       ref={navRef}
       {...rest}>
       <CUI.Flex alignItems="center" w="full">
@@ -38,38 +38,38 @@ export default function MobileNav({ isOpen, onToggle, ...rest }) {
             <CUI.IconButton
               variant="ghost"
               color="secondary.500"
-              onClick={onSearchClose}
               aria-label="search congresssman"
               icon={<BackIcon />}
+              onClick={onSearchClose}
             />
-            <CUI.Input flex={1} mx={2} placeholder="Busca un congresista" />
+            <CUI.Input flex="1" mx="2" placeholder="Busca un congresista" />
           </Fragment>
         ) : (
           <Fragment>
             <CUI.IconButton
               variant="ghost"
-              onClick={onToggle}
               color="secondary.500"
               aria-label="toggle menu"
-              marginRight="12px"
+              mr="3"
               icon={isOpen ? <CloseIcon /> : <MenuIcon />}
+              onClick={onToggle}
             />
             <CUI.Text
               fontSize="md"
               color="secondary.700"
               fontWeight="bold"
-              flex={1}>
+              flex="1">
               Congreso
             </CUI.Text>
           </Fragment>
         )}
         <CUI.IconButton
           variant="ghost"
-          onClick={isSearchOpen ? handleSearch : onSearchOpen}
           aria-label="search congresssman"
           bg="secondary.100"
           color="secondary.700"
           icon={<SearchIcon />}
+          onClick={isSearchOpen ? handleSearch : onSearchOpen}
         />
       </CUI.Flex>
     </CUI.Flex>

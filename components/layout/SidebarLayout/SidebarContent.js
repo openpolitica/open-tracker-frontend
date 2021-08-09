@@ -14,15 +14,15 @@ export default function SidebarContent({ ...rest }) {
   return (
     <CUI.Box
       pos="fixed"
-      top={{ base: 0, md: 14 }}
       h="full"
       w="sidebarWidth"
       bg="secondary.50"
       boxShadow="base"
-      px={3}
-      py={2.5}
+      px="3"
+      py="2.5"
+      top={{ base: '0', md: '14' }}
       {...rest}>
-      <CUI.VStack spacing={2} align="flex-start">
+      <CUI.VStack spacing="2" align="flex-start">
         {LinkItems.map(link => (
           <NavItem key={link.name} icon={link.icon} href={link.href}>
             {link.name}
@@ -39,21 +39,21 @@ const NavItem = ({ icon, children, href, ...rest }) => {
   return (
     <NextCUILink href={href}>
       <CUI.Flex
-        h="32px"
-        align="center"
         bg={isActive ? 'secondary.200' : 'none'}
-        px={2}
-        py={3}
+        h="8"
+        align="center"
+        px="2"
+        py="3"
         color="secondary.700"
         borderRadius="md"
-        role="group"
         cursor="pointer"
         _hover={{
           bg: 'secondary.200',
         }}
+        role="group"
         {...rest}>
-        {icon ? <CUI.Icon mr="2" fontSize="14" as={icon} /> : null}
-        <CUI.Text fontSize="sm" fontWeight="600">
+        {icon ? <CUI.Icon mr="2" fontSize="sm" as={icon} /> : null}
+        <CUI.Text fontSize="sm" fontWeight="semibold">
           {children}
         </CUI.Text>
       </CUI.Flex>

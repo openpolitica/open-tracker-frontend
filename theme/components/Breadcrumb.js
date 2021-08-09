@@ -7,9 +7,9 @@ export const BreadcrumbStyles = {
       borderRadius: '4px',
       color: 'secondary.700',
       display: 'inline-flex',
-      fontSize: '0.75rem',
-      lineHeight: '1rem',
-      padding: '16px',
+      fontSize: 'xs',
+      lineHeight: 'none',
+      p: '4',
     },
   },
 };
