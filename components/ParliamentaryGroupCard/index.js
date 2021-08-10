@@ -8,26 +8,26 @@ const ParliamentaryGroupCard = ({
   return (
     <CUI.Flex
       direction="column"
-      maxW={44}
-      minH="244px"
-      px={18.5}
-      pt="20px"
-      pb={6}
+      maxW="44"
+      minH="15.25rem"
+      px="18.5"
+      pt="1.25rem"
+      pb="6"
       textAlign="center"
       boxShadow="sm"
       border="1px solid"
       borderColor="secondary.200"
       rounded="4">
-      <CUI.Image w={16} mx="auto" src={logoParty} />
+      <CUI.Image w="16" mx="auto" src={logoParty} />
       <CUI.Heading
         fontSize="md"
-        lineHeight={6}
-        fontWeight="500"
+        lineHeight="6"
+        fontWeight="medium"
         color="#1A1A1A">
         {nameParty}
       </CUI.Heading>
-      <CUI.Text color="gray.500" mt={1}>
-        {members} miembros
+      <CUI.Text color="gray.500" mt="1">
+        {members} {members === '1' ? 'miembro' : 'miembros'}
       </CUI.Text>
       <CUI.Button variant="outline" mt="auto">
         Ver congresistas
