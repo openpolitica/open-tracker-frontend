@@ -24,26 +24,26 @@ export default function CongressmanProfileCard({
 
   return (
     <CUI.Box
-      maxW="656px"
+      maxW="41rem"
       w="full"
       borderRadius="6px"
-      p={6}
+      p="6"
       border="1px"
       borderColor="secondary.200">
       <CUI.Stack
         alignItems="flex-start"
-        spacing={{ base: 2, md: 8 }}
+        spacing={{ base: '2', md: '8' }}
         direction={{ base: 'column', md: 'row' }}>
         {avatarUrl ? (
           <CUI.Avatar size={avatarSize} src={avatarUrl} name={fullName} />
         ) : null}
-        <CUI.VStack spacing={3} align="flex-start">
+        <CUI.VStack spacing="3" align="flex-start">
           <CUI.Heading
             fontSize={{ base: 'lg', md: '2xl' }}
             color="secondary.700">
             {fullName}
           </CUI.Heading>
-          <CUI.HStack align="center" spacing={1}>
+          <CUI.HStack align="center" spacing="1">
             {isActiveMember ? (
               <CUI.Badge variant="success">Vocera de la bancada</CUI.Badge>
             ) : null}
@@ -51,11 +51,11 @@ export default function CongressmanProfileCard({
               <CUI.Badge variant="danger">Suspendida</CUI.Badge>
             ) : null}
           </CUI.HStack>
-          <CUI.VStack align="flex-start" spacing={1} color="secondary.500">
+          <CUI.VStack align="flex-start" spacing="1" color="secondary.500">
             <CUI.Flex align="center">
               <CUI.Icon
                 mr="3"
-                fontSize={{ base: '20', md: '24' }}
+                fontSize={{ base: 'xl', md: '2xl' }}
                 as={MarkIcon}
               />
               <CUI.Text fontSize={{ base: 'sm', md: 'md' }}>
@@ -65,7 +65,7 @@ export default function CongressmanProfileCard({
             <CUI.Flex align="center">
               <CUI.Icon
                 mr="3"
-                fontSize={{ base: '20', md: '24' }}
+                fontSize={{ base: 'xl', md: '2xl' }}
                 as={PeopleIcon}
               />
               <CUI.Text fontSize={{ base: 'sm', md: 'md' }}>
@@ -75,20 +75,20 @@ export default function CongressmanProfileCard({
             <CUI.Flex align="center">
               <CUI.Icon
                 mr="3"
-                fontSize={{ base: '20', md: '24' }}
+                fontSize={{ base: 'xl', md: '2xl' }}
                 as={PeopleIcon}
               />
               <CUI.Text
                 fontSize={{ base: 'sm', md: 'md' }}
                 as={NextCUILink}
-                href={`bancadas/${parliamentaryGroupId}`}
                 color="primary.500"
-                textDecoration="underline">
+                textDecoration="underline"
+                href={`bancadas/${parliamentaryGroupId}`}>
                 {parliamentaryGroup}
               </CUI.Text>
             </CUI.Flex>
           </CUI.VStack>
-          <CUI.HStack mt={8} spacing={2} align="center">
+          <CUI.HStack mt="8" spacing="2" align="center">
             {personalUrl ? (
               <ExternalIconLink
                 href={personalUrl}
@@ -111,14 +111,14 @@ export default function CongressmanProfileCard({
 const ExternalIconLink = ({ href, icon, ...rest }) => {
   return (
     <CUI.IconButton
-      as={CUI.Link}
       isExternal
       minW="unset"
       h="unset"
       variant="unstyled"
-      href={href}
       aria-label="facebook"
       color="secondary.700"
+      as={CUI.Link}
+      href={href}
       icon={icon}
       {...rest}
     />
