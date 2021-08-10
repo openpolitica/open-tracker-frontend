@@ -82,7 +82,6 @@ export default function CongressmanProfileCard({
                 fontSize={{ base: 'sm', md: 'md' }}
                 as={NextCUILink}
                 color="primary.500"
-                textDecoration="underline"
                 href={`bancadas/${parliamentaryGroupId}`}>
                 {parliamentaryGroup}
               </CUI.Text>
