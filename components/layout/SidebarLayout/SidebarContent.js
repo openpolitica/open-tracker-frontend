@@ -37,7 +37,11 @@ const NavItem = ({ icon, children, href, ...rest }) => {
   const { pathname } = useRouter();
   const isActive = pathname === href;
   return (
-    <NextCUILink href={href}>
+    <NextCUILink
+      _hover={{
+        textDecoration: 'none',
+      }}
+      href={href}>
       <CUI.Flex
         bg={isActive ? 'secondary.200' : 'none'}
         h="8"

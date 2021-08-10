@@ -25,9 +25,7 @@ export default function NextCUILink({
       scroll={scroll}
       shallow={shallow}
       prefetch={prefetch}>
-      <CUI.Link _hover={{ textDecoration: 'none' }} {...chakraProps}>
-        {children}
-      </CUI.Link>
+      <CUI.Link {...chakraProps}>{children}</CUI.Link>
     </NextLink>
   );
 }
