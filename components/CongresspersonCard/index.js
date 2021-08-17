@@ -18,7 +18,7 @@ const CongresspersonCard = ({
       border="1px solid"
       borderColor="secondary.200"
       rounded="4">
-      <CUI.Avatar w="16" h="16" src={avatar}>
+      <CUI.Avatar w="16" h="16" src={avatar} name={fullName}>
         <CUI.AvatarBadge as="img" src={logoParty} boxSize="1.5rem" />
       </CUI.Avatar>
       <CUI.Heading
