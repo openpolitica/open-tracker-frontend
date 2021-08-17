@@ -4,8 +4,8 @@ export const ButtonStyles = {
   },
   sizes: {
     md: {
-      px: '12px',
-      py: '6px',
+      px: '0.75rem',
+      py: '0.375rem',
     },
   },
   variants: {
@@ -17,6 +17,7 @@ export const ButtonStyles = {
       color: 'secondary.700',
       border: '1px solid',
       borderColor: 'secondary.200',
+      fontSize: 'sm',
     },
   },
   defaultProps: {
