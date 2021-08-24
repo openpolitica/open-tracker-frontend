@@ -9,24 +9,23 @@ const ParliamentaryGroupCard = ({
     <CUI.Flex
       direction="column"
       maxW="44"
-      minH="15.25rem"
-      px="18.5"
-      pt="1.25rem"
-      pb="6"
+      minH="64"
+      px="5"
+      py="6"
       textAlign="center"
       boxShadow="sm"
       border="1px solid"
       borderColor="secondary.200"
       rounded="4">
-      <CUI.Image w="16" mx="auto" src={logoParty} />
+      <CUI.Image w="16" mx="auto" mb="4" src={logoParty} />
       <CUI.Heading
-        fontSize="md"
+        fontSize="sm"
         lineHeight="6"
         fontWeight="medium"
-        color="#1A1A1A">
+        color="secondary.700">
         {nameParty}
       </CUI.Heading>
-      <CUI.Text color="gray.500" mt="1">
+      <CUI.Text color="gray.500" mt="1" fontSize="sm">
         {members} {members === '1' ? 'miembro' : 'miembros'}
       </CUI.Text>
       <CUI.Button variant="outline" mt="auto">
