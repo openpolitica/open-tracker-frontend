@@ -4,8 +4,8 @@ export const ButtonStyles = {
   },
   sizes: {
     md: {
-      px: '0.75rem',
-      py: '0.375rem',
+      px: '3',
+      py: '1.5',
     },
   },
   variants: {
