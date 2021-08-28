@@ -1,5 +1,6 @@
 import * as CUI from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import { capitalizeStrings } from 'utils/misc';
 
 const CongresspersonCard = ({
   avatar = 'https://images.unsplash.com/photo-1628038341191-8e7448fc8209?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80',
@@ -23,15 +24,20 @@ const CongresspersonCard = ({
       border="1px solid"
       borderColor="secondary.200"
       rounded="4">
-      <CUI.Avatar w="16" h="16" src={avatar} name={fullName}>
-        <CUI.AvatarBadge as="img" src={logoParty} boxSize="1.5rem" />
+      <CUI.Avatar
+        w="16"
+        h="16"
+        src={avatar}
+        name={fullName}
+        objectFit="contain">
+        <CUI.AvatarBadge as="img" src={logoParty} boxSize="1.8rem" />
       </CUI.Avatar>
       <CUI.Heading
         fontSize="sm"
         fontWeight="medium"
         color="secondary.700"
         my="2">
-        {fullName}
+        {capitalizeStrings(fullName ?? '')}
       </CUI.Heading>
       {isActiveMember ? (
         <CUI.Badge py="0.5" mb="2" variant="success">
@@ -40,8 +46,8 @@ const CongresspersonCard = ({
       ) : null}
       <CUI.Text fontSize="sm" color="secondary.500" lineHeight="5" mb="4">
         Congresista por{' '}
-        <CUI.Text as="span" color="primary.500">
-          {location}
+        <CUI.Text as="span" display="block" color="primary.500">
+          {capitalizeStrings(location ?? '')}
         </CUI.Text>
       </CUI.Text>
       <CUI.Button
