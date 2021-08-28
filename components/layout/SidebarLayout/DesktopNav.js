@@ -13,6 +13,7 @@ export function DesktopNav({ ...rest }) {
       px="6"
       py="2"
       boxShadow="sm"
+      zIndex="sticky"
       {...rest}>
       <CUI.HStack flex={{ base: '1', md: 'auto' }} justify="space-between">
         <CUI.Text fontSize="lg" fontWeight="bold">

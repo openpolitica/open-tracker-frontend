@@ -23,6 +23,7 @@ export default function MobileNav({ isOpen, onToggle, ...rest }) {
   return (
     <CUI.Flex
       pos="fixed"
+      zIndex="sticky"
       w="full"
       h="navHeight"
       px={{ base: '4', md: '24' }}
