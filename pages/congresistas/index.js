@@ -1,11 +1,61 @@
+import * as CUI from '@chakra-ui/react';
 import SidebarLayout from 'components/layout/SidebarLayout';
-import CongresspersonProfileCard from 'components/CongresspersonProfileCard';
+import CongresspersonCard from 'components/CongresspersonCard';
+import Breadcrumb from 'components/Breadcrumb';
+import { getCongresspeople } from 'utils/congresspeople';
 
-export default function Congresspeople() {
+const routes = [
+  { label: 'Inicio', route: '/' },
+  { label: 'Congresistas', route: '/congresistas' },
+];
+
+export default function Congresspeople({ congresspeople }) {
   return (
     <SidebarLayout>
-      <h1>Congresistas</h1>
-      <CongresspersonProfileCard />
+      <Breadcrumb routes={routes} />
+      <CUI.Heading
+        as="h1"
+        fontSize={{ base: 'xl', md: '2xl' }}
+        mt="6"
+        mb="2"
+        color="secondary.900">
+        Congresistas para el periodo legislativo 2021 – 2026
+      </CUI.Heading>
+      <CUI.Text mb="5" color="secondary.500">
+        Estos son los congresistas que te representarán durante este periodo.
+      </CUI.Text>
+      {/* TODO: Add select component */}
+      <CUI.Wrap spacing="4">
+        {congresspeople.map(congressperson => (
+          <CUI.WrapItem key={congressperson.cv_id}>
+            <CongresspersonCard
+              congresspersonId={congressperson.cv_id}
+              avatar={congressperson.link_photo}
+              logoParty={
+                congressperson.congressperson_parties?.[0]?.political_party
+                  ?.political_party_logo_url
+              }
+              fullName={`${congressperson.id_name} ${congressperson.id_first_surname} ${congressperson.id_second_surname}`}
+              isActiveMember={true}
+              location={congressperson.location?.location_name}
+            />
+          </CUI.WrapItem>
+        ))}
+      </CUI.Wrap>
     </SidebarLayout>
   );
 }
+
+export const getStaticProps = async () => {
+  try {
+    const congresspeople = await getCongresspeople();
+    if (!congresspeople) {
+      return { notFound: true };
+    }
+    return {
+      props: { congresspeople },
+    };
+  } catch {
+    return { notFound: true };
+  }
+};
