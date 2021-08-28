@@ -3,12 +3,13 @@ import { useRouter } from 'next/router';
 import { capitalizeStrings } from 'utils/misc';
 
 const CongresspersonCard = ({
-  avatar = 'https://images.unsplash.com/photo-1628038341191-8e7448fc8209?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80',
-  logoParty = 'https://cdn.mercadonegro.pe/wp-content/uploads/2020/01/congreso-2020-alianza-para-el-progreso-1024x1024.png',
-  fullName = 'Posemoscrowte Chagua Payano',
-  isActiveMember = true,
-  location = 'Moquegua',
-  congresspersonId = '133748',
+  avatar = '',
+  logoParty = '',
+  fullName = '',
+  isActiveMember = false,
+  location = '',
+  congresspersonId = '',
+  isSuspendedMember = false,
 }) => {
   const router = useRouter();
   return (
@@ -40,11 +41,19 @@ const CongresspersonCard = ({
         {capitalizeStrings(fullName ?? '')}
       </CUI.Heading>
       {isActiveMember ? (
-        <CUI.Badge py="0.5" mb="2" variant="success">
+        <CUI.Badge py="0.5" mb="1.5" variant="success">
           Vocera de la bancada
         </CUI.Badge>
       ) : null}
-      <CUI.Text fontSize="sm" color="secondary.500" lineHeight="5" mb="4">
+      {isSuspendedMember ? (
+        <CUI.Badge variant="danger">Suspendida</CUI.Badge>
+      ) : null}
+      <CUI.Text
+        fontSize="sm"
+        color="secondary.500"
+        lineHeight="5"
+        mt="2"
+        mb="4">
         Congresista por{' '}
         <CUI.Text as="span" display="block" color="primary.500">
           {capitalizeStrings(location ?? '')}

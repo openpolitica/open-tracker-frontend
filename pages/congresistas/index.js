@@ -24,7 +24,7 @@ export default function Congresspeople({ congresspeople }) {
       <CUI.Text mb="5" color="secondary.500">
         Estos son los congresistas que te representarán durante este periodo.
       </CUI.Text>
-      {/* TODO: Add select component */}
+      {/* TODO: Add select component and isSuspenderMember */}
       <CUI.Wrap spacing="4">
         {congresspeople.map(congressperson => (
           <CUI.WrapItem key={congressperson.cv_id}>
@@ -36,8 +36,12 @@ export default function Congresspeople({ congresspeople }) {
                   ?.political_party_logo_url
               }
               fullName={`${congressperson.id_name} ${congressperson.id_first_surname} ${congressperson.id_second_surname}`}
-              isActiveMember={true}
+              isActiveMember={
+                congressperson?.congressperson_parliamentary_groups?.[0]
+                  ?.role_detail?.role_name === 'Portavoz'
+              }
               location={congressperson.location?.location_name}
+              // isSuspendedMember={}
             />
           </CUI.WrapItem>
         ))}
