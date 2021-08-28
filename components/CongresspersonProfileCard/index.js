@@ -5,20 +5,21 @@ import TwitterIcon from 'public/images/icons/twitter.svg';
 import MarkIcon from 'public/images/icons/mark-location.svg';
 import PeopleIcon from 'public/images/icons/people.svg';
 import ExternalLinkIcon from 'public/images/icons/external-link.svg';
+import { capitalizeStrings } from 'utils/misc';
 
 export default function CongresspersonProfileCard({
-  // TODO: Remove default values after fetching real data
-  avatarUrl = 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80',
-  fullName = 'Posemoscrowte Chagua Payano',
-  isActiveMember = true,
-  isSuspendedMember = true,
-  location = 'Moquegua',
-  politicalPartyName = 'Partido Peru Libre',
-  parliamentaryGroup = 'Bancada Peru Libre',
-  parliamentaryGroupId = 'peru-libre',
-  personalUrl = 'https://www.google.com',
-  facebookUrl = 'https://www.facebook.com',
-  twitterUrl = 'https://www.twitter.com',
+  avatarUrl = '',
+  fullName = '',
+  location = '',
+  politicalPartyName = '',
+  parliamentaryGroup = '',
+  isActiveMember = false,
+  // TODO: missing data from api
+  parliamentaryGroupSlug = '',
+  isSuspendedMember = false,
+  personalUrl = 'https://openpolitica.com/',
+  facebookUrl = 'https://openpolitica.com/',
+  twitterUrl = 'https://openpolitica.com/',
 }) {
   const avatarSize = CUI.useBreakpointValue({ base: 'md', md: '2xl' });
 
@@ -41,7 +42,7 @@ export default function CongresspersonProfileCard({
           <CUI.Heading
             fontSize={{ base: 'lg', md: '2xl' }}
             color="secondary.700">
-            {fullName}
+            {capitalizeStrings(fullName ?? '')}
           </CUI.Heading>
           <CUI.HStack align="center" spacing="1">
             {isActiveMember ? (
@@ -59,7 +60,7 @@ export default function CongresspersonProfileCard({
                 as={MarkIcon}
               />
               <CUI.Text fontSize={{ base: 'sm', md: 'md' }}>
-                Congresista por {location}
+                Congresista por {capitalizeStrings(location ?? '')}
               </CUI.Text>
             </CUI.Flex>
             <CUI.Flex align="center">
@@ -69,7 +70,7 @@ export default function CongresspersonProfileCard({
                 as={PeopleIcon}
               />
               <CUI.Text fontSize={{ base: 'sm', md: 'md' }}>
-                {politicalPartyName}
+                {capitalizeStrings(politicalPartyName ?? '')}
               </CUI.Text>
             </CUI.Flex>
             <CUI.Flex align="center">
@@ -82,8 +83,8 @@ export default function CongresspersonProfileCard({
                 fontSize={{ base: 'sm', md: 'md' }}
                 as={NextCUILink}
                 color="primary.500"
-                href={`bancadas/${parliamentaryGroupId}`}>
-                {parliamentaryGroup}
+                href={`/bancadas/${parliamentaryGroupSlug}`}>
+                Bancada {parliamentaryGroup}
               </CUI.Text>
             </CUI.Flex>
           </CUI.VStack>
