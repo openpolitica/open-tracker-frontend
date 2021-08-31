@@ -40,12 +40,14 @@ export default function ParlimentaryGroup({ parliamentaryGroups }) {
         <Alert {...messages.infoAlert} />
       </CUI.Box>
       <CUI.Wrap spacing="4">
-        {parliamentaryGroups.map(parliamentaryGroup => (
-          <ParliamentaryGroupCard
-            key={parliamentaryGroup.parliamentary_group_id}
-            nameParty={parliamentaryGroup.parliamentary_group_name}
-          />
-        ))}
+        {parliamentaryGroups
+          .filter(parliamentaryGroup => !parliamentaryGroup.end_date)
+          .map(activeParliamentaryGroup => (
+            <ParliamentaryGroupCard
+              key={activeParliamentaryGroup.parliamentary_group_id}
+              nameParty={activeParliamentaryGroup.parliamentary_group_name}
+            />
+          ))}
       </CUI.Wrap>
     </SidebarLayout>
   );
