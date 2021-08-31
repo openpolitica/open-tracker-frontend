@@ -45,12 +45,23 @@ export default function ParlimentaryGroup({ parliamentaryGroups }) {
       <CUI.Wrap spacing="4">
         {parliamentaryGroups
           .filter(onlyActiveParliamentaryGroups)
-          .map(activeParliamentaryGroup => (
-            <ParliamentaryGroupCard
-              key={activeParliamentaryGroup.parliamentary_group_id}
-              nameParty={activeParliamentaryGroup.parliamentary_group_name}
-            />
-          ))}
+          .map(
+            ({
+              count,
+              parliamentary_group_id,
+              parliamentary_group_name,
+              parliamentary_group_slug,
+              parliamentary_group_url,
+            }) => (
+              <ParliamentaryGroupCard
+                key={parliamentary_group_id}
+                logoParty={parliamentary_group_url}
+                members={count}
+                nameParty={parliamentary_group_name}
+                parliamentaryGroupId={parliamentary_group_slug}
+              />
+            ),
+          )}
       </CUI.Wrap>
     </SidebarLayout>
   );
