@@ -21,6 +21,9 @@ const Alert = ({ title, description, type = 'info' }) => (
   </CUI.Alert>
 );
 
+const onlyActiveParliamentaryGroups = parliamentaryGroup =>
+  !parliamentaryGroup.end_date;
+
 export default function ParlimentaryGroup({ parliamentaryGroups }) {
   return (
     <SidebarLayout>
@@ -41,7 +44,7 @@ export default function ParlimentaryGroup({ parliamentaryGroups }) {
       </CUI.Box>
       <CUI.Wrap spacing="4">
         {parliamentaryGroups
-          .filter(parliamentaryGroup => !parliamentaryGroup.end_date)
+          .filter(onlyActiveParliamentaryGroups)
           .map(activeParliamentaryGroup => (
             <ParliamentaryGroupCard
               key={activeParliamentaryGroup.parliamentary_group_id}
