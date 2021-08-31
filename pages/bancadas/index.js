@@ -30,7 +30,7 @@ export default function ParlimentaryGroup({ parliamentaryGroups }) {
           { label: 'Bancadas', route: '/bancadas' },
         ]}
       />
-      <CUI.Box display="grid" gridRowGap="2" my="1.5rem">
+      <CUI.Box display="grid" gridRowGap="2" my="6">
         <CUI.Heading size="md">
           Bancadas para el periodo legislativo 2021 – 2026
         </CUI.Heading>
@@ -39,7 +39,7 @@ export default function ParlimentaryGroup({ parliamentaryGroups }) {
         </CUI.Text>
         <Alert {...messages.infoAlert} />
       </CUI.Box>
-      <CUI.Wrap spacing="1rem">
+      <CUI.Wrap spacing="4">
         {parliamentaryGroups.map(parliamentaryGroup => (
           <ParliamentaryGroupCard
             key={parliamentaryGroup.parliamentary_group_id}
