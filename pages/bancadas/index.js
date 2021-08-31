@@ -21,7 +21,7 @@ const Alert = ({ title, description, type = 'info' }) => (
   </CUI.Alert>
 );
 
-export default function ParlimentaryGroup() {
+export default function ParlimentaryGroup({ parliamentaryGroups }) {
   return (
     <SidebarLayout>
       <Breadcrumb
@@ -39,7 +39,20 @@ export default function ParlimentaryGroup() {
         </CUI.Text>
         <Alert {...messages.infoAlert} />
       </CUI.Box>
-      <ParliamentaryGroupCard />
+      <CUI.Wrap spacing="1rem">
+        {parliamentaryGroups.map(parliamentaryGroup => (
+          <ParliamentaryGroupCard
+            key={parliamentaryGroup.parliamentary_group_id}
+            nameParty={parliamentaryGroup.parliamentary_group_name}
+          />
+        ))}
+      </CUI.Wrap>
     </SidebarLayout>
   );
 }
+
+export const getStaticProps = () =>
+  fetch(`${process.env.api}parliamentary-group`)
+    .then(data => data.json())
+    .then(data => ({ props: { parliamentaryGroups: data.data } }))
+    .catch(error => ({ props: { error: error.toString() } }));

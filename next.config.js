@@ -10,4 +10,7 @@ module.exports = {
 
     return config;
   },
+  env: {
+    api: `https://api.${process.env.NEXT_PUBLIC_ENVIRONMENT}.congreso.openpolitica.com/api/`,
+  },
 };
