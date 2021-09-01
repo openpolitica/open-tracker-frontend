@@ -24,7 +24,7 @@ const Alert = ({ title, description, type = 'info' }) => (
 const onlyActiveParliamentaryGroups = parliamentaryGroup =>
   !parliamentaryGroup.end_date;
 
-export default function ParlimentaryGroup({ parliamentaryGroups }) {
+export default function ParlimentaryGroups({ parliamentaryGroups }) {
   return (
     <SidebarLayout>
       <Breadcrumb
