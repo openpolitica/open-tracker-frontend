@@ -1,4 +1,4 @@
-export const capitalizeStrings = string =>
+export const capitalizeNames = string =>
   string
     .trim()
     .toLowerCase()

@@ -1,6 +1,6 @@
 import * as CUI from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { capitalizeStrings } from 'utils';
+import { capitalizeNames } from 'utils';
 
 const CongresspersonCard = ({
   avatar = '',
@@ -38,7 +38,7 @@ const CongresspersonCard = ({
         fontWeight="medium"
         color="secondary.700"
         my="2">
-        {capitalizeStrings(fullName ?? '')}
+        {capitalizeNames(fullName ?? '')}
       </CUI.Heading>
       {isActiveMember ? (
         <CUI.Badge py="0.5" mb="1.5" variant="success">
@@ -56,7 +56,7 @@ const CongresspersonCard = ({
         mb="4">
         Congresista por{' '}
         <CUI.Text as="span" display="block" color="primary.500">
-          {capitalizeStrings(location ?? '')}
+          {capitalizeNames(location ?? '')}
         </CUI.Text>
       </CUI.Text>
       <CUI.Button
