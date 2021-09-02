@@ -16,7 +16,6 @@ const CongresspersonCard = ({
       align="center"
       maxW="44"
       minH="72"
-      mt="4"
       px="4"
       py="6"
       textAlign="center"
