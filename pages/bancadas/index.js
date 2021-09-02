@@ -53,13 +53,14 @@ export default function ParlimentaryGroups({ parliamentaryGroups }) {
               parliamentary_group_slug,
               parliamentary_group_url,
             }) => (
-              <ParliamentaryGroupCard
-                key={parliamentary_group_id}
-                logoParty={parliamentary_group_url}
-                members={count}
-                nameParty={parliamentary_group_name}
-                parliamentaryGroupId={parliamentary_group_slug}
-              />
+              <CUI.WrapItem key={parliamentary_group_id}>
+                <ParliamentaryGroupCard
+                  logoParty={parliamentary_group_url}
+                  members={count}
+                  nameParty={parliamentary_group_name}
+                  parliamentaryGroupId={parliamentary_group_slug}
+                />
+              </CUI.WrapItem>
             ),
           )}
       </CUI.Wrap>
