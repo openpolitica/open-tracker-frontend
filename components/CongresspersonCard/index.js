@@ -8,7 +8,7 @@ const CongresspersonCard = ({
   fullName = '',
   isActiveMember = false,
   location = '',
-  congresspersonId = '',
+  congresspersonSlug = '',
   isSuspendedMember = false,
 }) => {
   const router = useRouter();
@@ -60,7 +60,7 @@ const CongresspersonCard = ({
         </CUI.Text>
       </CUI.Text>
       <CUI.Button
-        onClick={() => router.push(`/congresistas/${congresspersonId}`)}
+        onClick={() => router.push(`/congresistas/${congresspersonSlug}`)}
         variant="outline"
         mt="auto">
         Ver perfil
