@@ -42,14 +42,15 @@ export default function ParliamentaryGroup({
               residence_ubigeo,
             },
           }) => (
-            <CongresspersonCard
-              avatar={link_photo}
-              congresspersonId={cv_id}
-              fullName={`${id_name} ${id_second_surname}`}
-              key={cv_id}
-              location={location_name}
-              logoParty={parliamentaryGroupLogoURL}
-            />
+            <CUI.WrapItem key={cv_id}>
+              <CongresspersonCard
+                avatar={link_photo}
+                congresspersonId={cv_id}
+                fullName={`${id_name} ${id_second_surname}`}
+                location={location_name}
+                logoParty={parliamentaryGroupLogoURL}
+              />
+            </CUI.WrapItem>
           ),
         )}
       </CUI.Wrap>
