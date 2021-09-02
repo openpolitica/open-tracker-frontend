@@ -2,7 +2,6 @@ import * as CUI from '@chakra-ui/react';
 import SidebarLayout from 'components/layout/SidebarLayout';
 import CongresspersonCard from 'components/CongresspersonCard';
 import Breadcrumb from 'components/Breadcrumb';
-import { getCongresspeople } from 'utils/congresspeople';
 
 const routes = [
   { label: 'Inicio', route: '/' },
@@ -52,7 +51,12 @@ export default function Congresspeople({ congresspeople }) {
 
 export const getStaticProps = async () => {
   try {
-    const congresspeople = await getCongresspeople();
+    const response = await fetch(`${process.env.api}congressperson`);
+    const data = await response.json();
+    const congresspeople = data.data.filter(congressperson =>
+      congressperson.position_elected.includes('CONGRESISTA'),
+    );
+
     if (!congresspeople) {
       return { notFound: true };
     }
