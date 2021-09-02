@@ -31,28 +31,27 @@ export default function ParliamentaryGroup({
         <CUI.Heading size="md">Bancada {parliamentaryGroupName}</CUI.Heading>
       </CUI.HStack>
       <CUI.Wrap spacing="4">
-        {congresspeople
-          .filter(onlyActiveParliamentaryMembers)
-          .map(
-            ({
-              congressperson: {
-                link_photo,
-                id_name,
-                id_second_surname,
-                residence_ubigeo,
-                cv_id,
-              },
-            }) => (
-              <CongresspersonCard
-                key={cv_id}
-                logoParty={parliamentaryGroupLogoURL}
-                avatar={link_photo}
-                fullName={`${id_name} ${id_second_surname}`}
-                location={residence_ubigeo}
-                congresspersonId={cv_id}
-              />
-            ),
-          )}
+        {congresspeople.filter(onlyActiveParliamentaryMembers).map(
+          ({
+            congressperson: {
+              cv_id,
+              id_name,
+              id_second_surname,
+              link_photo,
+              location: { location_name },
+              residence_ubigeo,
+            },
+          }) => (
+            <CongresspersonCard
+              avatar={link_photo}
+              congresspersonId={cv_id}
+              fullName={`${id_name} ${id_second_surname}`}
+              key={cv_id}
+              location={location_name}
+              logoParty={parliamentaryGroupLogoURL}
+            />
+          ),
+        )}
       </CUI.Wrap>
     </SidebarLayout>
   );
