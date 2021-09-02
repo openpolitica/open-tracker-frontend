@@ -28,7 +28,7 @@ export default function Congresspeople({ congresspeople }) {
         {congresspeople.map(congressperson => (
           <CUI.WrapItem key={congressperson.cv_id}>
             <CongresspersonCard
-              congresspersonId={congressperson.cv_id}
+              congresspersonSlug={congressperson.congressperson_slug}
               avatar={congressperson.link_photo}
               logoParty={
                 congressperson.congressperson_parties?.[0]?.political_party
