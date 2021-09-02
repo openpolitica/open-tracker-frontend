@@ -24,6 +24,9 @@ const Alert = ({ title, description, type = 'info' }) => (
 const onlyActiveParliamentaryGroups = parliamentaryGroup =>
   !parliamentaryGroup.end_date;
 
+const notEmptyParliamentaryGroups = parliamentaryGroup =>
+  +parliamentaryGroup.count > 0;
+
 export default function ParlimentaryGroups({ parliamentaryGroups }) {
   return (
     <SidebarLayout>
@@ -45,6 +48,7 @@ export default function ParlimentaryGroups({ parliamentaryGroups }) {
       <CUI.Wrap spacing="4">
         {parliamentaryGroups
           .filter(onlyActiveParliamentaryGroups)
+          .filter(notEmptyParliamentaryGroups)
           .map(
             ({
               count,
