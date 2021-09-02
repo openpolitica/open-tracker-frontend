@@ -5,21 +5,21 @@ import TwitterIcon from 'public/images/icons/twitter.svg';
 import MarkIcon from 'public/images/icons/mark-location.svg';
 import PeopleIcon from 'public/images/icons/people.svg';
 import ExternalLinkIcon from 'public/images/icons/external-link.svg';
-import { capitalizeStrings } from 'utils/misc';
+import { capitalizeNames } from 'utils';
 
 export default function CongresspersonProfileCard({
   avatarUrl = '',
   fullName = '',
   location = '',
   politicalPartyName = '',
-  parliamentaryGroup = '',
+  parliamentaryGroupName = '',
   isActiveMember = false,
-  // TODO: missing data from api
   parliamentaryGroupSlug = '',
-  isSuspendedMember = false,
+  // TODO: missing data from api
   personalUrl = 'https://openpolitica.com/',
   facebookUrl = 'https://openpolitica.com/',
   twitterUrl = 'https://openpolitica.com/',
+  isSuspendedMember = false,
 }) {
   const avatarSize = CUI.useBreakpointValue({ base: 'md', md: '2xl' });
 
@@ -42,7 +42,7 @@ export default function CongresspersonProfileCard({
           <CUI.Heading
             fontSize={{ base: 'lg', md: '2xl' }}
             color="secondary.700">
-            {capitalizeStrings(fullName ?? '')}
+            {capitalizeNames(fullName ?? '')}
           </CUI.Heading>
           <CUI.HStack align="center" spacing="1">
             {isActiveMember ? (
@@ -60,7 +60,7 @@ export default function CongresspersonProfileCard({
                 as={MarkIcon}
               />
               <CUI.Text fontSize={{ base: 'sm', md: 'md' }}>
-                Congresista por {capitalizeStrings(location ?? '')}
+                Congresista por {capitalizeNames(location ?? '')}
               </CUI.Text>
             </CUI.Flex>
             <CUI.Flex align="center">
@@ -70,7 +70,7 @@ export default function CongresspersonProfileCard({
                 as={PeopleIcon}
               />
               <CUI.Text fontSize={{ base: 'sm', md: 'md' }}>
-                {capitalizeStrings(politicalPartyName ?? '')}
+                {capitalizeNames(politicalPartyName ?? '')}
               </CUI.Text>
             </CUI.Flex>
             <CUI.Flex align="center">
@@ -84,7 +84,7 @@ export default function CongresspersonProfileCard({
                 as={NextCUILink}
                 color="primary.500"
                 href={`/bancadas/${parliamentaryGroupSlug}`}>
-                Bancada {parliamentaryGroup}
+                Bancada {parliamentaryGroupName}
               </CUI.Text>
             </CUI.Flex>
           </CUI.VStack>
