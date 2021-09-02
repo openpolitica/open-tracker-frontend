@@ -1,6 +1,6 @@
 import * as CUI from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { capitalizeStrings } from 'utils/misc';
+import { capitalizeStrings } from 'utils';
 
 const CongresspersonCard = ({
   avatar = '',
