@@ -65,8 +65,7 @@ export const getStaticPaths = () => {
       fallback: false,
       paths: parliamentaryGroups.map(parliamentaryGroup => ({
         params: {
-          parliamentaryGroupId: parliamentaryGroup.parliamentary_group_id,
-          slug: parliamentaryGroup.parliamentary_group_slug,
+          parliamentaryGroupSlug: parliamentaryGroup.parliamentary_group_slug,
         },
       })),
     }))
@@ -74,7 +73,9 @@ export const getStaticPaths = () => {
 };
 
 export const getStaticProps = ({ params }) =>
-  fetch(`${process.env.api}parliamentary-group/${params?.parliamentaryGroupId}`)
+  fetch(
+    `${process.env.api}parliamentary-group/${params?.parliamentaryGroupSlug}`,
+  )
     .then(data => data.json())
     .then(parliamentaryGroup => ({ props: { parliamentaryGroup } }))
     .catch(error => ({ props: { error: error.toString() } }));
