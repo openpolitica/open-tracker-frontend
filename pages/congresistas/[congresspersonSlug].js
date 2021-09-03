@@ -33,7 +33,6 @@ export default function Congresspeople({ congressperson }) {
       <Breadcrumb routes={routes} />
       <CUI.Box mt="6">
         <CongresspersonProfileCard
-          congresspersonId={congressperson.cv_id}
           avatarUrl={congressperson.link_photo}
           fullName={`${congressperson.id_name} ${congressperson.id_first_surname} ${congressperson.id_second_surname}`}
           location={congressperson.location?.location_name}

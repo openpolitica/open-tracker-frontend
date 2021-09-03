@@ -35,6 +35,7 @@ export default function ParliamentaryGroup({
           ({
             congressperson: {
               cv_id,
+              congressperson_slug,
               id_name,
               id_second_surname,
               link_photo,
@@ -45,7 +46,7 @@ export default function ParliamentaryGroup({
             <CUI.WrapItem key={cv_id}>
               <CongresspersonCard
                 avatar={link_photo}
-                congresspersonId={cv_id}
+                congresspersonSlug={congressperson_slug}
                 fullName={`${id_name} ${id_second_surname}`}
                 location={location_name}
                 logoParty={parliamentaryGroupLogoURL}
