@@ -43,6 +43,13 @@ export default function Congresspeople({ congressperson }) {
             congressperson?.congressperson_parliamentary_groups?.[0]
               ?.role_detail?.role_name === 'Portavoz'
           }
+          socialNetworkList={congressperson?.social_networks
+            ?.map(socialNetwork => ({
+              socialNetworkUrl: socialNetwork?.social_network_url,
+              socialNetworkName:
+                socialNetwork.social_network?.social_network_name.toLowerCase(),
+            }))
+            .filter(network => network.socialNetworkUrl)}
           // isSuspendedMember={}
         />
       </CUI.Box>

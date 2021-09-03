@@ -4,8 +4,14 @@ import FbIcon from 'public/images/icons/facebook.svg';
 import TwitterIcon from 'public/images/icons/twitter.svg';
 import MarkIcon from 'public/images/icons/mark-location.svg';
 import PeopleIcon from 'public/images/icons/people.svg';
-import ExternalLinkIcon from 'public/images/icons/external-link.svg';
+import PersonalIcon from 'public/images/icons/external-link.svg';
 import { capitalizeNames } from 'utils';
+
+const mapSocialNetworkIcons = {
+  twitter: TwitterIcon,
+  facebook: FbIcon,
+  instagram: PersonalIcon, // TODO: change icon
+};
 
 export default function CongresspersonProfileCard({
   avatarUrl = '',
@@ -15,14 +21,10 @@ export default function CongresspersonProfileCard({
   parliamentaryGroupName = '',
   isActiveMember = false,
   parliamentaryGroupSlug = '',
-  // TODO: missing data from api
-  personalUrl = 'https://openpolitica.com/',
-  facebookUrl = 'https://openpolitica.com/',
-  twitterUrl = 'https://openpolitica.com/',
+  socialNetworkList = [],
   isSuspendedMember = false,
 }) {
   const avatarSize = CUI.useBreakpointValue({ base: 'md', md: '2xl' });
-
   return (
     <CUI.Box
       maxW="41rem"
@@ -89,18 +91,21 @@ export default function CongresspersonProfileCard({
             </CUI.Flex>
           </CUI.VStack>
           <CUI.HStack mt="8" spacing="2" align="center">
-            {personalUrl ? (
-              <ExternalIconLink
-                href={personalUrl}
-                icon={<ExternalLinkIcon />}
-              />
-            ) : null}
-            {facebookUrl ? (
-              <ExternalIconLink href={facebookUrl} icon={<FbIcon />} />
-            ) : null}
-            {twitterUrl ? (
-              <ExternalIconLink href={twitterUrl} icon={<TwitterIcon />} />
-            ) : null}
+            {socialNetworkList?.length
+              ? socialNetworkList.map(
+                  ({ socialNetworkUrl, socialNetworkName }) => {
+                    const Icon =
+                      mapSocialNetworkIcons[socialNetworkName] ?? PersonalIcon;
+                    return (
+                      <ExternalIconLink
+                        key={socialNetworkName}
+                        href={socialNetworkUrl}
+                        icon={<Icon />}
+                      />
+                    );
+                  },
+                )
+              : null}
           </CUI.HStack>
         </CUI.VStack>
       </CUI.Stack>
