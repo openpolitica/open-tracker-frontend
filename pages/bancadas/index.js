@@ -59,9 +59,9 @@ export default function ParlimentaryGroups({ parliamentaryGroups }) {
             }) => (
               <CUI.WrapItem key={parliamentary_group_id}>
                 <ParliamentaryGroupCard
-                  logoParty={parliamentary_group_url}
+                  partyLogoURL={parliamentary_group_url ?? void 0}
                   members={count}
-                  nameParty={parliamentary_group_name}
+                  partyName={parliamentary_group_name}
                   parliamentaryGroupId={parliamentary_group_slug}
                 />
               </CUI.WrapItem>
