@@ -13,4 +13,13 @@ module.exports = {
   env: {
     api: `https://api.${process.env.NEXT_PUBLIC_ENVIRONMENT}.congreso.openpolitica.com/api/`,
   },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/bancadas',
+        permanent: true,
+      },
+    ];
+  },
 };
