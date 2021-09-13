@@ -58,9 +58,10 @@ export default function MobileNav({ isOpen, onToggle, ...rest }) {
             <CUI.Text
               fontSize="md"
               color="secondary.700"
+              fontFamily="ClashDisplay"
               fontWeight="bold"
               flex="1">
-              Congreso
+              Tuku
             </CUI.Text>
           </Fragment>
         )}

@@ -1,5 +1,8 @@
 import * as CUI from '@chakra-ui/react';
+import NextCUILink from 'components/NextCUILink';
 import SearchIcon from '/public/images/icons/search.svg';
+import OpenLogo from 'public/images/icons/open-logo.svg';
+import Separator from 'public/images/icons/separator.svg';
 
 export function DesktopNav({ ...rest }) {
   return (
@@ -16,9 +19,19 @@ export function DesktopNav({ ...rest }) {
       zIndex="sticky"
       {...rest}>
       <CUI.HStack flex={{ base: '1', md: 'auto' }} justify="space-between">
-        <CUI.Text fontSize="lg" fontWeight="bold">
-          Congreso
-        </CUI.Text>
+        <CUI.HStack spacing="4">
+          <CUI.Text
+            as={NextCUILink}
+            href="/bancadas"
+            lineHeight="9"
+            fontFamily="ClashDisplay"
+            fontSize="3xl"
+            fontWeight="bold">
+            Tuku
+          </CUI.Text>
+          <Separator />
+          <OpenLogo />
+        </CUI.HStack>
         <CUI.Box>
           <CUI.InputGroup minW="21.75rem">
             <CUI.InputLeftElement pointerEvents="none">
