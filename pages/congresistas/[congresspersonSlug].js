@@ -5,6 +5,42 @@ import Breadcrumb from 'components/Breadcrumb';
 import { capitalizeNames } from 'utils';
 import CongresspersonInfoTab from 'components/CongresspersonInfoTab';
 
+const groupBy = (items, key) =>
+  items.reduce(
+    (result, item) => ({
+      ...result,
+      [item[key]]: [...(result[item[key]] || []), item],
+    }),
+    {},
+  );
+
+const getMonth = dateString => {
+  return dateString.substring(
+    dateString.indexOf('/') + 1,
+    dateString.lastIndexOf('/'),
+  );
+};
+
+const getDay = dateString => {
+  return dateString.substring(0, dateString.indexOf('/'));
+};
+
+const getYear = dateString => {
+  return dateString && dateString.includes('/')
+    ? dateString.substring(dateString.lastIndexOf('/') + 1)
+    : 'N/A';
+};
+
+const getAge = dateString => {
+  const year = getYear(dateString);
+  const month = getMonth(dateString);
+  const day = getDay(dateString);
+  const birthday = new Date(`${year}-${month}-${day}`);
+  const ageDifMs = Date.now() - birthday.getTime();
+  const ageDate = new Date(ageDifMs);
+  return Math.abs(ageDate.getUTCFullYear() - 1970);
+};
+
 export default function Congresspeople({ congressperson }) {
   const parliamentaryGroupName =
     congressperson.congressperson_parliamentary_groups?.[0].parliamentary_group
@@ -28,6 +64,37 @@ export default function Congresspeople({ congressperson }) {
       route: '#',
     },
   ];
+
+  const birthPlace = capitalizeNames(
+    `${congressperson.birth_province}, ${congressperson.birth_department}`,
+  );
+  const residencePlace = capitalizeNames(
+    `${congressperson.residence_province}, ${congressperson.residence_department}`,
+  );
+
+  const educationList = congressperson.education
+    ?.map(ed => ({
+      educationPlace: capitalizeNames(ed.study_centre ?? ''),
+      educationCareer: capitalizeNames(ed.career ?? ''),
+    }))
+    .filter(ed => ed.educationPlace && ed.educationCareer);
+
+  const politicalHistory = congressperson.affiliations
+    ?.filter(item => item.affiliations)
+    .map(item => ({
+      year: getYear(item.affiliation_begin),
+      politicalPartyName: capitalizeNames(item.political_party ?? ''),
+    }));
+
+  const politicalHistoryGroupByYear = groupBy(politicalHistory, 'year');
+
+  const judgments = congressperson.judgments
+    ?.map(item => ({
+      crime: item.crime,
+      type: item.type,
+    }))
+    .filter(item => item.crime);
+  const judgmentsGroupByType = groupBy(judgments, 'type');
 
   return (
     <SidebarLayout>
@@ -53,7 +120,17 @@ export default function Congresspeople({ congressperson }) {
             .filter(network => network.socialNetworkUrl)}
           // isSuspendedMember={}
         />
-        <CongresspersonInfoTab />
+        <CongresspersonInfoTab
+          congresspersonData={{
+            age: getAge(congressperson.birth_date),
+            birthPlace,
+            residencePlace,
+            topEducationType: congressperson.education?.[0]?.type ?? '',
+            educationList,
+            politicalHistory: politicalHistoryGroupByYear,
+            judgments: judgmentsGroupByType,
+          }}
+        />
       </CUI.VStack>
     </SidebarLayout>
   );

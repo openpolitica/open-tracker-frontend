@@ -1,25 +1,30 @@
 import * as CUI from '@chakra-ui/react';
 
-export default function CongresspersonInfoTab() {
-  const politicalParties = [
-    ' Bachiller en Educacion por la universidad',
-    'Bachiller en Educacion por la universidad',
-  ];
+const mapEducationLevelLabel = {
+  BASICA: 'Primaria Incompleta',
+  BASICA_PRIMARIA: 'Primaria Completa',
+  BASICA_SECUNDARIA: 'Secundaria Completa',
+  NO_UNIVERSITARIA: 'Técnico superior',
+  UNIVERSITARIA: 'Universitaria',
+  POSTGRADO: 'Postgrado',
+};
 
-  const educationDetails = [
-    ' Bachiller en Educacion por la universidad Cesar Vallejo',
-    'Bachiller en Educacion por la universidad Cesar Vallejo',
-  ];
-
+export default function CongresspersonInfoTab({ congresspersonData }) {
   const congresspersonTabs = [
     {
       id: 0,
       label: 'Información personal',
       content: (
         <TabPanelLayout title="Información personal">
-          <LabelWithText label="EDAD" text="54 años" />
-          <LabelWithText label="LUGAR DE NACIMIENTO" text="San Borja, Lima" />
-          <LabelWithText label=" LUGAR DE RESIDENCIA" text="San Borja, Lima" />
+          <LabelWithText label="EDAD" text={`${congresspersonData.age} años`} />
+          <LabelWithText
+            label="LUGAR DE NACIMIENTO"
+            text={congresspersonData.birthPlace}
+          />
+          <LabelWithText
+            label=" LUGAR DE RESIDENCIA"
+            text={congresspersonData.residencePlace}
+          />
         </TabPanelLayout>
       ),
     },
@@ -28,22 +33,39 @@ export default function CongresspersonInfoTab() {
       label: 'Educación',
       content: (
         <TabPanelLayout title="Educación">
-          <LabelWithText label="NIVEL ALCANZADO" text="Postgrado" />
-          <LabelWithListItems
-            label="DETALLE DE ESTUDIOS"
-            items={educationDetails}
+          <LabelWithText
+            label="NIVEL ALCANZADO"
+            text={mapEducationLevelLabel[congresspersonData.topEducationType]}
           />
+          {congresspersonData.educationList.length ? (
+            <LabelWithListItems
+              label="DETALLE DE ESTUDIOS"
+              items={congresspersonData.educationList.map(
+                item => `${item.educationCareer} por la ${item.educationPlace}`,
+              )}
+            />
+          ) : null}
         </TabPanelLayout>
       ),
     },
     {
       id: 2,
       label: 'Historial político',
-
       content: (
         <TabPanelLayout title="Partidos a los que perteneció">
-          <LabelWithListItems label="2020" items={politicalParties} />
-          <LabelWithListItems label="2020" items={politicalParties} />
+          {Object.entries(congresspersonData.politicalHistory || {})?.length ? (
+            Object.entries(congresspersonData.politicalHistory).map(
+              ([year, parties]) => (
+                <LabelWithListItems
+                  key={year}
+                  label={year}
+                  items={parties.map(item => item.politicalPartyName)}
+                />
+              ),
+            )
+          ) : (
+            <LabelWithText text="No registra historial politico" />
+          )}
         </TabPanelLayout>
       ),
     },
@@ -52,10 +74,23 @@ export default function CongresspersonInfoTab() {
       label: 'Sanciones',
       content: (
         <TabPanelLayout title="Sanciones e Infracciones">
-          <LabelWithText
-            label="SENTENCIAS EN EL PODER JUDICIAL"
-            text="sanciones"
-          />
+          {Object.entries(congresspersonData.judgments || {})?.length ? (
+            Object.entries(congresspersonData.judgments).map(
+              ([type, sentences]) => (
+                <LabelWithListItems
+                  key={type}
+                  label={
+                    type === 'Penal'
+                      ? 'SENTENCIAS PENALES'
+                      : 'SENTENCIAS CIVILES'
+                  }
+                  items={sentences.map(item => item.crime)}
+                />
+              ),
+            )
+          ) : (
+            <LabelWithText text="No tiene sentencias registradas" />
+          )}
         </TabPanelLayout>
       ),
     },
@@ -95,9 +130,11 @@ const TabPanelLayout = ({ title, children }) => (
 
 const LabelWithText = ({ label, text }) => (
   <CUI.Box>
-    <CUI.Text fontWeight="bold" fontSize="xs" mb="1">
-      {label}
-    </CUI.Text>
+    {label ? (
+      <CUI.Text fontWeight="bold" fontSize="xs" mb="1">
+        {label}
+      </CUI.Text>
+    ) : null}
     <CUI.Text fontSize="md">{text}</CUI.Text>
   </CUI.Box>
 );
@@ -108,7 +145,7 @@ const LabelWithListItems = ({ label, items }) => (
       {label}
     </CUI.Text>
     <CUI.UnorderedList>
-      {items.map((item, idx) => (
+      {items?.map((item, idx) => (
         <CUI.ListItem key={idx}>{item}</CUI.ListItem>
       ))}
     </CUI.UnorderedList>
