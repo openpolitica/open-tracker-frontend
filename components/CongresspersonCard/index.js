@@ -16,6 +16,7 @@ const CongresspersonCard = ({
     <CUI.Flex
       direction="column"
       align="center"
+      w="44"
       maxW="44"
       minH="72"
       px="4"
