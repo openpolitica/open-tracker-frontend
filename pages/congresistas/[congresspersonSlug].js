@@ -3,6 +3,7 @@ import SidebarLayout from 'components/layout/SidebarLayout';
 import CongresspersonProfileCard from 'components/CongresspersonProfileCard';
 import Breadcrumb from 'components/Breadcrumb';
 import { capitalizeNames } from 'utils';
+import CongresspersonInfoTab from 'components/CongresspersonInfoTab';
 
 export default function Congresspeople({ congressperson }) {
   const parliamentaryGroupName =
@@ -31,7 +32,7 @@ export default function Congresspeople({ congressperson }) {
   return (
     <SidebarLayout>
       <Breadcrumb routes={routes} />
-      <CUI.Box mt="6">
+      <CUI.VStack align="stretch" spacing="10" mt="6" maxW="41rem" w="full">
         <CongresspersonProfileCard
           avatarUrl={congressperson.link_photo}
           fullName={`${congressperson.id_name} ${congressperson.id_first_surname} ${congressperson.id_second_surname}`}
@@ -53,7 +54,8 @@ export default function Congresspeople({ congressperson }) {
             .filter(network => network.socialNetworkUrl)}
           // isSuspendedMember={}
         />
-      </CUI.Box>
+        <CongresspersonInfoTab />
+      </CUI.VStack>
     </SidebarLayout>
   );
 }
