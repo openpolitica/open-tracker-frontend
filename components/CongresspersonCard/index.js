@@ -6,6 +6,7 @@ const CongresspersonCard = ({
   avatar = '',
   logoParty = '',
   fullName = '',
+  gender = '',
   isActiveMember = false,
   location = '',
   congresspersonSlug = '',
@@ -42,7 +43,7 @@ const CongresspersonCard = ({
       </CUI.Heading>
       {isActiveMember ? (
         <CUI.Badge py="0.5" mb="1.5" variant="success">
-          Vocera de la bancada
+          {gender === 'M' ? 'Vocero' : 'Vocera'} de la bancada
         </CUI.Badge>
       ) : null}
       {isSuspendedMember ? (
