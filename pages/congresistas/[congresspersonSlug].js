@@ -7,9 +7,9 @@ import CongresspersonInfoTab from 'components/CongresspersonInfoTab';
 
 const groupBy = (items, key) =>
   items.reduce(
-    (result, item) => ({
-      ...result,
-      [item[key]]: [...(result[item[key]] || []), item],
+    (accumulator, item) => ({
+      ...accumulator,
+      [item[key]]: [...(accumulator[item[key]] || []), item],
     }),
     {},
   );
@@ -36,8 +36,8 @@ const getAge = dateString => {
   const month = getMonth(dateString);
   const day = getDay(dateString);
   const birthday = new Date(`${year}-${month}-${day}`);
-  const ageDifMs = Date.now() - birthday.getTime();
-  const ageDate = new Date(ageDifMs);
+  const ageDiffMs = Date.now() - birthday.getTime();
+  const ageDate = new Date(ageDiffMs);
   return Math.abs(ageDate.getUTCFullYear() - 1970);
 };
 
