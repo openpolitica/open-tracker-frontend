@@ -1,6 +1,6 @@
 import * as CUI from '@chakra-ui/react';
 
-const mapEducationLevelLabel = {
+const educationLevelLabelMap = {
   BASICA: 'Primaria Incompleta',
   BASICA_PRIMARIA: 'Primaria Completa',
   BASICA_SECUNDARIA: 'Secundaria Completa',
@@ -22,7 +22,7 @@ export default function CongresspersonInfoTab({ congresspersonData }) {
             text={congresspersonData.birthPlace}
           />
           <LabelWithText
-            label=" LUGAR DE RESIDENCIA"
+            label="LUGAR DE RESIDENCIA"
             text={congresspersonData.residencePlace}
           />
         </TabPanelLayout>
@@ -35,7 +35,7 @@ export default function CongresspersonInfoTab({ congresspersonData }) {
         <TabPanelLayout title="Educación">
           <LabelWithText
             label="NIVEL ALCANZADO"
-            text={mapEducationLevelLabel[congresspersonData.topEducationType]}
+            text={educationLevelLabelMap[congresspersonData.topEducationType]}
           />
           {congresspersonData.educationList.length ? (
             <LabelWithListItems
