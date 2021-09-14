@@ -16,6 +16,7 @@ const mapSocialNetworkIcons = {
 export default function CongresspersonProfileCard({
   avatarUrl = '',
   fullName = '',
+  gender = '',
   location = '',
   politicalPartyName = '',
   parliamentaryGroupName = '',
@@ -48,7 +49,9 @@ export default function CongresspersonProfileCard({
           </CUI.Heading>
           <CUI.HStack align="center" spacing="1">
             {isActiveMember ? (
-              <CUI.Badge variant="success">Vocera de la bancada</CUI.Badge>
+              <CUI.Badge variant="success">
+                {gender === 'M' ? 'Vocero' : 'Vocera'} de la bancada
+              </CUI.Badge>
             ) : null}
             {isSuspendedMember ? (
               <CUI.Badge variant="danger">Suspendida</CUI.Badge>

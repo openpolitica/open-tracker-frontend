@@ -35,6 +35,7 @@ export default function Congresspeople({ congressperson }) {
         <CongresspersonProfileCard
           avatarUrl={congressperson.link_photo}
           fullName={`${congressperson.id_name} ${congressperson.id_first_surname} ${congressperson.id_second_surname}`}
+          gender={congressperson.id_gender}
           location={congressperson.location?.location_name}
           politicalPartyName={congressperson.political_party_name}
           parliamentaryGroupName={parliamentaryGroupName}

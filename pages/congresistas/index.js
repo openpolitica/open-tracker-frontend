@@ -35,6 +35,7 @@ export default function Congresspeople({ congresspeople }) {
                   ?.political_party_logo_url
               }
               fullName={`${congressperson.id_name} ${congressperson.id_first_surname} ${congressperson.id_second_surname}`}
+              gender={congressperson.id_gender}
               isActiveMember={
                 congressperson?.congressperson_parliamentary_groups?.[0]
                   ?.role_detail?.role_name === 'Portavoz'
