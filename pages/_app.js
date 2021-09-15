@@ -8,7 +8,7 @@ function MyOPApp({ Component, pageProps }) {
   return (
     <Fragment>
       <Head>
-        <title>Open Tracker</title>
+        <title>Tuku.pe</title>
       </Head>
       <ChakraProvider resetCSS theme={theme}>
         <Fonts />
