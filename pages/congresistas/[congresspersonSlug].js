@@ -79,12 +79,14 @@ export default function Congresspeople({ congressperson }) {
     }))
     .filter(ed => ed.educationPlace && ed.educationCareer);
 
-  const politicalHistory = congressperson.affiliations
-    ?.filter(item => item.affiliations)
-    .map(item => ({
-      year: getYear(item.affiliation_begin),
-      politicalPartyName: capitalizeNames(item.political_party ?? ''),
-    }));
+  const politicalHistory = congressperson.affiliations?.length
+    ? congressperson.affiliations.map(item => ({
+        year: getYear(item.affiliation_begin),
+        politicalPartyName: item.political_party
+          ? `Partido ${capitalizeNames(item.political_party)}`
+          : null,
+      }))
+    : [];
 
   const politicalHistoryGroupByYear = groupBy(politicalHistory, 'year');
 
