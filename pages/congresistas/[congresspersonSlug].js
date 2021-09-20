@@ -126,7 +126,9 @@ export default function Congresspeople({ congressperson }) {
             age: getAge(congressperson.birth_date),
             birthPlace,
             residencePlace,
-            topEducationType: congressperson.education?.[0]?.type ?? '',
+            topEducationType: capitalizeNames(
+              congressperson.extra_data?.education_higher_level ?? '',
+            ),
             educationList,
             politicalHistory: politicalHistoryGroupByYear,
             judgments: judgmentsGroupByType,
