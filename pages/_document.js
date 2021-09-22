@@ -20,6 +20,13 @@ export default class MyDocument extends Document {
             crossOrigin="anonymous"
           />
           <link
+            rel="preload"
+            href="/fonts/reciar-regular.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+          <link
             href="favicon/favicon.ico"
             rel="icon"
             type="image/png"

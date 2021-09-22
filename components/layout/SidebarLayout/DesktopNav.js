@@ -19,7 +19,7 @@ export function DesktopNav({ ...rest }) {
       zIndex="sticky"
       {...rest}>
       <CUI.HStack flex={{ base: '1', md: 'auto' }} justify="space-between">
-        <CUI.HStack spacing="4">
+        <CUI.HStack spacing="3">
           <CUI.Text
             as={NextCUILink}
             href="/bancadas"
@@ -30,7 +30,13 @@ export function DesktopNav({ ...rest }) {
             Tuku
           </CUI.Text>
           <Separator />
-          <OpenLogo />
+          <CUI.Text fontFamily="Recia">hecho por</CUI.Text>
+          <NextCUILink
+            href="//openpolitica.com/"
+            rel="noreferrer noopener"
+            target="_blank">
+            <OpenLogo />
+          </NextCUILink>
         </CUI.HStack>
         <CUI.Box>
           <CUI.InputGroup minW="21.75rem">
