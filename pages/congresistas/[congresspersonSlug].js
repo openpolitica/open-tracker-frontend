@@ -51,7 +51,7 @@ export default function Congresspeople({ congressperson }) {
       ?.parliamentary_group_slug;
 
   const routes = [
-    { label: 'Inicio', route: '/' },
+    { label: 'Inicio', route: '/bancadas' },
     { label: 'Bancadas', route: '/bancadas' },
     {
       label: `Bancada ${capitalizeNames(parliamentaryGroupName)}`,
