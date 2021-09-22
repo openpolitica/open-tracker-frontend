@@ -42,13 +42,15 @@ const getAge = dateString => {
 };
 
 export default function Congresspeople({ congressperson }) {
+  const parliamentaryGroup =
+    congressperson.congressperson_parliamentary_groups?.find(
+      parliamentaryGroup => parliamentaryGroup.end_date === null,
+    );
   const parliamentaryGroupName =
-    congressperson.congressperson_parliamentary_groups?.[0].parliamentary_group
-      ?.parliamentary_group_name;
+    parliamentaryGroup?.parliamentary_group.parliamentary_group_name;
 
   const parliamentaryGroupSlug =
-    congressperson.congressperson_parliamentary_groups?.[0].parliamentary_group
-      ?.parliamentary_group_slug;
+    parliamentaryGroup?.parliamentary_group.parliamentary_group_slug;
 
   const routes = [
     { label: 'Inicio', route: '/' },
@@ -111,8 +113,7 @@ export default function Congresspeople({ congressperson }) {
           parliamentaryGroupName={parliamentaryGroupName}
           parliamentaryGroupSlug={parliamentaryGroupSlug}
           isActiveMember={
-            congressperson?.congressperson_parliamentary_groups?.[0]
-              ?.role_detail?.role_name === 'Portavoz'
+            parliamentaryGroup?.role_detail?.role_name === 'Portavoz'
           }
           socialNetworkList={congressperson?.social_networks
             ?.map(socialNetwork => ({

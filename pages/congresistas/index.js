@@ -88,8 +88,9 @@ export default function Congresspeople({ congresspeople }) {
               fullName={`${congressperson.id_name} ${congressperson.id_first_surname} ${congressperson.id_second_surname}`}
               gender={congressperson.id_gender}
               isActiveMember={
-                congressperson?.congressperson_parliamentary_groups?.[0]
-                  ?.role_detail?.role_name === 'Portavoz'
+                congressperson?.congressperson_parliamentary_groups?.find(
+                  parliamentaryGroup => parliamentaryGroup.end_date === null,
+                )?.role_detail?.role_name === 'Portavoz'
               }
               location={congressperson.location?.location_name}
               // isSuspendedMember={}
