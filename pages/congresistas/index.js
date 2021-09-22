@@ -6,7 +6,7 @@ import Breadcrumb from 'components/Breadcrumb';
 import { capitalizeNames } from 'utils';
 
 const routes = [
-  { label: 'Inicio', route: '/' },
+  { label: 'Inicio', route: '/bancadas' },
   { label: 'Congresistas', route: '/congresistas' },
 ];
 

@@ -32,7 +32,7 @@ export default function ParlimentaryGroups({ parliamentaryGroups }) {
     <SidebarLayout>
       <Breadcrumb
         routes={[
-          { label: 'Inicio', route: '/' },
+          { label: 'Inicio', route: '/bancadas' },
           { label: 'Bancadas', route: '/bancadas' },
         ]}
       />
