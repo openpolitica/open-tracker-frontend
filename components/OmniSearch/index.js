@@ -20,7 +20,7 @@ export default function OmniSearch() {
     isSuccess,
     parliamentaryGroups,
     congresspeople,
-  } = useGlobalResults({ query });
+  } = useGlobalSearchResults({ query });
 
   const isLoading = loading || isLoadingRequest;
   const hasNoResults =
@@ -44,6 +44,7 @@ export default function OmniSearch() {
   const {
     isOpen,
     openMenu,
+    closeMenu,
     getMenuProps,
     getInputProps,
     getComboboxProps,
@@ -60,7 +61,10 @@ export default function OmniSearch() {
         router.push(`/bancadas/${selectedItem.parliamentary_group_slug}`);
       }
     },
-    onInputValueChange: ({ inputValue, ...other }) => {
+    onInputValueChange: ({ inputValue }) => {
+      if (!inputValue) {
+        closeMenu();
+      }
       handleChangeQuery(inputValue);
     },
   });
@@ -74,8 +78,8 @@ export default function OmniSearch() {
           </CUI.InputLeftElement>
           <CUI.Input
             {...getInputProps({
-              onFocus: () => !isOpen && openMenu(),
-              placeholder: 'Ingresa el nombe de un congresista',
+              onFocus: () => !isOpen && query && openMenu(),
+              placeholder: 'Ingresa el nombre de un congresista',
             })}
           />
         </CUI.InputGroup>
@@ -92,7 +96,7 @@ export default function OmniSearch() {
         mt="4"
         right="0"
         w="full">
-        {isOpen && (
+        {isOpen && query && (
           <CUI.Flex p="6" direction="column">
             <CUI.Heading fontSize="lg" fontWeight="bold" color="secondary.700">
               Resultados
@@ -144,8 +148,15 @@ export default function OmniSearch() {
                                 fullName={`${option.id_name} ${option.id_first_surname}`}
                                 location={option?.location?.location_name}
                                 congresspersonSlug={option?.congressperson_slug}
-                                // TODO: Fix logo
+                                // TODO: Fix parliamentaryGroup Logo
                                 partyLogo="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.mandysam.com%2Fimg%2Frandom.jpg&f=1&nofb=1"
+                                // partyLogo={
+                                //   LogoByparliamentaryGroupSlug[
+                                //     option?.parliamentary_group?.find(
+                                //       group => group.end_date === null,
+                                //     )?.parliamentary_group_slug
+                                //   ]
+                                // }
                               />
                             ) : null}
                           </CUI.WrapItem>
@@ -181,15 +192,15 @@ const getFullNameCongressperson = congressperson =>
     `${congressperson?.id_name} ${congressperson?.id_first_surname} ${congressperson?.id_second_surname}`,
   );
 
-function useGlobalResults({ query = '' } = {}) {
-  const { data, error, isValidating } = useSWR(
-    `${process.env.api}search?query=${query}`,
+function useGlobalSearchResults({ query = '' } = {}) {
+  const { data, error } = useSWR(
+    query ? `${process.env.api}search?query=${query}` : null,
     fetcher,
   );
   return {
     parliamentaryGroups: data?.data?.parliamentary_group,
     congresspeople: data?.data?.congressperson,
-    isLoading: isValidating,
+    isLoading: !data & !error,
     error,
     isSuccess: data && !error,
   };
