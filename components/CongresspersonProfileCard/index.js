@@ -4,7 +4,7 @@ import FbIcon from 'public/images/icons/facebook.svg';
 import TwitterIcon from 'public/images/icons/twitter.svg';
 import MarkIcon from 'public/images/icons/mark-location.svg';
 import PeopleIcon from 'public/images/icons/people.svg';
-import PersonalIcon from 'public/images/icons/external-link.svg';
+import PersonalIcon from 'public/images/icons/link.svg';
 import { capitalizeNames } from 'utils';
 
 const mapSocialNetworkIcons = {
