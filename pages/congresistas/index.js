@@ -87,7 +87,7 @@ export default function Congresspeople({ congresspeople }) {
               }
               fullName={`${congressperson.id_name} ${congressperson.id_first_surname} ${congressperson.id_second_surname}`}
               gender={congressperson.id_gender}
-              isActiveMember={
+              isSpeaker={
                 congressperson?.congressperson_parliamentary_groups?.find(
                   parliamentaryGroup => parliamentaryGroup.end_date === null,
                 )?.role_detail?.role_name === 'Portavoz'

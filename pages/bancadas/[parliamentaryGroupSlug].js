@@ -51,7 +51,7 @@ export default function ParliamentaryGroup({
                 congresspersonSlug={congressperson_slug}
                 fullName={`${id_name} ${id_second_surname}`}
                 gender={id_gender}
-                isActiveMember={role_name === 'Portavoz'}
+                isSpeaker={role_name === 'Portavoz'}
                 location={location_name}
                 logoParty={parliamentaryGroupLogoURL}
               />

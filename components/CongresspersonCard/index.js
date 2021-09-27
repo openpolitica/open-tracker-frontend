@@ -7,7 +7,7 @@ const CongresspersonCard = ({
   logoParty = '',
   fullName = '',
   gender = '',
-  isActiveMember = false,
+  isSpeaker = false,
   location = '',
   congresspersonSlug = '',
   isSuspendedMember = false,
@@ -42,7 +42,7 @@ const CongresspersonCard = ({
         my="2">
         {capitalizeNames(fullName ?? '')}
       </CUI.Heading>
-      {isActiveMember ? (
+      {isSpeaker ? (
         <CUI.Badge py="0.5" mb="1.5" variant="success">
           {gender === 'M' ? 'Vocero' : 'Vocera'} de la bancada
         </CUI.Badge>
