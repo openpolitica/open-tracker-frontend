@@ -1,4 +1,5 @@
 import * as CUI from '@chakra-ui/react';
+import NextCUILink from 'components/NextCUILink';
 import { useRouter } from 'next/router';
 import { capitalizeNames } from 'utils';
 
@@ -57,9 +58,12 @@ const CongresspersonCard = ({
         mt="2"
         mb="4">
         Congresista por{' '}
-        <CUI.Text as="span" display="block" color="primary.500">
+        <NextCUILink
+          href={`/congresistas?departamento=${location.toLowerCase()}`}
+          display="block"
+          color="primary.500">
           {capitalizeNames(location ?? '')}
-        </CUI.Text>
+        </NextCUILink>
       </CUI.Text>
       <CUI.Button
         onClick={() => router.push(`/congresistas/${congresspersonSlug}`)}
