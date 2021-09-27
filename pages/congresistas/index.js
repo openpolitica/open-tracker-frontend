@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import * as CUI from '@chakra-ui/react';
 import SidebarLayout from 'components/layout/SidebarLayout';
 import CongresspersonCard from 'components/CongresspersonCard';
@@ -33,15 +34,44 @@ const filterCongresspeopleByElectoralDistrict = (congresspeople, district) => {
   );
 };
 
+const isAValidElectoralDistrict = (electoralDistricts, electoralDistrict) =>
+  electoralDistricts.includes(electoralDistrict);
+
 export default function Congresspeople({ congresspeople }) {
+  const router = useRouter();
   const [filterSubset, setFilterSubset] = useState([]);
   const [districtFilter, setDistrictFilter] = useState(null);
 
   useEffect(() => {
-    setFilterSubset(
-      filterCongresspeopleByElectoralDistrict(congresspeople, districtFilter),
-    );
-  }, [districtFilter, congresspeople]);
+    if (districtFilter === '') {
+      router.push('congresistas', undefined, { shallow: true });
+      return;
+    }
+    if (districtFilter) {
+      router.push(`congresistas/?departamento=${districtFilter}`, undefined, {
+        shallow: true,
+      });
+    }
+  }, [districtFilter]);
+
+  useEffect(() => {
+    if (
+      isAValidElectoralDistrict(
+        electoralDistrictsFromCongresspeople(congresspeople),
+        router.query.departamento,
+      )
+    ) {
+      setDistrictFilter(router.query.departamento);
+      setFilterSubset(
+        filterCongresspeopleByElectoralDistrict(
+          congresspeople,
+          router.query.departamento,
+        ),
+      );
+      return;
+    }
+    setFilterSubset(congresspeople);
+  }, [router.query.departamento]);
 
   return (
     <SidebarLayout>
@@ -63,6 +93,7 @@ export default function Congresspeople({ congresspeople }) {
       </CUI.Text>
       <CUI.Select
         onChange={event => setDistrictFilter(event.target.value)}
+        value={districtFilter ?? ''}
         cursor="pointer"
         w="64"
         mb="4">
