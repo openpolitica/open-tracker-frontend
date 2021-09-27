@@ -96,7 +96,7 @@ export default function OmniSearch() {
         mt="4"
         right="0"
         w="full">
-        {isOpen && query && (
+        {isOpen && (
           <CUI.Flex p="6" direction="column">
             <CUI.Heading fontSize="lg" fontWeight="bold" color="secondary.700">
               Resultados
@@ -126,6 +126,7 @@ export default function OmniSearch() {
                         return (
                           <CUI.WrapItem
                             key={resultIdx}
+                            cursor="pointer"
                             bg={
                               highlightedIndex === resultIdx
                                 ? 'secondary.100'
@@ -151,11 +152,11 @@ export default function OmniSearch() {
                                 // TODO: Fix parliamentaryGroup Logo
                                 partyLogo="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.mandysam.com%2Fimg%2Frandom.jpg&f=1&nofb=1"
                                 // partyLogo={
-                                //   LogoByparliamentaryGroupSlug[
+                                //   getLogoByParliamentaryGroupSlug(
                                 //     option?.parliamentary_group?.find(
                                 //       group => group.end_date === null,
                                 //     )?.parliamentary_group_slug
-                                //   ]
+                                //   )
                                 // }
                               />
                             ) : null}
