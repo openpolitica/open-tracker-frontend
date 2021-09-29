@@ -2,6 +2,7 @@ import * as CUI from '@chakra-ui/react';
 import SidebarLayout from 'components/layout/SidebarLayout';
 import CongresspersonCard from 'components/CongresspersonCard';
 import Breadcrumb from 'components/Breadcrumb';
+import { getLogoByPGSlug } from 'utils';
 
 const onlyActiveParliamentaryMembers = parliamentaryMember =>
   !parliamentaryMember.end_date;
@@ -11,7 +12,7 @@ export default function ParliamentaryGroup({
 }) {
   const {
     parliamentary_group_name: parliamentaryGroupName,
-    parliamentary_group_url: parliamentaryGroupLogoURL,
+    parliamentary_group_slug: parliamentaryGroupSlug,
     congresspeople,
   } = parliamentaryGroup;
 
@@ -26,7 +27,11 @@ export default function ParliamentaryGroup({
       />
       <CUI.HStack my="6" spacing="4">
         <CUI.Box>
-          <CUI.Image w="10" mx="auto" src={parliamentaryGroupLogoURL} />
+          <CUI.Image
+            w="10"
+            mx="auto"
+            src={getLogoByPGSlug(parliamentaryGroupSlug)}
+          />
         </CUI.Box>
         <CUI.Heading size="md">Bancada {parliamentaryGroupName}</CUI.Heading>
       </CUI.HStack>
@@ -53,7 +58,7 @@ export default function ParliamentaryGroup({
                 gender={id_gender}
                 isSpeaker={role_name === 'Portavoz'}
                 location={location_name}
-                logoParty={parliamentaryGroupLogoURL}
+                logoParty={getLogoByPGSlug(parliamentaryGroupSlug)}
               />
             </CUI.WrapItem>
           ),

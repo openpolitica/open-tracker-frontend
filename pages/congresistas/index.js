@@ -4,7 +4,7 @@ import * as CUI from '@chakra-ui/react';
 import SidebarLayout from 'components/layout/SidebarLayout';
 import CongresspersonCard from 'components/CongresspersonCard';
 import Breadcrumb from 'components/Breadcrumb';
-import { capitalizeNames } from 'utils';
+import { capitalizeNames, getLogoByPGSlug } from 'utils';
 
 const routes = [
   { label: 'Inicio', route: '/bancadas' },
@@ -107,27 +107,31 @@ export default function Congresspeople({ congresspeople }) {
         ))}
       </CUI.Select>
       <CUI.Wrap spacing="4">
-        {filterSubset.map(congressperson => (
-          <CUI.WrapItem key={congressperson.cv_id}>
-            <CongresspersonCard
-              congresspersonSlug={congressperson.congressperson_slug}
-              avatar={congressperson.plenary.link_photo}
-              logoParty={
-                congressperson.congressperson_parties?.[0]?.political_party
-                  ?.political_party_logo_url
-              }
-              fullName={`${congressperson.id_name} ${congressperson.id_first_surname} ${congressperson.id_second_surname}`}
-              gender={congressperson.id_gender}
-              isSpeaker={
-                congressperson?.congressperson_parliamentary_groups?.find(
-                  parliamentaryGroup => parliamentaryGroup.end_date === null,
-                )?.role_detail?.role_name === 'Portavoz'
-              }
-              location={congressperson.location?.location_name}
-              // isSuspendedMember={}
-            />
-          </CUI.WrapItem>
-        ))}
+        {filterSubset.map(congressperson => {
+          const congresspersonPG =
+            congressperson?.congressperson_parliamentary_groups?.find(
+              parliamentaryGroup => parliamentaryGroup.end_date === null,
+            );
+          return (
+            <CUI.WrapItem key={congressperson.cv_id}>
+              <CongresspersonCard
+                congresspersonSlug={congressperson.congressperson_slug}
+                avatar={congressperson.link_photo}
+                logoParty={getLogoByPGSlug(
+                  congresspersonPG?.parliamentary_group
+                    .parliamentary_group_slug,
+                )}
+                fullName={`${congressperson.id_name} ${congressperson.id_first_surname} ${congressperson.id_second_surname}`}
+                gender={congressperson.id_gender}
+                isActiveMember={
+                  congresspersonPG?.role_detail?.role_name === 'Portavoz'
+                }
+                location={congressperson.location?.location_name}
+                // isSuspendedMember={}
+              />
+            </CUI.WrapItem>
+          );
+        })}
       </CUI.Wrap>
     </SidebarLayout>
   );
