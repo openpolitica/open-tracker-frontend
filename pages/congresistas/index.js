@@ -111,7 +111,7 @@ export default function Congresspeople({ congresspeople }) {
           <CUI.WrapItem key={congressperson.cv_id}>
             <CongresspersonCard
               congresspersonSlug={congressperson.congressperson_slug}
-              avatar={congressperson.link_photo}
+              avatar={congressperson.plenary.link_photo}
               logoParty={
                 congressperson.congressperson_parties?.[0]?.political_party
                   ?.political_party_logo_url
