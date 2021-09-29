@@ -105,7 +105,7 @@ export default function Congresspeople({ congressperson }) {
       <Breadcrumb routes={routes} />
       <CUI.VStack align="stretch" spacing="10" mt="6" maxW="41rem" w="full">
         <CongresspersonProfileCard
-          avatarUrl={congressperson.link_photo}
+          avatarUrl={congressperson.plenary.link_photo}
           fullName={`${congressperson.id_name} ${congressperson.id_first_surname} ${congressperson.id_second_surname}`}
           gender={congressperson.id_gender}
           location={congressperson.location?.location_name}
