@@ -24,7 +24,7 @@ function CongresspersonSmallCard({
         src={avatar}
         name={fullName}
         objectFit="contain">
-        <CUI.AvatarBadge as="img" src={partyLogo} boxSize="1.8rem" />
+        <CUI.AvatarBadge as="img" src={partyLogo} boxSize="8" />
       </CUI.Avatar>
       <CUI.Box flex="1">
         <CUI.Heading

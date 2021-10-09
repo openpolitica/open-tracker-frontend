@@ -51,6 +51,7 @@ export default function OmniSearch() {
     highlightedIndex,
     getItemProps,
   } = useCombobox({
+    id: 'omnisearch',
     items: flattenGroupOptions(results),
     itemToString: itemToPartyName,
     onSelectedItemChange: ({ selectedItem }) => {
@@ -193,7 +194,7 @@ const getFullNameCongressperson = congressperson =>
     `${congressperson?.id_name} ${congressperson?.id_first_surname} ${congressperson?.id_second_surname}`,
   );
 
-function useGlobalSearchResults({ query = '' } = {}) {
+const useGlobalSearchResults = ({ query = '' } = {}) => {
   const { data, error } = useSWR(
     query ? `${process.env.api}search?query=${query}` : null,
     fetcher,
@@ -205,7 +206,7 @@ function useGlobalSearchResults({ query = '' } = {}) {
     error,
     isSuccess: data && !error,
   };
-}
+};
 
 const itemToPartyName = item => {
   const parliamentaryGroupName = item?.parliamentary_group_name;
@@ -221,7 +222,7 @@ const ResultsLoader = () => (
         startColor="secondary.100"
         endColor="secondary.300"
         width="full"
-        height="80px"
+        height="20"
       />
     ))}
   </CUI.Stack>
