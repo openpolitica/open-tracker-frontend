@@ -2,17 +2,8 @@ import * as CUI from '@chakra-ui/react';
 import SidebarLayout from 'components/layout/SidebarLayout';
 import CongresspersonProfileCard from 'components/CongresspersonProfileCard';
 import Breadcrumb from 'components/Breadcrumb';
-import { capitalizeNames } from 'utils';
+import { capitalizeNames, groupByKey } from 'utils';
 import CongresspersonInfoTab from 'components/CongresspersonInfoTab';
-
-const groupBy = (items, key) =>
-  items.reduce(
-    (accumulator, item) => ({
-      ...accumulator,
-      [item[key]]: [...(accumulator[item[key]] || []), item],
-    }),
-    {},
-  );
 
 const getMonth = dateString => {
   return dateString.substring(
@@ -90,7 +81,7 @@ export default function Congresspeople({ congressperson }) {
       }))
     : [];
 
-  const politicalHistoryGroupByYear = groupBy(politicalHistory, 'year');
+  const politicalHistoryGroupByYear = groupByKey(politicalHistory, 'year');
 
   const judgments = congressperson.judgments
     ?.map(item => ({
@@ -98,7 +89,7 @@ export default function Congresspeople({ congressperson }) {
       type: item.type,
     }))
     .filter(item => item.crime);
-  const judgmentsGroupByType = groupBy(judgments, 'type');
+  const judgmentsGroupByType = groupByKey(judgments, 'type');
 
   return (
     <SidebarLayout>
