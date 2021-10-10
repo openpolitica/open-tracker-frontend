@@ -1,7 +1,9 @@
 import * as CUI from '@chakra-ui/react';
+import CongresspersonCard from 'components/CongresspersonCard';
 import SidebarLayout from 'components/layout/SidebarLayout';
+import { groupByKey } from 'utils';
 
-export default function Home() {
+export default function Home({ congresspeople }) {
   return (
     <SidebarLayout>
       <CUI.Flex
@@ -40,6 +42,67 @@ export default function Home() {
           boxShadow="2xl"
         />
       </CUI.Flex>
+      <CUI.Box mt="10">
+        <CUI.Heading as="h2" mb="4" color="secondary.700" fontSize="xl">
+          Congresistas más votados
+        </CUI.Heading>
+        <CUI.Wrap spacing="4">
+          {congresspeople.map(({ cvId, ...congresperson }) => (
+            <CUI.WrapItem key={cvId}>
+              <CongresspersonCard {...congresperson} />
+            </CUI.WrapItem>
+          ))}
+        </CUI.Wrap>
+      </CUI.Box>
     </SidebarLayout>
   );
 }
+
+export const getStaticProps = async () => {
+  try {
+    const response = await fetch(`${process.env.api}congressperson`);
+    const data = await response.json();
+    const congresspeople = data.data
+      .filter(congressperson =>
+        congressperson.position_elected.includes('CONGRESISTA'),
+      )
+      .map(congressperson => ({
+        cvId: congressperson.cv_id,
+        fullName: `${congressperson.id_name} ${congressperson.id_first_surname} ${congressperson.id_second_surname}`,
+        gender: congressperson.id_gender,
+        isSpeaker:
+          congressperson?.congressperson_parliamentary_groups?.find(
+            parliamentaryGroup => parliamentaryGroup.end_date === null,
+          )?.role_detail?.role_name === 'Portavoz',
+        location: congressperson.location?.location_name.toLowerCase(),
+        congresspersonSlug: congressperson.congressperson_slug,
+        avatar: congressperson.link_photo,
+        logoParty: congressperson.congressperson_parliamentary_groups?.find(
+          parliamentaryGroup => parliamentaryGroup.end_date === null,
+        ).parliamentary_group.parliamentary_group_url,
+        votes: congressperson.plenary.vote,
+      }));
+
+    const congresspeopleGroupByLocation = groupByKey(
+      congresspeople,
+      'location',
+    );
+
+    const sortedByMostVotedCongresspersonByLocation = Object.entries(
+      congresspeopleGroupByLocation,
+    ).map(([location, congressperson]) =>
+      congressperson.sort((a, b) => b.votes - a.votes),
+    );
+
+    const mostVotedCongresspersonByLocation =
+      sortedByMostVotedCongresspersonByLocation
+        .map(item => item[0])
+        .sort((a, b) => a.location.localeCompare(b.location));
+
+    return {
+      props: { congresspeople: mostVotedCongresspersonByLocation },
+    };
+  } catch (err) {
+    return { props: { error: err.toString() } };
+  }
+};
