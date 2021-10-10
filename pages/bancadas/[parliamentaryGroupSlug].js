@@ -38,14 +38,14 @@ export default function ParliamentaryGroup({
               congressperson_slug,
               id_name,
               id_second_surname,
-              plenary,
+              plenary: { link_photo },
               location: { location_name },
               residence_ubigeo,
             },
           }) => (
             <CUI.WrapItem key={cv_id}>
               <CongresspersonCard
-                avatar={plenary.link_photo}
+                avatar={link_photo}
                 congresspersonSlug={congressperson_slug}
                 fullName={`${id_name} ${id_second_surname}`}
                 location={location_name}
