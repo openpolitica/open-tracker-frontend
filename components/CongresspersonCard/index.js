@@ -37,7 +37,7 @@ const CongresspersonCard = ({
         <CUI.AvatarBadge
           as="img"
           src={logoParty}
-          boxSize="1.8rem"
+          boxSize="8"
           border="2px solid"
         />
       </CUI.Avatar>

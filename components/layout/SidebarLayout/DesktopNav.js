@@ -1,8 +1,8 @@
 import * as CUI from '@chakra-ui/react';
 import NextCUILink from 'components/NextCUILink';
-import SearchIcon from '/public/images/icons/search.svg';
 import OpenLogo from 'public/images/icons/open-logo.svg';
 import Separator from 'public/images/icons/separator.svg';
+import OmniSearch from 'components/OmniSearch';
 
 export function DesktopNav({ ...rest }) {
   return (
@@ -38,14 +38,7 @@ export function DesktopNav({ ...rest }) {
             <OpenLogo />
           </NextCUILink>
         </CUI.HStack>
-        <CUI.Box>
-          <CUI.InputGroup minW="21.75rem">
-            <CUI.InputLeftElement pointerEvents="none">
-              <CUI.Icon color="secondary.400" fontSize="xl" as={SearchIcon} />
-            </CUI.InputLeftElement>
-            <CUI.Input placeholder="Ingresa el nombe de un congresista" />
-          </CUI.InputGroup>
-        </CUI.Box>
+        <OmniSearch />
       </CUI.HStack>
     </CUI.Flex>
   );
