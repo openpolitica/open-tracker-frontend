@@ -22,7 +22,7 @@ export function DesktopNav({ ...rest }) {
         <CUI.HStack spacing="3">
           <CUI.Text
             as={NextCUILink}
-            href="/bancadas"
+            href="/"
             lineHeight="9"
             fontFamily="ClashDisplay"
             fontSize="3xl"

@@ -7,7 +7,7 @@ import Breadcrumb from 'components/Breadcrumb';
 import { capitalizeNames, getLogoByPGSlug } from 'utils';
 
 const routes = [
-  { label: 'Inicio', route: '/bancadas' },
+  { label: 'Inicio', route: '/' },
   { label: 'Congresistas', route: '/congresistas' },
 ];
 
