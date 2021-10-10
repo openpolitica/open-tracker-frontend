@@ -5,6 +5,8 @@ import TwitterIcon from 'public/images/icons/twitter.svg';
 import MarkIcon from 'public/images/icons/mark-location.svg';
 import PeopleIcon from 'public/images/icons/people.svg';
 import PersonalIcon from 'public/images/icons/link.svg';
+import EmailIcon from 'public/images/icons/email.svg';
+import WebPageIcon from 'public/images/icons/webpage-link.svg';
 import { capitalizeNames } from 'utils';
 
 const mapSocialNetworkIcons = {
@@ -23,6 +25,8 @@ export default function CongresspersonProfileCard({
   isActiveMember = false,
   parliamentaryGroupSlug = '',
   socialNetworkList = [],
+  webPageLink = '',
+  emailAddress = '',
   isSuspendedMember = false,
 }) {
   const avatarSize = CUI.useBreakpointValue({ base: 'md', md: '2xl' });
@@ -94,6 +98,13 @@ export default function CongresspersonProfileCard({
             </CUI.Flex>
           </CUI.VStack>
           <CUI.HStack mt="8" spacing="2" align="center">
+            {webPageLink ? (
+              <ExternalIconLink
+                key="webpage"
+                href={webPageLink}
+                icon={<WebPageIcon />}
+              />
+            ) : null}
             {socialNetworkList?.length
               ? socialNetworkList.map(
                   ({ socialNetworkUrl, socialNetworkName }) => {
@@ -109,6 +120,13 @@ export default function CongresspersonProfileCard({
                   },
                 )
               : null}
+            {emailAddress ? (
+              <ExternalIconLink
+                key="email"
+                href={'mailto:' + emailAddress}
+                icon={<EmailIcon />}
+              />
+            ) : null}
           </CUI.HStack>
         </CUI.VStack>
       </CUI.Stack>
