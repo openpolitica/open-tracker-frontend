@@ -38,7 +38,7 @@ const CongresspersonCard = ({
           as="img"
           src={logoParty}
           boxSize="1.8rem"
-          border="2.5px solid"
+          border="2px solid"
         />
       </CUI.Avatar>
       <CUI.Heading
