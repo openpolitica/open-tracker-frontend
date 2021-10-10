@@ -2,6 +2,7 @@ import * as CUI from '@chakra-ui/react';
 import SidebarLayout from 'components/layout/SidebarLayout';
 import ParliamentaryGroupCard from 'components/ParliamentaryGroupCard';
 import Breadcrumb from 'components/Breadcrumb';
+import { getLogoByPGSlug } from 'utils';
 
 const messages = {
   infoAlert: {
@@ -55,11 +56,10 @@ export default function ParlimentaryGroups({ parliamentaryGroups }) {
               parliamentary_group_id,
               parliamentary_group_name,
               parliamentary_group_slug,
-              parliamentary_group_url,
             }) => (
               <CUI.WrapItem key={parliamentary_group_id}>
                 <ParliamentaryGroupCard
-                  partyLogoURL={parliamentary_group_url ?? void 0}
+                  partyLogoURL={getLogoByPGSlug(parliamentary_group_slug)}
                   members={count}
                   partyName={parliamentary_group_name}
                   parliamentaryGroupId={parliamentary_group_slug}
