@@ -123,6 +123,8 @@ export default function Congresspeople({ congressperson }) {
             }))
             .filter(network => network.socialNetworkUrl)}
           // isSuspendedMember={}
+          webPageLink={congressperson?.plenary?.web_page}
+          emailAddress={congressperson?.plenary?.email}
         />
         <CongresspersonInfoTab
           congresspersonData={{
