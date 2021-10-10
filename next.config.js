@@ -17,13 +17,4 @@ module.exports = {
       version: 6,
     },
   },
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/bancadas',
-        permanent: true,
-      },
-    ];
-  },
 };

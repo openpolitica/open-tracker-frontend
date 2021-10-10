@@ -2,8 +2,10 @@ import * as CUI from '@chakra-ui/react';
 import NextCUILink from 'components/NextCUILink';
 import { useRouter } from 'next/router';
 import UserIcon from '/public/images/icons/user.svg';
+import HomeIcon from '/public/images/icons/home.svg';
 
 const LinkItems = [
+  { name: 'Inicio', icon: HomeIcon, href: '/' },
   { name: 'Bancadas', icon: UserIcon, href: '/bancadas' },
   { name: 'Congresistas', icon: UserIcon, href: '/congresistas' },
 ];
