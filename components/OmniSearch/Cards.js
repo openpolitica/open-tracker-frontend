@@ -62,8 +62,6 @@ function ParliamentaryGroupSmallCard({
         h="12"
         mr="4"
         borderRadius="md"
-        border="1px solid"
-        borderColor="gray.800"
         src={partyLogo}
         name={partyName}
         objectFit="cover"

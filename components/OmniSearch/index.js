@@ -4,7 +4,7 @@ import * as CUI from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { CongresspersonSmallCard, ParliamentaryGroupSmallCard } from './Cards';
-import { capitalizeNames, useDebounce } from 'utils';
+import { capitalizeNames, getLogoByPGSlug, useDebounce } from 'utils';
 import SearchIcon from '/public/images/icons/search.svg';
 
 const debounceInputDelayMs = 800;
@@ -140,7 +140,9 @@ export default function OmniSearch() {
                             {section.type === 'bancadas' ? (
                               <ParliamentaryGroupSmallCard
                                 members={option?.congressperson_count}
-                                partyLogo={option.parliamentary_group_url}
+                                partyLogo={getLogoByPGSlug(
+                                  option.parliamentary_group_slug,
+                                )}
                                 partyName={option.parliamentary_group_name}
                                 slug={option.parliamentary_group_slug}
                               />
@@ -150,15 +152,11 @@ export default function OmniSearch() {
                                 fullName={`${option.id_name} ${option.id_first_surname}`}
                                 location={option?.location?.location_name}
                                 congresspersonSlug={option?.congressperson_slug}
-                                // TODO: Fix parliamentaryGroup Logo
-                                partyLogo="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.mandysam.com%2Fimg%2Frandom.jpg&f=1&nofb=1"
-                                // partyLogo={
-                                //   getLogoByParliamentaryGroupSlug(
-                                //     option?.parliamentary_group?.find(
-                                //       group => group.end_date === null,
-                                //     )?.parliamentary_group_slug
-                                //   )
-                                // }
+                                partyLogo={getLogoByPGSlug(
+                                  option?.parliamentary_group?.find(
+                                    group => group.end_date === null,
+                                  )?.parliamentary_group_slug,
+                                )}
                               />
                             ) : null}
                           </CUI.WrapItem>
