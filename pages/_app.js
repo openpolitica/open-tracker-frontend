@@ -2,11 +2,12 @@ import { ChakraProvider } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Fragment, useEffect } from 'react';
+import useHotjar from 'react-use-hotjar';
 import theme from 'theme';
 import Fonts from 'theme/fonts';
 import { pageview } from 'lib/gtag';
 
-function MyOPApp({ Component, pageProps }) {
+function Tracker({ Component, pageProps }) {
   const router = useRouter();
 
   useEffect(() => {
@@ -32,4 +33,19 @@ function MyOPApp({ Component, pageProps }) {
   );
 }
 
-export default MyOPApp;
+const logger = value =>
+  console.info(`%c${value}`, 'background: #222; color: #bada55');
+
+const withHotjar = Component => props => {
+  const { initHotjar } = useHotjar();
+
+  useEffect(() => {
+    initHotjar(process.env.hotjar.id, process.env.hotjar.version, logger);
+  }, []);
+
+  return <Component {...props} />;
+};
+
+export default process.env.NEXT_PUBLIC_ENVIRONMENT === 'dev'
+  ? Tracker
+  : withHotjar(Tracker);
