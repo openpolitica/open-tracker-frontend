@@ -76,7 +76,7 @@ export const getStaticProps = async () => {
           )?.role_detail?.role_name === 'Portavoz',
         location: congressperson.location?.location_name.toLowerCase(),
         congresspersonSlug: congressperson.congressperson_slug,
-        avatar: congressperson.link_photo,
+        avatar: congressperson.plenary.link_photo,
         logoParty: congressperson.congressperson_parliamentary_groups?.find(
           parliamentaryGroup => parliamentaryGroup.end_date === null,
         ).parliamentary_group.parliamentary_group_url,
