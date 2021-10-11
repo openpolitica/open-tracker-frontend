@@ -12,6 +12,10 @@ module.exports = {
   },
   env: {
     api: `https://api.${process.env.NEXT_PUBLIC_ENVIRONMENT}.congreso.openpolitica.com/api/`,
+    hotjar: {
+      id: 2613812,
+      version: 6,
+    },
   },
   async redirects() {
     return [
