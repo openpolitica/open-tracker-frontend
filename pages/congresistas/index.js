@@ -116,14 +116,14 @@ export default function Congresspeople({ congresspeople }) {
             <CUI.WrapItem key={congressperson.cv_id}>
               <CongresspersonCard
                 congresspersonSlug={congressperson.congressperson_slug}
-                avatar={congressperson.link_photo}
+                avatar={congressperson.plenary.link_photo}
                 logoParty={getLogoByPGSlug(
                   congresspersonPG?.parliamentary_group
                     .parliamentary_group_slug,
                 )}
                 fullName={`${congressperson.id_name} ${congressperson.id_first_surname} ${congressperson.id_second_surname}`}
                 gender={congressperson.id_gender}
-                isActiveMember={
+                isSpeaker={
                   congresspersonPG?.role_detail?.role_name === 'Portavoz'
                 }
                 location={congressperson.location?.location_name}
