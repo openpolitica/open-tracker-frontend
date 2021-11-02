@@ -43,6 +43,7 @@ export default function ParliamentaryGroup({
               congressperson_slug,
               id_gender,
               id_name,
+              id_first_surname,
               id_second_surname,
               plenary: { link_photo },
               location: { location_name },
@@ -54,7 +55,7 @@ export default function ParliamentaryGroup({
               <CongresspersonCard
                 avatar={link_photo}
                 congresspersonSlug={congressperson_slug}
-                fullName={`${id_name} ${id_second_surname}`}
+                fullName={`${id_name} ${id_first_surname} ${id_second_surname}`}
                 gender={id_gender}
                 isSpeaker={role_name === 'Portavoz'}
                 location={location_name}
