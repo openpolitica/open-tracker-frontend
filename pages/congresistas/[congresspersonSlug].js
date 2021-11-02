@@ -58,9 +58,12 @@ export default function Congresspeople({ congressperson }) {
     },
   ];
 
-  const birthPlace = capitalizeNames(
-    `${congressperson.birth_province}, ${congressperson.birth_department}`,
-  );
+  const birthPlace =
+    congressperson.birth_province && congressperson.birth_department
+      ? capitalizeNames(
+          `${congressperson.birth_province}, ${congressperson.birth_department}`,
+        )
+      : capitalizeNames(congressperson.birth_country);
   const residencePlace = capitalizeNames(
     `${congressperson.residence_province}, ${congressperson.residence_department}`,
   );
