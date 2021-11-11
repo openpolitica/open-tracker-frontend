@@ -7,11 +7,13 @@ import { sizes } from 'theme/sizes';
 import { BadgeStyles as Badge } from 'theme/components/Badge';
 import { BreadcrumbStyles as Breadcrumb } from 'theme/components/Breadcrumb';
 import { ButtonStyles as Button } from 'theme/components/Button';
+import { TagStyles as Tag } from 'theme/components/Tag';
 
 const components = {
   Badge,
   Breadcrumb,
   Button,
+  Tag,
 };
 
 const breakpoints = createBreakpoints({
@@ -21,7 +23,7 @@ const breakpoints = createBreakpoints({
   xl: '90em',
 });
 
-const themeDefault = {
+const defaultTheme = {
   components,
   breakpoints,
   colors,
@@ -30,4 +32,5 @@ const themeDefault = {
     global: globalStyles,
   },
 };
-export default extendTheme(themeDefault);
+
+export default extendTheme(defaultTheme);

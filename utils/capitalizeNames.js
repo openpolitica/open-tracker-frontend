@@ -1,6 +1,6 @@
 export const capitalizeNames = (
   string = '',
-  { exclude = ['de', 'en', 'el', 'la', 'del', 'los'] } = {},
+  { exclude = ['al', 'de', 'en', 'el', 'la', 'del', 'los'] } = {},
 ) => {
   const excludeRegex = new RegExp('^(?!(' + exclude.join('|') + ')\\b)\\w');
   return string
