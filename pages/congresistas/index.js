@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import * as CUI from '@chakra-ui/react';
 import SidebarLayout from 'components/layout/SidebarLayout';
 import Breadcrumb from 'components/Breadcrumb';
-import { capitalizeNames } from 'utils';
+import { capitalizeNames, getLogoByPGSlug } from 'utils';
 import ListOfCongresspeople from 'components/ListOfCongresspeople';
 
 const routes = [
@@ -130,9 +130,11 @@ export const getStaticProps = async () => {
         location: congressperson.location?.location_name.toLowerCase(),
         congresspersonSlug: congressperson.congressperson_slug,
         avatar: congressperson.plenary.link_photo,
-        logoParty: congressperson.congressperson_parliamentary_groups?.find(
-          parliamentaryGroup => parliamentaryGroup.end_date === null,
-        ).parliamentary_group.parliamentary_group_url,
+        logoParty: getLogoByPGSlug(
+          congressperson.congressperson_parliamentary_groups?.find(
+            parliamentaryGroup => parliamentaryGroup.end_date === null,
+          ).parliamentary_group.parliamentary_group_slug,
+        ),
         votes: congressperson.plenary.vote,
       }));
 
