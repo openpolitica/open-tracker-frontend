@@ -46,7 +46,7 @@ export default function ParlimentaryGroups({ parliamentaryGroups }) {
         </CUI.Text>
         <Alert {...messages.infoAlert} />
       </CUI.Box>
-      <CUI.Wrap spacing="4">
+      <CUI.Wrap spacing="4" direction={{ base: 'column', md: 'row' }}>
         {parliamentaryGroups
           .filter(onlyActiveParliamentaryGroups)
           .filter(notEmptyParliamentaryGroups)
@@ -57,7 +57,9 @@ export default function ParlimentaryGroups({ parliamentaryGroups }) {
               parliamentary_group_name,
               parliamentary_group_slug,
             }) => (
-              <CUI.WrapItem key={parliamentary_group_id}>
+              <CUI.WrapItem
+                key={parliamentary_group_id}
+                display={{ base: 'block', md: 'flex' }}>
                 <ParliamentaryGroupCard
                   partyLogoURL={getLogoByPGSlug(parliamentary_group_slug)}
                   members={count}
