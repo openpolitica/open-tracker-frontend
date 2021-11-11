@@ -17,12 +17,11 @@ const CongresspersonCard = ({
   return (
     <CUI.Flex
       direction="column"
-      align="center"
-      w={{ base: '72', md: '44' }}
-      h={{ base: '56', md: '72' }}
-      maxW={{ base: '72', md: '44' }}
-      minH={{ base: '56', md: '72' }}
-      px={{ base: '8', md: '4' }}
+      align={{ base: 'baseline', md: 'center' }}
+      h={{ base: '52', md: '72' }}
+      maxW={{ md: '44' }}
+      minH={{ base: '52', md: '72' }}
+      px={{ base: '6', md: '4' }}
       py="6"
       boxShadow="sm"
       border="1px solid"
