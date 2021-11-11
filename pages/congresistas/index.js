@@ -95,7 +95,7 @@ export default function Congresspeople({ congresspeople }) {
         onChange={event => setDistrictFilter(event.target.value)}
         value={districtFilter ?? ''}
         cursor="pointer"
-        w="64"
+        w={{ base: 'full', md: '64' }}
         mb="4">
         <option key="no-select" value="">
           Ver de todo el país
