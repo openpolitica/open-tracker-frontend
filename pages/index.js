@@ -1,7 +1,7 @@
 import * as CUI from '@chakra-ui/react';
 import SidebarLayout from 'components/layout/SidebarLayout';
 import ListOfCongresspeople from 'components/ListOfCongresspeople';
-import { groupByKey } from 'utils';
+import { getLogoByPGSlug, groupByKey } from 'utils';
 
 export default function Home({ congresspeople }) {
   return (
@@ -71,9 +71,11 @@ export const getStaticProps = async () => {
         location: congressperson.location?.location_name.toLowerCase(),
         congresspersonSlug: congressperson.congressperson_slug,
         avatar: congressperson.plenary.link_photo,
-        logoParty: congressperson.congressperson_parliamentary_groups?.find(
-          parliamentaryGroup => parliamentaryGroup.end_date === null,
-        ).parliamentary_group.parliamentary_group_url,
+        logoParty: getLogoByPGSlug(
+          congressperson.congressperson_parliamentary_groups?.find(
+            parliamentaryGroup => parliamentaryGroup.end_date === null,
+          ).parliamentary_group.parliamentary_group_slug,
+        ),
         votes: congressperson.plenary.vote,
       }));
 
