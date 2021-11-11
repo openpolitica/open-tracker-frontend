@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import * as CUI from '@chakra-ui/react';
 import SidebarLayout from 'components/layout/SidebarLayout';
-import CongresspersonCard from 'components/CongresspersonCard';
 import Breadcrumb from 'components/Breadcrumb';
-import { capitalizeNames, getLogoByPGSlug } from 'utils';
+import { capitalizeNames } from 'utils';
+import ListOfCongresspeople from 'components/ListOfCongresspeople';
 
 const routes = [
   { label: 'Inicio', route: '/' },
@@ -12,7 +12,7 @@ const routes = [
 ];
 
 const electoralDistrict = congressperson =>
-  congressperson?.location?.location_name?.toLowerCase();
+  congressperson?.location?.toLowerCase();
 
 const electoralDistrictsFromCongresspeople = congresspeople =>
   congresspeople
@@ -106,33 +106,7 @@ export default function Congresspeople({ congresspeople }) {
           </option>
         ))}
       </CUI.Select>
-      <CUI.Wrap spacing="4">
-        {filterSubset.map(congressperson => {
-          const congresspersonPG =
-            congressperson?.congressperson_parliamentary_groups?.find(
-              parliamentaryGroup => parliamentaryGroup.end_date === null,
-            );
-          return (
-            <CUI.WrapItem key={congressperson.cv_id}>
-              <CongresspersonCard
-                congresspersonSlug={congressperson.congressperson_slug}
-                avatar={congressperson.plenary.link_photo}
-                logoParty={getLogoByPGSlug(
-                  congresspersonPG?.parliamentary_group
-                    .parliamentary_group_slug,
-                )}
-                fullName={`${congressperson.id_name} ${congressperson.id_first_surname} ${congressperson.id_second_surname}`}
-                gender={congressperson.id_gender}
-                isSpeaker={
-                  congresspersonPG?.role_detail?.role_name === 'Portavoz'
-                }
-                location={congressperson.location?.location_name}
-                // isSuspendedMember={}
-              />
-            </CUI.WrapItem>
-          );
-        })}
-      </CUI.Wrap>
+      <ListOfCongresspeople congresspeople={filterSubset} />
     </SidebarLayout>
   );
 }
@@ -141,9 +115,26 @@ export const getStaticProps = async () => {
   try {
     const response = await fetch(`${process.env.api}congressperson`);
     const data = await response.json();
-    const congresspeople = data.data.filter(congressperson =>
-      congressperson.position_elected.includes('CONGRESISTA'),
-    );
+    const congresspeople = data.data
+      .filter(congressperson =>
+        congressperson.position_elected.includes('CONGRESISTA'),
+      )
+      .map(congressperson => ({
+        cvId: congressperson.cv_id,
+        fullName: `${congressperson.id_name} ${congressperson.id_first_surname} ${congressperson.id_second_surname}`,
+        gender: congressperson.id_gender,
+        isSpeaker:
+          congressperson?.congressperson_parliamentary_groups?.find(
+            parliamentaryGroup => parliamentaryGroup.end_date === null,
+          )?.role_detail?.role_name === 'Portavoz',
+        location: congressperson.location?.location_name.toLowerCase(),
+        congresspersonSlug: congressperson.congressperson_slug,
+        avatar: congressperson.plenary.link_photo,
+        logoParty: congressperson.congressperson_parliamentary_groups?.find(
+          parliamentaryGroup => parliamentaryGroup.end_date === null,
+        ).parliamentary_group.parliamentary_group_url,
+        votes: congressperson.plenary.vote,
+      }));
 
     if (!congresspeople) {
       return { notFound: true };

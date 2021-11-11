@@ -1,6 +1,6 @@
 import * as CUI from '@chakra-ui/react';
-import CongresspersonCard from 'components/CongresspersonCard';
 import SidebarLayout from 'components/layout/SidebarLayout';
+import ListOfCongresspeople from 'components/ListOfCongresspeople';
 import { groupByKey } from 'utils';
 
 export default function Home({ congresspeople }) {
@@ -46,13 +46,7 @@ export default function Home({ congresspeople }) {
         <CUI.Heading as="h2" mb="4" color="secondary.700" fontSize="xl">
           Congresistas más votados
         </CUI.Heading>
-        <CUI.Wrap spacing="4">
-          {congresspeople.map(({ cvId, ...congresperson }) => (
-            <CUI.WrapItem key={cvId}>
-              <CongresspersonCard {...congresperson} />
-            </CUI.WrapItem>
-          ))}
-        </CUI.Wrap>
+        <ListOfCongresspeople congresspeople={congresspeople} />
       </CUI.Box>
     </SidebarLayout>
   );
