@@ -1,8 +1,8 @@
 import * as CUI from '@chakra-ui/react';
 import SidebarLayout from 'components/layout/SidebarLayout';
-import CongresspersonCard from 'components/CongresspersonCard';
 import Breadcrumb from 'components/Breadcrumb';
 import { getLogoByPGSlug } from 'utils';
+import ListOfCongresspeople from 'components/ListOfCongresspeople';
 
 const onlyActiveParliamentaryMembers = parliamentaryMember =>
   !parliamentaryMember.end_date;
@@ -15,6 +15,19 @@ export default function ParliamentaryGroup({
     parliamentary_group_slug: parliamentaryGroupSlug,
     congresspeople,
   } = parliamentaryGroup;
+
+  const congresspeopleFiltered = congresspeople
+    .filter(onlyActiveParliamentaryMembers)
+    .map(({ congressperson, role_detail }) => ({
+      cvId: congressperson.cv_id,
+      fullName: `${congressperson.id_name} ${congressperson.id_first_surname} ${congressperson.id_second_surname}`,
+      gender: congressperson.id_gender,
+      isSpeaker: role_detail?.role_name === 'Portavoz',
+      location: congressperson.location?.location_name.toLowerCase(),
+      congresspersonSlug: congressperson.congressperson_slug,
+      avatar: congressperson.plenary?.link_photo,
+      logoParty: getLogoByPGSlug(parliamentaryGroupSlug),
+    }));
 
   return (
     <SidebarLayout>
@@ -35,36 +48,7 @@ export default function ParliamentaryGroup({
         </CUI.Box>
         <CUI.Heading size="md">Bancada {parliamentaryGroupName}</CUI.Heading>
       </CUI.HStack>
-      <CUI.Wrap spacing="4">
-        {congresspeople.filter(onlyActiveParliamentaryMembers).map(
-          ({
-            congressperson: {
-              cv_id,
-              congressperson_slug,
-              id_gender,
-              id_name,
-              id_first_surname,
-              id_second_surname,
-              plenary: { link_photo },
-              location: { location_name },
-              residence_ubigeo,
-            },
-            role_detail: { role_name },
-          }) => (
-            <CUI.WrapItem key={cv_id}>
-              <CongresspersonCard
-                avatar={link_photo}
-                congresspersonSlug={congressperson_slug}
-                fullName={`${id_name} ${id_first_surname} ${id_second_surname}`}
-                gender={id_gender}
-                isSpeaker={role_name === 'Portavoz'}
-                location={location_name}
-                logoParty={getLogoByPGSlug(parliamentaryGroupSlug)}
-              />
-            </CUI.WrapItem>
-          ),
-        )}
-      </CUI.Wrap>
+      <ListOfCongresspeople congresspeople={congresspeopleFiltered} />
     </SidebarLayout>
   );
 }
