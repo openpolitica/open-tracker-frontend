@@ -11,8 +11,7 @@ const ParliamentaryGroupCard = ({
   return (
     <CUI.Flex
       direction="column"
-      w={{ base: '72', md: '44' }}
-      maxW={{ base: '72', md: '44' }}
+      maxW={{ md: '44' }}
       minH={{ base: '44', md: '64' }}
       px="5"
       py="6"
