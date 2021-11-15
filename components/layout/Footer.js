@@ -6,7 +6,7 @@ import InstagramIcon from 'public/images/icons/instagram.svg';
 
 const SocialButton = ({ children, label, href }) => {
   return (
-    <CUI.Link
+    <NextCUILink
       isExternal
       w="8"
       h="8"
@@ -18,7 +18,7 @@ const SocialButton = ({ children, label, href }) => {
       transition="'background 0.3s ease">
       <CUI.VisuallyHidden>{label}</CUI.VisuallyHidden>
       {children}
-    </CUI.Link>
+    </NextCUILink>
   );
 };
 
@@ -31,7 +31,10 @@ export default function Footer() {
       zIndex="docked"
       py={{ base: '6', md: '10' }}
       pr={{ base: '6', md: '10' }}
-      pl={{ base: '6', md: 'calc(var(--chakra-sizes-sidebarWidth) + 6px)' }}>
+      pl={{
+        base: '6',
+        md: 'calc(var(--chakra-sizes-sidebarWidth) + 0.375rem)',
+      }}>
       <CUI.Flex
         direction={{ base: 'column', md: 'row' }}
         justifyContent="space-between">
@@ -51,20 +54,18 @@ export default function Footer() {
           </CUI.Text>
           <CUI.Box direction="row" spacing="6">
             <SocialButton
-              label="Linkedin"
-              href={
-                'https://www.linkedin.com/company/open-pol%C3%ADtica/mycompany/'
-              }>
+              label="LinkedIn"
+              href="https://www.linkedin.com/company/open-pol%C3%ADtica/mycompany/">
               <LinkedinIcon />
             </SocialButton>
             <SocialButton
               label="Twitter"
-              href={'https://twitter.com/openpolitica?lang=es'}>
+              href="https://twitter.com/openpolitica?lang=es">
               <TwitterFooterIcon />
             </SocialButton>
             <SocialButton
               label="Instagram"
-              href={'https://www.instagram.com/open.politica/?hl=es'}>
+              href="https://www.instagram.com/open.politica/?hl=es">
               <InstagramIcon />
             </SocialButton>
           </CUI.Box>
