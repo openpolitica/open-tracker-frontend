@@ -3,11 +3,13 @@ import NextCUILink from 'components/NextCUILink';
 import { useRouter } from 'next/router';
 import UserIcon from '/public/images/icons/user.svg';
 import HomeIcon from '/public/images/icons/home.svg';
+import BillsIcon from '/public/images/icons/bills.svg';
 
 const LinkItems = [
   { name: 'Inicio', icon: HomeIcon, href: '/' },
   { name: 'Bancadas', icon: UserIcon, href: '/bancadas' },
   { name: 'Congresistas', icon: UserIcon, href: '/congresistas' },
+  { name: 'Proyectos de ley', icon: BillsIcon, href: '/proyectos-de-ley' },
 ];
 
 export default function SidebarContent({ ...rest }) {
