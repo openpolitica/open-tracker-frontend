@@ -4,6 +4,7 @@ import MenuIcon from '/public/images/icons/menu.svg';
 import CloseIcon from '/public/images/icons/close.svg';
 import BackIcon from '/public/images/icons/back-arrow.svg';
 import SearchIcon from '/public/images/icons/search.svg';
+import OmniSearch from 'components/OmniSearch';
 
 export default function MobileNav({ isOpen, onToggle, ...rest }) {
   const {
@@ -18,8 +19,6 @@ export default function MobileNav({ isOpen, onToggle, ...rest }) {
     handler: () => onSearchClose(),
   });
 
-  const handleSearch = () => {};
-
   return (
     <CUI.Flex
       pos="fixed"
@@ -33,7 +32,7 @@ export default function MobileNav({ isOpen, onToggle, ...rest }) {
       justifyContent="space-between"
       ref={navRef}
       {...rest}>
-      <CUI.Flex alignItems="center" w="full">
+      <CUI.Flex alignItems="center" position="relative" w="full">
         {isSearchOpen ? (
           <Fragment>
             <CUI.IconButton
@@ -43,7 +42,9 @@ export default function MobileNav({ isOpen, onToggle, ...rest }) {
               icon={<BackIcon />}
               onClick={onSearchClose}
             />
-            <CUI.Input flex="1" mx="2" placeholder="Busca un congresista" />
+            <CUI.Box flex="1" mx="2">
+              <OmniSearch />
+            </CUI.Box>
           </Fragment>
         ) : (
           <Fragment>
@@ -65,14 +66,16 @@ export default function MobileNav({ isOpen, onToggle, ...rest }) {
             </CUI.Text>
           </Fragment>
         )}
-        <CUI.IconButton
-          variant="ghost"
-          aria-label="search congresssman"
-          bg="secondary.100"
-          color="secondary.700"
-          icon={<SearchIcon />}
-          onClick={isSearchOpen ? handleSearch : onSearchOpen}
-        />
+        {isSearchOpen ? null : (
+          <CUI.IconButton
+            variant="ghost"
+            aria-label="search congresssman"
+            bg="secondary.100"
+            color="secondary.700"
+            icon={<SearchIcon />}
+            onClick={onSearchOpen}
+          />
+        )}
       </CUI.Flex>
     </CUI.Flex>
   );

@@ -14,6 +14,8 @@ export default function OmniSearch() {
   const [loading, setLoading] = React.useState(false);
   const debouncedSetQuery = useDebounce(setQuery, debounceInputDelayMs);
   const router = useRouter();
+  const [isLargerThan48em] = CUI.useMediaQuery('(min-width: 48em)');
+
   const {
     isLoading: isLoadingRequest,
     error,
@@ -71,24 +73,26 @@ export default function OmniSearch() {
   });
 
   return (
-    <CUI.Box position="relative">
+    <CUI.Box position={{ base: 'initial', md: 'relative' }}>
       <CUI.Box {...getComboboxProps()}>
-        <CUI.InputGroup minW="21.75rem">
+        <CUI.InputGroup minW={{ base: 'unset', md: '21.75rem' }}>
           <CUI.InputLeftElement pointerEvents="none">
             <CUI.Icon color="secondary.400" fontSize="xl" as={SearchIcon} />
           </CUI.InputLeftElement>
           <CUI.Input
             {...getInputProps({
               onFocus: () => !isOpen && query && openMenu(),
-              placeholder: 'Ingresa el nombre de un congresista',
+              placeholder: isLargerThan48em
+                ? 'Ingresa el nombre de un congresista'
+                : 'Ingresa un congresista',
             })}
           />
         </CUI.InputGroup>
       </CUI.Box>
       <CUI.Box
         {...getMenuProps()}
-        maxHeight="31.25rem"
-        minWidth="26.15rem"
+        maxH={{ base: '90vh', md: '31.25rem' }}
+        minW={{ md: '26.15rem' }}
         overflowY="scroll"
         bg="white"
         position="absolute"
@@ -96,9 +100,10 @@ export default function OmniSearch() {
         borderRadius="8"
         mt="4"
         right="0"
+        left={{ base: '0', md: 'initial' }}
         w="full">
         {isOpen && (
-          <CUI.Flex p="6" direction="column">
+          <CUI.Flex p={{ base: '4', md: '6' }} direction="column">
             <CUI.Heading fontSize="lg" fontWeight="bold" color="secondary.700">
               Resultados
             </CUI.Heading>

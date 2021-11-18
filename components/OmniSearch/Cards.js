@@ -28,7 +28,7 @@ function CongresspersonSmallCard({
       </CUI.Avatar>
       <CUI.Box flex="1">
         <CUI.Heading
-          fontSize="md"
+          fontSize={{ base: 'sm', md: 'md' }}
           fontWeight="bold"
           color="secondary.700"
           mb="1">
@@ -51,7 +51,7 @@ function ParliamentaryGroupSmallCard({
 }) {
   return (
     <CUI.HStack
-      minH="20"
+      minH={{ base: 'initial', md: '20' }}
       w="full"
       p="4"
       justify="space-between"
@@ -68,7 +68,7 @@ function ParliamentaryGroupSmallCard({
       />
       <CUI.Box flex="1">
         <CUI.Heading
-          fontSize="md"
+          fontSize={{ base: 'sm', md: 'md' }}
           fontWeight="bold"
           color="secondary.700"
           mb="1">
