@@ -12,7 +12,9 @@ function debounce(fn, delay) {
 
 function useDebounce(callback, delay) {
   const callbackRef = React.useRef(callback);
-  React.useLayoutEffect(() => {
+  const useIsomorphicLayoutEffect =
+    typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
+  useIsomorphicLayoutEffect(() => {
     callbackRef.current = callback;
   });
   return React.useMemo(
