@@ -1,1 +1,4 @@
-module.exports = { presets: ['@babel/preset-env', 'next/babel'] };
+module.exports = {
+  presets: ['next/babel', '@babel/preset-env'],
+  plugins: ['@babel/plugin-transform-runtime'],
+};

@@ -1,3 +1,7 @@
+import replaceAll from 'string.prototype.replaceall';
+
+replaceAll.shim();
+
 export const applyCountryCapitalizations =
   text =>
   (capitalizations = []) =>
