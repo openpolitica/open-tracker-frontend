@@ -1,7 +1,11 @@
 import * as CUI from '@chakra-ui/react';
 import NextCUILink from 'components/NextCUILink';
 import statusMap from 'components/BillCard/statusMap';
-import { capitalizeNames } from 'utils';
+import {
+  capitalizeNames,
+  applyPeruCapitalizations,
+  upperCaseFirstLetter,
+} from 'utils';
 
 const BillCard = ({
   authorship = [
@@ -23,8 +27,10 @@ const BillCard = ({
       border="1px"
       borderRadius="4px">
       <CUI.HStack spacing="2" mb="2">
-        <CUI.Tag>{committeeName}</CUI.Tag>
-        <CUI.Tag variant={statusMap[status]?.variant}>{status}</CUI.Tag>
+        <CUI.Tag>{upperCaseFirstLetter(committeeName)}</CUI.Tag>
+        <CUI.Tag variant={statusMap[status]?.variant}>
+          {upperCaseFirstLetter(applyPeruCapitalizations(status))}
+        </CUI.Tag>
       </CUI.HStack>
       <CUI.Text fontSize="md" mb="4">
         {billTitle}
