@@ -1,7 +1,11 @@
 {
   "headers": [
     {
-      "source": "/fonts/inter-var-latin.woff2",
+      "source": [
+        "/fonts/inter-var-latin.woff2",
+        "/fonts/clash-display-bold.woff2",
+        "/fonts/recia-regular.woff2"
+      ],
       "headers": [
         {
           "key": "Cache-Control",
