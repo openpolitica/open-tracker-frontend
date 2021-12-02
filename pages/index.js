@@ -1,6 +1,8 @@
 import * as CUI from '@chakra-ui/react';
+import { ArrowForwardIcon } from '@chakra-ui/icons';
 import SidebarLayout from 'components/layout/SidebarLayout';
 import ListOfCongresspeople from 'components/ListOfCongresspeople';
+import BillCard from 'components/BillCard';
 import { getLogoByPGSlug, groupByKey } from 'utils';
 
 export default function Home({ congresspeople }) {
@@ -42,6 +44,38 @@ export default function Home({ congresspeople }) {
           boxShadow="2xl"
         />
       </CUI.Flex>
+      <CUI.Box mt="10" backgroundColor="blue.50" p="10">
+        <CUI.Heading as="h2" mb="1" color="secondary.700" fontSize="xl">
+          Proyectos de Ley
+        </CUI.Heading>
+        <CUI.Text fontSize="md" maxWidth="32rem" mb="4">
+          Conoce los proyectos presentados en las comisiones del Congreso, el
+          estado en el que se encuentran y sus respectivos autores.
+        </CUI.Text>
+        <CUI.Button
+          as="a"
+          colorScheme="teal"
+          href="proyectos-de-ley"
+          mb="6"
+          rightIcon={<ArrowForwardIcon />}
+          size="sm">
+          Explorar los proyectos
+        </CUI.Button>
+        <CUI.Text
+          display={{ xl: 'block', lg: 'none', md: 'none', sm: 'none' }}
+          fontSize="md"
+          fontWeight="bold"
+          mb="2">
+          Últimas actualizaciones
+        </CUI.Text>
+        <CUI.HStack
+          display={{ xl: 'flex', lg: 'none', md: 'none', sm: 'none' }}
+          spacing="4">
+          {Array.from({ length: 3 }).map((_, index) => (
+            <BillCard key={index} />
+          ))}
+        </CUI.HStack>
+      </CUI.Box>
       <CUI.Box mt="10">
         <CUI.Heading as="h2" mb="4" color="secondary.700" fontSize="xl">
           Congresistas más votados
