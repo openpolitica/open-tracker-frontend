@@ -37,14 +37,22 @@ const BillCard = ({
         {billTitle}
       </CUI.Text>
       <CUI.Flex mb="1">
-        <CUI.Text fontWeight="bold">Fecha de publicación:</CUI.Text>
-        <CUI.Text ml="1">{publicationDate}</CUI.Text>
+        <CUI.Text fontWeight="bold" fontSize="sm">
+          Fecha de publicación:
+        </CUI.Text>
+        <CUI.Text ml="1" fontSize="sm">
+          {publicationDate}
+        </CUI.Text>
       </CUI.Flex>
-      <CUI.Flex>
-        <CUI.Text fontWeight="bold">Última actualización:</CUI.Text>
-        <CUI.Text ml="1">{lastUpdate}</CUI.Text>
+      <CUI.Flex mb="1">
+        <CUI.Text fontWeight="bold" fontSize="sm">
+          Última actualización:
+        </CUI.Text>
+        <CUI.Text ml="1" fontSize="sm">
+          {lastUpdate}
+        </CUI.Text>
       </CUI.Flex>
-      <CUI.Flex mb="4">
+      <CUI.Flex mb="4" fontSize="sm">
         <CUI.Text fontWeight="bold" mr="1">
           Autores:
         </CUI.Text>
@@ -63,6 +71,7 @@ const BillCard = ({
         href={`/proyectos-de-ley/${billId}`}
         mt="auto"
         variant="outline"
+        size="sm"
         w="24">
         Ver detalle
       </CUI.Button>
