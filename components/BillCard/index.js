@@ -23,6 +23,7 @@ const BillCard = ({
     <CUI.Flex
       direction="column"
       p="6"
+      backgroundColor="white"
       borderColor="secondary.200"
       border="1px"
       borderRadius="4px">
