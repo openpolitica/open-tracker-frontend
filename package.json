@@ -46,6 +46,7 @@
     "string.prototype.replaceall": "^1.0.6"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^1.1.1",
     "@chakra-ui/react": "^1.6.5",
     "@chakra-ui/theme-tools": "^1.1.8",
     "@emotion/react": "^11.4.0",
