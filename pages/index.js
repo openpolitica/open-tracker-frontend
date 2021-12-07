@@ -54,23 +54,21 @@ export default function Home({ congresspeople }) {
         </CUI.Text>
         <CUI.Button
           as="a"
-          colorScheme="teal"
-          href="proyectos-de-ley"
+          variant="solid"
+          href="/proyectos-de-ley"
           mb="6"
           rightIcon={<ArrowForwardIcon />}
           size="sm">
           Explorar los proyectos
         </CUI.Button>
         <CUI.Text
-          display={{ xl: 'block', lg: 'none', md: 'none', sm: 'none' }}
+          display={{ base: 'none', xl: 'block' }}
           fontSize="md"
           fontWeight="bold"
           mb="2">
           Últimas actualizaciones
         </CUI.Text>
-        <CUI.HStack
-          display={{ xl: 'flex', lg: 'none', md: 'none', sm: 'none' }}
-          spacing="4">
+        <CUI.HStack display={{ base: 'none', xl: 'flex' }} spacing="4">
           {Array.from({ length: 3 }).map((_, index) => (
             <BillCard key={index} />
           ))}
