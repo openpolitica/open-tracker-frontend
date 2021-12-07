@@ -9,6 +9,7 @@ const routes = [
   { label: 'Proyectos de ley', route: '/proyectos-de-ley' },
 ];
 
+// TODO: remove placeholders
 const legislaturaOptions = [
   'Julio 2021 - Diciembre 2022',
   'junio 2021 - Octubre 2022',
@@ -49,8 +50,10 @@ export default function Bills() {
         <CUI.Grid
           templateColumns="repeat(auto-fill, minmax(15.25rem, 1fr))"
           gap="6">
-          <CUI.Box>
-            <CUI.Text fontWeight="bold">Filtrar por Legislatura</CUI.Text>
+          <CUI.FormControl id="legislature">
+            <CUI.FormLabel fontWeight="bold">
+              Filtrar por Legislatura
+            </CUI.FormLabel>
             <CUI.Select placeholder="Select option" bg="#fff" fontSize="sm">
               {legislaturaOptions.map((item, i) => (
                 <option key={i} value={item}>
@@ -58,10 +61,11 @@ export default function Bills() {
                 </option>
               ))}
             </CUI.Select>
-          </CUI.Box>
-          <CUI.Box>
-            {/* label */}
-            <CUI.Text fontWeight="bold">Filtrar por comisión</CUI.Text>
+          </CUI.FormControl>
+          <CUI.FormControl id="comission">
+            <CUI.FormLabel fontWeight="bold">
+              Filtrar por comisión
+            </CUI.FormLabel>
             <CUI.Select placeholder="Select option" bg="#fff" fontSize="sm">
               {comisionOptions.map((item, i) => (
                 <option key={i} value={item}>
@@ -69,9 +73,9 @@ export default function Bills() {
                 </option>
               ))}
             </CUI.Select>
-          </CUI.Box>
-          <CUI.Box>
-            <CUI.Text fontWeight="bold">Estado</CUI.Text>
+          </CUI.FormControl>
+          <CUI.FormControl id="status">
+            <CUI.FormLabel fontWeight="bold">Estado</CUI.FormLabel>
             <CUI.Select placeholder="Select option" bg="#fff" fontSize="sm">
               {estadoOptions.map((item, i) => (
                 <option key={i} value={item}>
@@ -79,7 +83,7 @@ export default function Bills() {
                 </option>
               ))}
             </CUI.Select>
-          </CUI.Box>
+          </CUI.FormControl>
         </CUI.Grid>
       </CUI.Stack>
       <CUI.Stack spacing="4">
