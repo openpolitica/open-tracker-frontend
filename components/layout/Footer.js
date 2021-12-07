@@ -38,7 +38,7 @@ export default function Footer() {
       <CUI.Flex
         direction={{ base: 'column', md: 'row' }}
         justifyContent="space-between">
-        <CUI.Stack spacing="2" maxW="32%">
+        <CUI.Stack spacing="4" maxW={{ base: 'full', md: '32%' }}>
           <CUI.Text
             as={NextCUILink}
             href="/"
@@ -76,9 +76,11 @@ export default function Footer() {
         <CUI.Flex
           position="relative"
           justifyContent="space-between"
-          maxW="60%"
+          maxW={{ base: 'full', md: '60%' }}
+          mt={{ base: '8', md: '0' }}
           flexWrap="wrap">
           <CUI.Stack
+            spacing={{ base: '0', md: '1' }}
             pr="12"
             _after={{
               base: 'none',
@@ -102,7 +104,9 @@ export default function Footer() {
               patreon.com/openpolitica
             </CUI.Link>
           </CUI.Stack>
-          <CUI.Stack>
+          <CUI.Stack
+            mt={{ base: '4', md: '0' }}
+            spacing={{ base: '0', md: '1' }}>
             <CUI.Text fontWeight="semibold" color="gray.600">
               ¿Tienes alguna duda?
             </CUI.Text>
