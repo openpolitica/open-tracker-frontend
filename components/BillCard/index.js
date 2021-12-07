@@ -24,8 +24,8 @@ const BillCard = ({
       direction="column"
       p="6"
       backgroundColor="white"
-      borderColor="secondary.200"
       border="1px"
+      borderColor="secondary.200"
       borderRadius="4px">
       <CUI.HStack spacing="2" mb="2">
         <CUI.Tag>{upperCaseFirstLetter(committeeName)}</CUI.Tag>

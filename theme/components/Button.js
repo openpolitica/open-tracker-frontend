@@ -12,6 +12,12 @@ export const ButtonStyles = {
     solid: {
       bg: 'primary.500',
       color: 'white',
+      _hover: {
+        bg: 'primary.700',
+      },
+      _focus: {
+        bg: 'primary.700',
+      },
     },
     outline: {
       color: 'secondary.700',
