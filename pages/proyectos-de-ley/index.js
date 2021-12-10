@@ -33,6 +33,7 @@ export default function Bills({ bills, metadata }) {
         px="12"
         mt="4"
         mb="6"
+        borderRadius="md"
         direction="column"
         backgroundImage="url(/images/home-bg.png)"
         backgroundSize="cover"
