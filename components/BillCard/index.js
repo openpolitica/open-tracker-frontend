@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import * as CUI from '@chakra-ui/react';
 import NextCUILink from 'components/NextCUILink';
 import statusMap from 'components/BillCard/statusMap';
@@ -63,15 +64,16 @@ const BillCard = ({
           </CUI.Text>
         ) : null}
         {authorship.length > 0
-          ? authorship.map((author, index) => (
-              <NextCUILink
-                key={author.slug}
-                href={`/congresistas/${author.slug}`}
-                color="primary.500"
-                mr="1">
-                {capitalizeNames(author.name)}
-                {index + 1 !== authorship.length ? ', ' : ''}
-              </NextCUILink>
+          ? authorship.map((author, idx) => (
+              <Fragment key={author.slug}>
+                <NextCUILink
+                  href={`/congresistas/${author.slug}`}
+                  color="primary.500"
+                  mr="1">
+                  {capitalizeNames(author.name)}
+                </NextCUILink>
+                {authorship.length - 1 === idx ? null : ', '}
+              </Fragment>
             ))
           : null}
       </CUI.Flex>

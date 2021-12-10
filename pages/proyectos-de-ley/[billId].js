@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import * as CUI from '@chakra-ui/react';
 import Breadcrumb from 'components/Breadcrumb';
 import SidebarLayout from 'components/layout/SidebarLayout';
@@ -72,30 +73,30 @@ export default function Bills({
               Detalles del proyecto
             </CUI.Text>
             <CUI.Box mb="4">
-              <Label>Fecha de publicación:</Label>
+              <Label>Fecha de publicación</Label>
               <CUI.Text as="dd" fontSize="md" color="secondary.700">
                 {publicationDate}
               </CUI.Text>
             </CUI.Box>
             <CUI.Box mb="4">
-              <Label>Autores:</Label>
-              <CUI.Box as="dd">
-                {authorship.map(author => (
-                  <NextCUILink
-                    key={author.slug}
-                    href={`/congresistas/${author.slug}`}
-                    color="primary.500"
-                    fontSize="md"
-                    mr="1">
-                    {capitalizeNames(author.name)}
-                  </NextCUILink>
+              <Label>Autores</Label>
+              <CUI.Box color="primary.500" as="dd">
+                {authorship.map((author, idx) => (
+                  <Fragment key={author.slug}>
+                    <NextCUILink
+                      href={`/congresistas/${author.slug}`}
+                      fontSize="md">
+                      {capitalizeNames(author.name)}
+                    </NextCUILink>
+                    {authorship.length - 1 === idx ? null : ', '}
+                  </Fragment>
                 ))}
               </CUI.Box>
             </CUI.Box>
             <CUI.Box mb="4">
               <Label>Estado</Label>
               <CUI.Text as="dd" fontSize="md" color="secondary.700">
-                El proyecto se encuentra actualmente en{' '}
+                El proyecto se encuentra actualmente{' '}
                 <CUI.Text as="strong"> {status}</CUI.Text>
               </CUI.Text>
             </CUI.Box>
@@ -114,7 +115,7 @@ export default function Bills({
             <CUI.Flex align="center">
               <CUI.Icon as={InfoIcon} mr="2" minW="6" minH="6" />
               <CUI.Text as="dt" color="secondary.500" fontWeight="semibold">
-                Fuente:
+                Fuente
               </CUI.Text>
               <CUI.Text as="dd" ml="1">
                 <NextCUILink
@@ -128,7 +129,7 @@ export default function Bills({
             <CUI.Flex align="center">
               <CUI.Icon as={TimeIcon} mr="2" minW="6" minH="6" />
               <CUI.Text as="dt" color="secondary.500" fontWeight="semibold">
-                Última actualización:
+                Última actualización
               </CUI.Text>
               <CUI.Text as="dd" ml="1">
                 {lastUpdate}
