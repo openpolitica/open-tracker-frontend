@@ -100,16 +100,6 @@ export default function Bills({
                 <CUI.Text as="strong"> {status}</CUI.Text>
               </CUI.Text>
             </CUI.Box>
-            <CUI.Box mb="4">
-              <Label>Proximos pasos</Label>
-              <CUI.Text as="dd" fontSize="md" color="secondary.700">
-                El proyecto deberá ser{' '}
-                <CUI.Text as="strong">
-                  debatido en la comisión de educación
-                </CUI.Text>{' '}
-                para ver si se modifica, aprueba o se archiva.
-              </CUI.Text>
-            </CUI.Box>
           </CUI.Box>
           <CUI.Stack pt="6" as="dl" spacing="4" fontSize="sm">
             <CUI.Flex align="center">
