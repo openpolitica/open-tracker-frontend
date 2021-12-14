@@ -16,6 +16,11 @@ const components = {
   Tag,
 };
 
+const fonts = {
+  heading: 'Inter, -apple-system, Helvetica, Arial, sans-serif',
+  body: 'Inter, -apple-system, Helvetica, Arial, sans-serif',
+};
+
 const breakpoints = createBreakpoints({
   sm: '20em',
   md: '48em',
@@ -26,6 +31,7 @@ const breakpoints = createBreakpoints({
 const defaultTheme = {
   components,
   breakpoints,
+  fonts,
   colors,
   sizes,
   styles: {
