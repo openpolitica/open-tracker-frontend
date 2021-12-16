@@ -37,7 +37,7 @@ export default class MyDocument extends Document {
           />
           <link
             rel="preload"
-            href="/fonts/reciar-regular.woff2"
+            href="/fonts/recia-regular.woff2"
             as="font"
             type="font/woff2"
             crossOrigin="anonymous"
