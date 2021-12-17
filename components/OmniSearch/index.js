@@ -153,7 +153,7 @@ export default function OmniSearch() {
                               />
                             ) : section.type === 'congresistas' ? (
                               <CongresspersonSmallCard
-                                avatar={option.link_photo}
+                                avatar={option.plenary?.link_photo}
                                 fullName={`${option.id_name} ${option.id_first_surname}`}
                                 location={option?.location?.location_name}
                                 congresspersonSlug={option?.congressperson_slug}
