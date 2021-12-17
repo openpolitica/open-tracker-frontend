@@ -7,13 +7,16 @@ import { upperCaseFirstLetter } from 'utils/upperLowerCaseFirstLetter';
 import { applyPeruCapitalizations } from 'utils/applyCountryCapitalizations';
 import NextCUILink from 'components/NextCUILink';
 import { capitalizeNames } from 'utils';
-import InfoIcon from 'public/images/icons/info.svg';
 import TimeIcon from 'public/images/icons/time.svg';
-import { ArrowDownIcon } from '@chakra-ui/icons';
+import ExternalLink from 'public/images/icons/link.svg';
 
 //TODO: remove placeholders
 export default function Bills({
-  authorship = [
+  authors = [
+    { slug: 'congressperson-slug-1', name: 'congressperon slug 1' },
+    { slug: 'congressperson-slug-2', name: 'congressperon slug 2' },
+  ],
+  coauthors = [
     { slug: 'congressperson-slug-1', name: 'congressperon slug 1' },
     { slug: 'congressperson-slug-2', name: 'congressperon slug 2' },
   ],
@@ -39,21 +42,9 @@ export default function Bills({
             {upperCaseFirstLetter(applyPeruCapitalizations(status))}
           </CUI.Tag>
         </CUI.HStack>
-        <CUI.Flex direction={{ base: 'column', md: 'row' }}>
-          <CUI.Text fontSize="md" mb="4">
-            {billTitle}
-          </CUI.Text>
-          <CUI.Button
-            as="a"
-            href=""
-            download
-            variant="solid"
-            ml={{ base: 0, md: '5' }}
-            minW="44"
-            rightIcon={<ArrowDownIcon />}>
-            Descargar PDF
-          </CUI.Button>
-        </CUI.Flex>
+        <CUI.Text maxW="56rem" fontSize="xl" mb="4">
+          {billTitle}
+        </CUI.Text>
         <CUI.Box
           bg="secondary.50"
           borderRadius="md"
@@ -81,14 +72,29 @@ export default function Bills({
             <CUI.Box mb="4">
               <Label>Autores</Label>
               <CUI.Box color="primary.500" as="dd">
-                {authorship.map((author, idx) => (
+                {authors.map((author, idx) => (
                   <Fragment key={author.slug}>
                     <NextCUILink
                       href={`/congresistas/${author.slug}`}
                       fontSize="md">
                       {capitalizeNames(author.name)}
                     </NextCUILink>
-                    {authorship.length - 1 === idx ? null : ', '}
+                    {authors.length - 1 === idx ? null : ', '}
+                  </Fragment>
+                ))}
+              </CUI.Box>
+            </CUI.Box>
+            <CUI.Box mb="4">
+              <Label>Co-Autores</Label>
+              <CUI.Box color="primary.500" as="dd">
+                {coauthors.map((author, idx) => (
+                  <Fragment key={author.slug}>
+                    <NextCUILink
+                      href={`/congresistas/${author.slug}`}
+                      fontSize="md">
+                      {capitalizeNames(author.name)}
+                    </NextCUILink>
+                    {coauthors.length - 1 === idx ? null : ', '}
                   </Fragment>
                 ))}
               </CUI.Box>
@@ -103,16 +109,16 @@ export default function Bills({
           </CUI.Box>
           <CUI.Stack pt="6" as="dl" spacing="4" fontSize="sm">
             <CUI.Flex align="center">
-              <CUI.Icon as={InfoIcon} mr="2" minW="6" minH="6" />
-              <CUI.Text as="dt" color="secondary.500" fontWeight="semibold">
-                Fuente
-              </CUI.Text>
-              <CUI.Text as="dd" ml="1">
-                <NextCUILink
-                  href="https://www.congreso.gob.pe/"
-                  color="primary.500"
-                  isExternal>
-                  Portal del Congreso
+              <CUI.Icon
+                mr="2"
+                minW="6"
+                minH="6"
+                color="secondary.600"
+                as={ExternalLink}
+              />
+              <CUI.Text as="dd">
+                <NextCUILink href="#" color="primary.500" isExternal>
+                  Ver proyecto de ley en el portal del congreso
                 </NextCUILink>
               </CUI.Text>
             </CUI.Flex>
