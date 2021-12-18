@@ -3,6 +3,7 @@ import NextCUILink from 'components/NextCUILink';
 import TwitterFooterIcon from 'public/images/icons/twitter-footer.svg';
 import LinkedinIcon from 'public/images/icons/linkedin.svg';
 import InstagramIcon from 'public/images/icons/instagram.svg';
+import TukuLogo from 'public/images/icons/tuku-logo.svg';
 
 const SocialButton = ({ children, label, href }) => {
   return (
@@ -39,15 +40,12 @@ export default function Footer() {
         direction={{ base: 'column', md: 'row' }}
         justifyContent="space-between">
         <CUI.Stack spacing="4" maxW={{ base: 'full', md: '32%' }}>
-          <CUI.Text
-            as={NextCUILink}
-            href="/"
-            lineHeight="9"
-            fontFamily="ClashDisplay"
-            fontSize="3xl"
-            fontWeight="bold">
-            Tuku
-          </CUI.Text>
+          <CUI.Flex alignItems="left">
+            <NextCUILink href="/" rel="noreferrer noopener" target="_blank">
+              <CUI.VisuallyHidden>Tuku</CUI.VisuallyHidden>
+              <TukuLogo />
+            </NextCUILink>
+          </CUI.Flex>
           <CUI.Text fontSize="sm" color="gray.500">
             La plataforma donde podrás encontrar información y hacer seguimiento
             a las actividades del Congreso de la República del Perú.

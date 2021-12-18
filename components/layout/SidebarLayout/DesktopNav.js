@@ -2,6 +2,7 @@ import * as CUI from '@chakra-ui/react';
 import NextCUILink from 'components/NextCUILink';
 import OpenLogo from 'public/images/icons/open-logo.svg';
 import Separator from 'public/images/icons/separator.svg';
+import TukuLogo from 'public/images/icons/tuku-logo.svg';
 import OmniSearch from 'components/OmniSearch';
 
 export function DesktopNav({ ...rest }) {
@@ -20,15 +21,10 @@ export function DesktopNav({ ...rest }) {
       {...rest}>
       <CUI.HStack flex={{ base: '1', md: 'auto' }} justify="space-between">
         <CUI.HStack spacing="3">
-          <CUI.Text
-            as={NextCUILink}
-            href="/"
-            lineHeight="9"
-            fontFamily="ClashDisplay"
-            fontSize="3xl"
-            fontWeight="bold">
-            Tuku
-          </CUI.Text>
+          <NextCUILink href="/">
+            <CUI.VisuallyHidden>Tuku</CUI.VisuallyHidden>
+            <TukuLogo />
+          </NextCUILink>
           <Separator />
           <CUI.Text fontFamily="Recia">hecho por</CUI.Text>
           <NextCUILink

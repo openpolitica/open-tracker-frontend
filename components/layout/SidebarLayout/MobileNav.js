@@ -5,6 +5,8 @@ import CloseIcon from '/public/images/icons/close.svg';
 import BackIcon from '/public/images/icons/back-arrow.svg';
 import SearchIcon from '/public/images/icons/search.svg';
 import OmniSearch from 'components/OmniSearch';
+import TukuLogo from 'public/images/icons/tuku-logo.svg';
+import NextCUILink from 'components/NextCUILink';
 
 export default function MobileNav({ isOpen, onToggle, ...rest }) {
   const {
@@ -56,14 +58,10 @@ export default function MobileNav({ isOpen, onToggle, ...rest }) {
               icon={isOpen ? <CloseIcon /> : <MenuIcon />}
               onClick={onToggle}
             />
-            <CUI.Text
-              fontSize="md"
-              color="secondary.700"
-              fontFamily="ClashDisplay"
-              fontWeight="bold"
-              flex="1">
-              Tuku
-            </CUI.Text>
+            <NextCUILink href="/" flexGrow="0">
+              <CUI.VisuallyHidden>Tuku</CUI.VisuallyHidden>
+              <TukuLogo />
+            </NextCUILink>
           </Fragment>
         )}
         {isSearchOpen ? null : (
@@ -74,6 +72,7 @@ export default function MobileNav({ isOpen, onToggle, ...rest }) {
             color="secondary.700"
             icon={<SearchIcon />}
             onClick={onSearchOpen}
+            ml="auto"
           />
         )}
       </CUI.Flex>
