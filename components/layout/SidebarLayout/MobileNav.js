@@ -59,7 +59,7 @@ export default function MobileNav({ isOpen, onToggle, ...rest }) {
               onClick={onToggle}
             />
             <NextCUILink href="/" flexGrow="0">
-              <CUI.VisuallyHidden>Tuku</CUI.VisuallyHidden>
+              <CUI.VisuallyHidden>Tuku.pe</CUI.VisuallyHidden>
               <TukuLogo />
             </NextCUILink>
           </Fragment>
