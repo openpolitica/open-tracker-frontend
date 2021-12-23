@@ -22,7 +22,7 @@ export function DesktopNav({ ...rest }) {
       <CUI.HStack flex={{ base: '1', md: 'auto' }} justify="space-between">
         <CUI.HStack spacing="3">
           <NextCUILink href="/">
-            <CUI.VisuallyHidden>Tuku</CUI.VisuallyHidden>
+            <CUI.VisuallyHidden>Tuku.pe</CUI.VisuallyHidden>
             <TukuLogo />
           </NextCUILink>
           <Separator />
