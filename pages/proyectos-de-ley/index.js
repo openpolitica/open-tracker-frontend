@@ -2,7 +2,6 @@ import * as CUI from '@chakra-ui/react';
 import Breadcrumb from 'components/Breadcrumb';
 import SidebarLayout from 'components/layout/SidebarLayout';
 import BillCard from 'components/BillCard';
-import statusMap from 'components/BillCard/statusMap';
 
 const routes = [
   { label: 'Inicio', route: '/' },
@@ -21,7 +20,7 @@ const comisionOptions = [
 ];
 
 const estadoOptions = ['En comisión', 'En comisión2'];
-export default function Bills() {
+export default function Bills({ bills }) {
   return (
     <SidebarLayout>
       <Breadcrumb routes={routes} />
@@ -87,10 +86,45 @@ export default function Bills() {
         </CUI.Grid>
       </CUI.Stack>
       <CUI.Stack spacing="4">
-        {Object.keys(statusMap).map(status => (
-          <BillCard key={status} status={status} />
-        ))}
+        {bills.map(
+          ({
+            id,
+            last_status,
+            authorship,
+            title,
+            last_committee,
+            presentation_date,
+          }) => (
+            <BillCard
+              key={id}
+              authorship={authorship.map(
+                ({
+                  congressperson: {
+                    congressperson_slug,
+                    id_name,
+                    id_first_surname,
+                    id_second_surname,
+                  },
+                }) => ({
+                  slug: congressperson_slug,
+                  name: `${id_name} ${id_first_surname} ${id_second_surname}`,
+                }),
+              )}
+              billId={id}
+              billTitle={title}
+              committeeName={last_committee ?? ''}
+              publicationDate={presentation_date}
+              status={last_status ?? ''}
+            />
+          ),
+        )}
       </CUI.Stack>
     </SidebarLayout>
   );
 }
+
+export const getStaticProps = () =>
+  fetch(`${process.env.api}bill`)
+    .then(data => data.json())
+    .then(data => ({ props: { bills: data.data } }))
+    .catch(error => ({ props: { error: error.toString() } }));
