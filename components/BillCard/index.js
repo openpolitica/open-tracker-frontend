@@ -53,18 +53,23 @@ const BillCard = ({
         </CUI.Text>
       </CUI.Flex>
       <CUI.Flex mb="4" fontSize="sm">
-        <CUI.Text fontWeight="bold" mr="1">
-          Autores:
-        </CUI.Text>
-        {authorship.map(author => (
-          <NextCUILink
-            key={author.slug}
-            href={`/congresistas/${author.slug}`}
-            color="primary.500"
-            mr="1">
-            {capitalizeNames(author.name)}
-          </NextCUILink>
-        ))}
+        {authorship.length > 0 ? (
+          <CUI.Text fontWeight="bold" mr="1">
+            Autores:
+          </CUI.Text>
+        ) : null}
+        {authorship.length > 0
+          ? authorship.map((author, index) => (
+              <NextCUILink
+                key={author.slug}
+                href={`/congresistas/${author.slug}`}
+                color="primary.500"
+                mr="1">
+                {capitalizeNames(author.name)}
+                {index + 1 !== authorship.length ? ', ' : ''}
+              </NextCUILink>
+            ))
+          : null}
       </CUI.Flex>
       <CUI.Button
         as="a"
