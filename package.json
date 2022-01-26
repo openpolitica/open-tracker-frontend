@@ -15,7 +15,7 @@
     "optimize:svg": "node ./scripts/optimize-svg.js"
   },
   "lint-staged": {
-    "*.{js,jsx,css}": [
+    "*.{js|jsx|json}": [
       "npm run lint:fix",
       "npm run test",
       "git add"

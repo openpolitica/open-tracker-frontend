@@ -1,6 +1,7 @@
 export const BreadcrumbStyles = {
   parts: ['container'],
-  baseStyle: {
+
+          baseStyle: {
     container: {
       bg: 'secondary.50',
       borderRadius: '4px',
