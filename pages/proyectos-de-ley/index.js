@@ -4,26 +4,38 @@ import Breadcrumb from 'components/Breadcrumb';
 import SidebarLayout from 'components/layout/SidebarLayout';
 import BillCard from 'components/BillCard';
 import Pagination from 'components/Pagination';
+import { useQuery } from 'react-query';
 
 const routes = [
   { label: 'Inicio', route: '/' },
   { label: 'Proyectos de ley', route: '/proyectos-de-ley' },
 ];
 
+const useCommittees = () => {
+  const response = useQuery({
+    queryKey: 'committees',
+    queryFn: async () =>
+      fetch(`${process.env.api}committee`).then(res => res.json()),
+  });
+  return {
+    ...response,
+    isCommitteesLoading: response.isLoading,
+    isCommitteesSuccess: response.isSuccess,
+    committees: response.data?.data ?? [],
+  };
+};
+
 // TODO: remove placeholders
 const legislaturaOptions = [
   'Julio 2021 - Diciembre 2022',
   'junio 2021 - Octubre 2022',
 ];
-
-const comisionOptions = [
-  'Defensa del Consumidor...',
-  'Defensa del Consumidor2...',
-];
-
 const estadoOptions = ['En comisión', 'En comisión2'];
 
 export default function Bills({ bills, metadata }) {
+  const { isCommitteesLoading, isCommitteesSuccess, committees } =
+    useCommittees();
+
   return (
     <SidebarLayout>
       <Breadcrumb routes={routes} />
@@ -52,6 +64,7 @@ export default function Bills({ bills, metadata }) {
         </CUI.Text>
         <CUI.Grid
           templateColumns="repeat(auto-fill, minmax(15.25rem, 1fr))"
+          alignItems="center"
           gap="6">
           <CUI.FormControl id="legislature">
             <CUI.FormLabel fontWeight="bold">
@@ -65,18 +78,29 @@ export default function Bills({ bills, metadata }) {
               ))}
             </CUI.Select>
           </CUI.FormControl>
-          <CUI.FormControl id="comission">
-            <CUI.FormLabel fontWeight="bold">
-              Filtrar por comisión
-            </CUI.FormLabel>
-            <CUI.Select placeholder="Select option" bg="#fff" fontSize="sm">
-              {comisionOptions.map((item, i) => (
-                <option key={i} value={item}>
-                  {item}
-                </option>
-              ))}
-            </CUI.Select>
-          </CUI.FormControl>
+          {isCommitteesLoading ? (
+            <CUI.Box textAlign="center">
+              <CUI.Spinner color="white" />
+            </CUI.Box>
+          ) : (
+            isCommitteesSuccess && (
+              <CUI.FormControl id="comission">
+                <CUI.FormLabel fontWeight="bold">
+                  Filtrar por comisión
+                </CUI.FormLabel>
+
+                <CUI.Select placeholder="Select option" bg="#fff" fontSize="sm">
+                  {committees.map(committee => (
+                    <option
+                      key={committee.committee_id}
+                      value={committee.committee_id}>
+                      {committee.committee_short_name}
+                    </option>
+                  ))}
+                </CUI.Select>
+              </CUI.FormControl>
+            )
+          )}
           <CUI.FormControl id="status">
             <CUI.FormLabel fontWeight="bold">Estado</CUI.FormLabel>
             <CUI.Select placeholder="Select option" bg="#fff" fontSize="sm">
