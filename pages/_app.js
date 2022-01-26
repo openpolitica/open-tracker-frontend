@@ -6,6 +6,9 @@ import useHotjar from 'react-use-hotjar';
 import theme from 'theme';
 import Fonts from 'theme/fonts';
 import { pageview } from 'lib/gtag';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 function Tracker({ Component, pageProps }) {
   const router = useRouter();
@@ -25,10 +28,12 @@ function Tracker({ Component, pageProps }) {
       <Head>
         <title>Tuku.pe</title>
       </Head>
-      <ChakraProvider resetCSS theme={theme}>
-        <Fonts />
-        <Component {...pageProps} />
-      </ChakraProvider>
+      <QueryClientProvider client={queryClient}>
+        <ChakraProvider resetCSS theme={theme}>
+          <Fonts />
+          <Component {...pageProps} />
+        </ChakraProvider>
+      </QueryClientProvider>
     </Fragment>
   );
 }

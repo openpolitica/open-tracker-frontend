@@ -2,7 +2,7 @@ import { useCombobox } from 'downshift';
 import React from 'react';
 import * as CUI from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import useSWR from 'swr';
+import { useQuery } from 'react-query';
 import { CongresspersonSmallCard, ParliamentaryGroupSmallCard } from './Cards';
 import { capitalizeNames, getLogoByPGSlug, useDebounce } from 'utils';
 import SearchIcon from '/public/images/icons/search.svg';
@@ -15,7 +15,6 @@ export default function OmniSearch() {
   const debouncedSetQuery = useDebounce(setQuery, debounceInputDelayMs);
   const router = useRouter();
   const [isLargerThan48em] = CUI.useMediaQuery('(min-width: 48em)');
-
   const {
     isLoading: isLoadingRequest,
     error,
@@ -182,11 +181,6 @@ export default function OmniSearch() {
   );
 }
 
-async function fetcher(...args) {
-  const res = await fetch(...args);
-  return res.json();
-}
-
 const flattenGroupOptions = options =>
   options.reduce((prev, curr) => {
     return [...prev, ...curr.options];
@@ -198,16 +192,18 @@ const getFullNameCongressperson = congressperson =>
   );
 
 const useGlobalSearchResults = ({ query = '' } = {}) => {
-  const { data, error } = useSWR(
-    query ? `${process.env.api}search?query=${query}` : null,
-    fetcher,
-  );
+  const response = useQuery({
+    queryKey: ['query', query],
+    queryFn: async () =>
+      fetch(`${process.env.api}search?query=${query}`).then(res => res.json()),
+    config: {
+      enabled: !!query,
+    },
+  });
   return {
-    parliamentaryGroups: data?.data?.parliamentary_group,
-    congresspeople: data?.data?.congressperson,
-    isLoading: !data & !error,
-    error,
-    isSuccess: data && !error,
+    ...response,
+    parliamentaryGroups: response.data?.data?.parliamentary_group ?? [],
+    congresspeople: response.data?.data?.congressperson ?? [],
   };
 };
 
