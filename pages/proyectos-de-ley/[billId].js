@@ -8,7 +8,7 @@ import { applyPeruCapitalizations } from 'utils/applyCountryCapitalizations';
 import NextCUILink from 'components/NextCUILink';
 import { capitalizeNames } from 'utils';
 import TimeIcon from 'public/images/icons/time.svg';
-import ExternalLink from 'public/images/icons/link.svg';
+import ExternalLink from 'public/images/icons/small-link.svg';
 
 //TODO: remove placeholders
 export default function Bills({
