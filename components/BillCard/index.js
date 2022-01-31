@@ -30,7 +30,9 @@ const BillCard = ({
       <CUI.HStack spacing="2" mb="2">
         <CUI.Tag>{upperCaseFirstLetter(committeeName)}</CUI.Tag>
         <CUI.Tag variant={statusMap[status]?.variant}>
-          {upperCaseFirstLetter(applyPeruCapitalizations(status))}
+          {upperCaseFirstLetter(
+            applyPeruCapitalizations(status.bill_status_slug),
+          )}
         </CUI.Tag>
       </CUI.HStack>
       <CUI.Text fontSize="md" mb="4">
