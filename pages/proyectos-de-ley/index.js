@@ -1,4 +1,5 @@
 import * as CUI from '@chakra-ui/react';
+import last from 'lodash.last';
 import Breadcrumb from 'components/Breadcrumb';
 import SidebarLayout from 'components/layout/SidebarLayout';
 import BillCard from 'components/BillCard';
@@ -96,6 +97,7 @@ export default function Bills({ bills, metadata }) {
             title,
             last_committee,
             presentation_date,
+            tracking,
           }) => (
             <BillCard
               key={id}
@@ -114,9 +116,10 @@ export default function Bills({ bills, metadata }) {
               )}
               billId={id}
               billTitle={title}
-              committeeName={last_committee ?? ''}
+              committeeName={last_committee ?? void 0}
               publicationDate={presentation_date}
               status={last_status ?? ''}
+              lastUpdate={last(tracking).date}
             />
           ),
         )}

@@ -14,10 +14,10 @@ const BillCard = ({
   ],
   billId = '1234',
   billTitle = 'Ley que propone declarar de interés nacional y necesidad pública incluir en el currículo nacional de la educación básica regular y alternativa la enseñanza del curso de cívica con enfoque en los derechos humanos.',
-  committeeName = 'salud',
+  committeeName = 'Sin comisión',
   lastUpdate = '15/11/2021 - 13:46hrs',
   publicationDate = '15/11/2021',
-  status = 'en comisión',
+  status = { bill_status_slug: 'en comisión' },
 }) => {
   return (
     <CUI.Flex
