@@ -2,6 +2,7 @@ import * as CUI from '@chakra-ui/react';
 import Breadcrumb from 'components/Breadcrumb';
 import SidebarLayout from 'components/layout/SidebarLayout';
 import BillCard from 'components/BillCard';
+import Pagination from 'components/Pagination';
 
 const routes = [
   { label: 'Inicio', route: '/' },
@@ -20,7 +21,8 @@ const comisionOptions = [
 ];
 
 const estadoOptions = ['En comisión', 'En comisión2'];
-export default function Bills({ bills }) {
+
+export default function Bills({ bills, metadata }) {
   return (
     <SidebarLayout>
       <Breadcrumb routes={routes} />
@@ -119,6 +121,7 @@ export default function Bills({ bills }) {
           ),
         )}
       </CUI.Stack>
+      <Pagination numberOfPages={metadata.totalPages} active={1} />
     </SidebarLayout>
   );
 }
@@ -126,5 +129,5 @@ export default function Bills({ bills }) {
 export const getStaticProps = () =>
   fetch(`${process.env.api}bill`)
     .then(data => data.json())
-    .then(data => ({ props: { bills: data.data } }))
+    .then(data => ({ props: { bills: data.data, metadata: data } }))
     .catch(error => ({ props: { error: error.toString() } }));
