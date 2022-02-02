@@ -54,7 +54,7 @@ const BillCard = ({
           {lastUpdate}
         </CUI.Text>
       </CUI.Flex>
-      <CUI.Flex mb="4" fontSize="sm">
+      <CUI.Flex mb="4" fontSize="sm" flexWrap="wrap">
         {authorship.length > 0 ? (
           <CUI.Text fontWeight="bold" mr="1">
             Autores:
