@@ -25,16 +25,28 @@ const useCommittees = () => {
   };
 };
 
+const useLegislatures = () => {
+  const response = useQuery({
+    queryKey: 'legislatures',
+    queryFn: async () =>
+      fetch(`${process.env.api}legislature`).then(res => res.json()),
+  });
+  return {
+    ...response,
+    isLegislaturesLoading: response.isLoading,
+    isLegislaturesSuccess: response.isSuccess,
+    legislatures: response.data?.data ?? [],
+  };
+};
+
 // TODO: remove placeholders
-const legislaturaOptions = [
-  'Julio 2021 - Diciembre 2022',
-  'junio 2021 - Octubre 2022',
-];
 const estadoOptions = ['En comisión', 'En comisión2'];
 
 export default function Bills({ bills, metadata }) {
   const { isCommitteesLoading, isCommitteesSuccess, committees } =
     useCommittees();
+  const { isLegislaturesLoading, isLegislaturesSuccess, legislatures } =
+    useLegislatures();
 
   return (
     <SidebarLayout>
@@ -66,18 +78,27 @@ export default function Bills({ bills, metadata }) {
           templateColumns="repeat(auto-fill, minmax(15.25rem, 1fr))"
           alignItems="center"
           gap="6">
-          <CUI.FormControl id="legislature">
-            <CUI.FormLabel fontWeight="bold">
-              Filtrar por Legislatura
-            </CUI.FormLabel>
-            <CUI.Select placeholder="Select option" bg="#fff" fontSize="sm">
-              {legislaturaOptions.map((item, i) => (
-                <option key={i} value={item}>
-                  {item}
-                </option>
-              ))}
-            </CUI.Select>
-          </CUI.FormControl>
+          {isLegislaturesLoading ? (
+            <CUI.Box textAlign="center">
+              <CUI.Spinner color="white" />
+            </CUI.Box>
+          ) : isLegislaturesSuccess && legislatures.length ? (
+            <CUI.FormControl id="legislature">
+              <CUI.FormLabel fontWeight="bold">
+                Filtrar por Legislatura
+              </CUI.FormLabel>
+              <CUI.Select placeholder="Select option" bg="#fff" fontSize="sm">
+                {legislatures.map(legislature => (
+                  <option
+                    key={legislature.legislature_id}
+                    value={legislature.legislature_id}>
+                    {legislature.legislature_period}
+                  </option>
+                ))}
+              </CUI.Select>
+            </CUI.FormControl>
+          ) : null}
+
           {isCommitteesLoading ? (
             <CUI.Box textAlign="center">
               <CUI.Spinner color="white" />
