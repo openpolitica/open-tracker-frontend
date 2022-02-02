@@ -11,4 +11,8 @@ describe('UpperCase and lowerCase first letter', () => {
       'a text with multiple words.',
     );
   });
+  it(`fails silently when an empty string is being passed`, () => {
+    expect(upperCaseFirstLetter('')).toBe('');
+    expect(lowerCaseFirstLetter('')).toBe('');
+  });
 });
