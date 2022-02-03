@@ -6,8 +6,8 @@ import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
 
 const PagButton = props => {
   const activeStyle = {
-    bg: CUI.useColorModeValue('primary.500', 'primary.400'),
-    color: CUI.useColorModeValue('white', 'secondary.200'),
+    bg: 'primary.500',
+    color: 'secondary.200',
   };
   return (
     <CUI.chakra.button
@@ -15,8 +15,8 @@ const PagButton = props => {
       px={4}
       py={2}
       rounded="md"
-      bg={CUI.useColorModeValue('white', 'gray.800')}
-      color={CUI.useColorModeValue('gray.700', 'gray.200')}
+      bg="white"
+      color="secondary.700"
       opacity={props.disabled && 0.6}
       _hover={!props.disabled && activeStyle}
       cursor={props.disabled && 'not-allowed'}
@@ -33,7 +33,7 @@ const MButton = props => {
     <CUI.chakra.a
       w={8}
       py={2}
-      color={CUI.useColorModeValue('primary.700', 'primary.200')}
+      color="primary.700"
       onMouseOver={() => setHovered(true)}
       onMouseOut={() => setHovered(false)}
       cursor="pointer"
@@ -43,12 +43,12 @@ const MButton = props => {
           as={DoubleArrow}
           boxSize={3}
           cursor="pointer"
-          color={CUI.useColorModeValue('primary.800', 'primary.700')}
+          color="primary.800"
         />
       ) : (
         <CUI.Icon
           as={HiDotsHorizontal}
-          color={CUI.useColorModeValue('primary.100', 'primary.200')}
+          color="primary.100"
           boxSize={4}
           opacity={0.5}
         />
@@ -60,18 +60,14 @@ const MButton = props => {
 export default function Pagination({ numberOfPages = 50, active = 7 }) {
   return (
     <CUI.Flex
-      bg={CUI.useColorModeValue('#F9FAFB', 'gray.600')}
+      bg="secondary.50"
       p={50}
       w="full"
       alignItems="center"
       justifyContent="center">
       <CUI.Flex>
         <PagButton>
-          <CUI.Icon
-            as={IoIosArrowBack}
-            color={CUI.useColorModeValue('gray.700', 'gray.200')}
-            boxSize={4}
-          />
+          <CUI.Icon as={IoIosArrowBack} color="secondary.700" boxSize={4} />
         </PagButton>
         {active !== 1 ? <PagButton>1</PagButton> : null}
         {active - 1 > 1 ? <MButton left /> : null}
@@ -89,11 +85,7 @@ export default function Pagination({ numberOfPages = 50, active = 7 }) {
           <PagButton>{numberOfPages}</PagButton>
         ) : null}
         <PagButton>
-          <CUI.Icon
-            as={IoIosArrowForward}
-            color={CUI.useColorModeValue('gray.700', 'gray.200')}
-            boxSize={4}
-          />
+          <CUI.Icon as={IoIosArrowForward} color="secondary.700" boxSize={4} />
         </PagButton>
       </CUI.Flex>
     </CUI.Flex>
