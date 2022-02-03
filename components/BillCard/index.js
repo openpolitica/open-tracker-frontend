@@ -18,6 +18,7 @@ const BillCard = ({
   lastUpdate = '15/11/2021 - 13:46hrs',
   publicationDate = '15/11/2021',
   status = { bill_status_slug: 'en comisión' },
+  as,
 }) => {
   return (
     <CUI.Flex
@@ -26,7 +27,8 @@ const BillCard = ({
       backgroundColor="white"
       border="1px"
       borderColor="secondary.200"
-      borderRadius="4px">
+      borderRadius="4px"
+      as={as}>
       <CUI.HStack spacing="2" mb="2">
         <CUI.Tag>{upperCaseFirstLetter(committeeName)}</CUI.Tag>
         <CUI.Tag variant={statusMap[status]?.variant}>

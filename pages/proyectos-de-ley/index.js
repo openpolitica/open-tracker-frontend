@@ -88,7 +88,7 @@ export default function Bills({ bills, metadata }) {
           </CUI.FormControl>
         </CUI.Grid>
       </CUI.Stack>
-      <CUI.Stack spacing="4">
+      <CUI.List spacing="4">
         {bills.map(
           ({
             id,
@@ -120,10 +120,11 @@ export default function Bills({ bills, metadata }) {
               publicationDate={presentation_date}
               status={last_status ?? ''}
               lastUpdate={last(tracking).date}
+              as={CUI.ListItem}
             />
           ),
         )}
-      </CUI.Stack>
+      </CUI.List>
       <Pagination numberOfPages={metadata.totalPages} active={1} />
     </SidebarLayout>
   );
