@@ -57,26 +57,21 @@ const BillCard = ({
           {lastUpdate}
         </CUI.Text>
       </CUI.Flex>
-      <CUI.Flex mb="4" fontSize="sm" flexWrap="wrap">
-        {authorship.length > 0 ? (
-          <CUI.Text fontWeight="bold" mr="1">
-            Autores:
-          </CUI.Text>
-        ) : null}
-        {authorship.length > 0
-          ? authorship.map((author, idx) => (
+      {authorship.length > 0 ? (
+        <CUI.Flex mb="4" fontSize="sm" flexWrap="wrap">
+          <CUI.Text fontWeight="bold">Autores:</CUI.Text>
+          <CUI.Box color="primary.500">
+            {authorship.map((author, idx) => (
               <Fragment key={author.slug}>
-                <NextCUILink
-                  href={`/congresistas/${author.slug}`}
-                  color="primary.500"
-                  mr="1">
+                <NextCUILink href={`/congresistas/${author.slug}`} ml="1">
                   {capitalizeNames(author.name)}
                 </NextCUILink>
-                {authorship.length - 1 === idx ? null : ', '}
+                {authorship.length - 1 === idx ? null : ','}
               </Fragment>
-            ))
-          : null}
-      </CUI.Flex>
+            ))}
+          </CUI.Box>
+        </CUI.Flex>
+      ) : null}
       <CUI.Button
         as="a"
         href={`/proyectos-de-ley/${billId}`}

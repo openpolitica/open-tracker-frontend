@@ -69,21 +69,24 @@ export default function Bill({
                 {publicationDate}
               </CUI.Text>
             </CUI.Box>
-            <CUI.Box mb="4">
-              <Label>Autores</Label>
-              <CUI.Box color="primary.500" as="dd">
-                {authors.map((author, idx) => (
-                  <Fragment key={author.slug}>
-                    <NextCUILink
-                      href={`/congresistas/${author.slug}`}
-                      fontSize="md">
-                      {capitalizeNames(author.name)}
-                    </NextCUILink>
-                    {authors.length - 1 === idx ? null : ', '}
-                  </Fragment>
-                ))}
+            {authors.length ? (
+              <CUI.Box mb="4">
+                <Label>Autores</Label>
+                <CUI.Box color="primary.500" as="dd">
+                  {authors.map((author, idx) => (
+                    <Fragment key={author.slug}>
+                      <NextCUILink
+                        href={`/congresistas/${author.slug}`}
+                        fontSize="md"
+                        ml="1">
+                        {capitalizeNames(author.name)}
+                      </NextCUILink>
+                      {authors.length - 1 === idx ? null : ','}
+                    </Fragment>
+                  ))}
+                </CUI.Box>
               </CUI.Box>
-            </CUI.Box>
+            ) : null}
             <CUI.Box mb="4">
               <Label>Co-Autores</Label>
               <CUI.Box color="primary.500" as="dd">
