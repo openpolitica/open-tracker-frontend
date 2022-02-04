@@ -11,7 +11,7 @@ import TimeIcon from 'public/images/icons/time.svg';
 import ExternalLink from 'public/images/icons/small-link.svg';
 
 //TODO: remove placeholders
-export default function Bills({
+export default function Bill({
   authors = [
     { slug: 'congressperson-slug-1', name: 'congressperon slug 1' },
     { slug: 'congressperson-slug-2', name: 'congressperon slug 2' },
