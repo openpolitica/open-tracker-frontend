@@ -126,19 +126,21 @@ export default function Bills({ bills, metadata }) {
           }) => (
             <BillCard
               key={id}
-              authorship={authorship.map(
-                ({
-                  congressperson: {
-                    congressperson_slug,
-                    id_name,
-                    id_first_surname,
-                    id_second_surname,
-                  },
-                }) => ({
-                  slug: congressperson_slug,
-                  name: `${id_name} ${id_first_surname} ${id_second_surname}`,
-                }),
-              )}
+              authorship={authorship
+                .filter(author => author.authorship_type === 'AUTOR')
+                .map(
+                  ({
+                    congressperson: {
+                      congressperson_slug,
+                      id_name,
+                      id_first_surname,
+                      id_second_surname,
+                    },
+                  }) => ({
+                    slug: congressperson_slug,
+                    name: `${id_name} ${id_first_surname} ${id_second_surname}`,
+                  }),
+                )}
               billId={id}
               billTitle={title}
               committeeName={last_committee ?? void 0}
