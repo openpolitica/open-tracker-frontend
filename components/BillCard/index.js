@@ -73,11 +73,15 @@ const BillCard = ({
         </CUI.Flex>
       ) : null}
       <CUI.Button
-        as="a"
+        as={NextCUILink}
         href={`/proyectos-de-ley/${billId}`}
         mt="auto"
         variant="outline"
         size="sm"
+        _hover={{
+          textDecoration: 'none',
+          bg: 'secondary.100',
+        }}
         w="24">
         Ver detalle
       </CUI.Button>

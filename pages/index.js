@@ -4,6 +4,7 @@ import SidebarLayout from 'components/layout/SidebarLayout';
 import ListOfCongresspeople from 'components/ListOfCongresspeople';
 import BillCard from 'components/BillCard';
 import { getLogoByPGSlug, groupByKey } from 'utils';
+import NextCUILink from 'components/NextCUILink';
 
 export default function Home({ congresspeople }) {
   return (
@@ -53,12 +54,16 @@ export default function Home({ congresspeople }) {
           estado en el que se encuentran y sus respectivos autores.
         </CUI.Text>
         <CUI.Button
-          as="a"
+          as={NextCUILink}
           variant="solid"
           href="/proyectos-de-ley"
           mb="6"
           rightIcon={<ArrowForwardIcon />}
-          size="sm">
+          size="sm"
+          _hover={{
+            textDecoration: 'none',
+            bg: 'primary.600',
+          }}>
           Explorar los proyectos
         </CUI.Button>
         <CUI.Text
