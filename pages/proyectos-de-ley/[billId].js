@@ -9,28 +9,59 @@ import NextCUILink from 'components/NextCUILink';
 import { capitalizeNames } from 'utils';
 import TimeIcon from 'public/images/icons/time.svg';
 import ExternalLink from 'public/images/icons/small-link.svg';
+import last from 'lodash.last';
 
-//TODO: remove placeholders
-export default function Bill({
-  authors = [
-    { slug: 'congressperson-slug-1', name: 'congressperon slug 1' },
-    { slug: 'congressperson-slug-2', name: 'congressperon slug 2' },
-  ],
-  coauthors = [
-    { slug: 'congressperson-slug-1', name: 'congressperon slug 1' },
-    { slug: 'congressperson-slug-2', name: 'congressperon slug 2' },
-  ],
-  billId = '1234',
-  billTitle = 'Ley que propone declarar de interés nacional y necesidad pública incluir en el currículo nacional de la educación básica regular y alternativa la enseñanza del curso de cívica con enfoque en los derechos humanos.',
-  committeeName = 'salud',
-  lastUpdate = '15/11/2021 - 13:46hrs',
-  publicationDate = '15/11/2021',
-  status = 'en comisión',
-}) {
+export default function Bill({ bill }) {
+  const {
+    id,
+    last_status,
+    authorship,
+    title,
+    last_committee,
+    presentation_date,
+    tracking,
+  } = bill;
+
+  const publicationDate = presentation_date;
+  const lastUpdate = last(tracking).date;
+
+  const authors = authorship
+    .filter(author => author.authorship_type === 'AUTOR')
+    .map(
+      ({
+        congressperson: {
+          congressperson_slug,
+          id_name,
+          id_first_surname,
+          id_second_surname,
+        },
+      }) => ({
+        slug: congressperson_slug,
+        name: `${id_name} ${id_first_surname} ${id_second_surname}`,
+      }),
+    );
+  const coauthors = authorship
+    .filter(author => author.authorship_type === 'COAUTOR')
+    .map(
+      ({
+        congressperson: {
+          congressperson_slug,
+          id_name,
+          id_first_surname,
+          id_second_surname,
+        },
+      }) => ({
+        slug: congressperson_slug,
+        name: `${id_name} ${id_first_surname} ${id_second_surname}`,
+      }),
+    );
+
+  const status = last_status.bill_status_name;
+  const committeeName = last_committee?.name ?? 'Sin comisión';
   const routes = [
     { label: 'Inicio', route: '/' },
     { label: 'Proyectos de ley', route: '/proyectos-de-ley' },
-    { label: `Proyecto ${billId}`, route: '#' },
+    { label: `Proyecto ${id}`, route: '#' },
   ];
   return (
     <SidebarLayout>
@@ -43,7 +74,7 @@ export default function Bill({
           </CUI.Tag>
         </CUI.HStack>
         <CUI.Text maxW="56rem" fontSize="xl" mb="4">
-          {billTitle}
+          {title}
         </CUI.Text>
         <CUI.Box
           bg="secondary.50"
@@ -77,11 +108,10 @@ export default function Bill({
                     <Fragment key={author.slug}>
                       <NextCUILink
                         href={`/congresistas/${author.slug}`}
-                        fontSize="md"
-                        ml="1">
+                        fontSize="md">
                         {capitalizeNames(author.name)}
                       </NextCUILink>
-                      {authors.length - 1 === idx ? null : ','}
+                      {authors.length - 1 === idx ? null : ', '}
                     </Fragment>
                   ))}
                 </CUI.Box>
@@ -120,7 +150,10 @@ export default function Bill({
                 as={ExternalLink}
               />
               <CUI.Text as="dd">
-                <NextCUILink href="#" color="primary.500" isExternal>
+                <NextCUILink
+                  href={bill.file_url}
+                  color="primary.500"
+                  isExternal>
                   Ver proyecto de ley en el portal del congreso
                 </NextCUILink>
               </CUI.Text>
@@ -153,4 +186,37 @@ const Label = ({ children }) => {
       {children}
     </CUI.Text>
   );
+};
+
+export const getStaticPaths = async () => {
+  const response = await fetch(`${process.env.api}bill`);
+
+  const data = await response.json();
+  const paths = data.data.map(bill => ({
+    params: {
+      billId: bill.id,
+    },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps = async ({ params }) => {
+  const billId = params?.billId;
+  try {
+    const response = await fetch(`${process.env.api}bill/${billId}`);
+    const data = await response.json();
+    const bill = data.data;
+    if (!bill) {
+      return { notFound: true };
+    }
+    return {
+      props: { bill },
+    };
+  } catch {
+    return { notFound: true };
+  }
 };
