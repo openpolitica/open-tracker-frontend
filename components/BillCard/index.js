@@ -59,14 +59,16 @@ const BillCard = ({
       </CUI.Flex>
       {authorship.length > 0 ? (
         <CUI.Flex mb="4" fontSize="sm" flexWrap="wrap">
-          <CUI.Text fontWeight="bold">Autores:</CUI.Text>
+          <CUI.Text fontWeight="bold" mr="1">
+            Autores:
+          </CUI.Text>
           <CUI.Box color="primary.500">
             {authorship.map((author, idx) => (
               <Fragment key={author.slug}>
-                <NextCUILink href={`/congresistas/${author.slug}`} ml="1">
+                <NextCUILink href={`/congresistas/${author.slug}`}>
                   {capitalizeNames(author.name)}
                 </NextCUILink>
-                {authorship.length - 1 === idx ? null : ','}
+                {authorship.length - 1 === idx ? null : ', '}
               </Fragment>
             ))}
           </CUI.Box>
