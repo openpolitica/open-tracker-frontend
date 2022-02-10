@@ -3,8 +3,8 @@ import last from 'lodash.last';
 import Breadcrumb from 'components/Breadcrumb';
 import SidebarLayout from 'components/layout/SidebarLayout';
 import BillCard from 'components/BillCard';
-import Pagination from 'components/Pagination';
-import { useQuery } from 'react-query';
+import { useInfiniteQuery, useQuery } from 'react-query';
+import { useEffect } from 'react';
 
 const routes = [
   { label: 'Inicio', route: '/' },
@@ -39,14 +39,63 @@ const useLegislatures = () => {
   };
 };
 
+const ITEMS_PER_PAGE = 10;
+
+const useInfiniteBills = () => {
+  const response = useInfiniteQuery(
+    'bills',
+    ({ pageParam = 1 }) =>
+      fetch(
+        `${process.env.api}bill?page=${pageParam}&pageSize=${ITEMS_PER_PAGE}`,
+      ).then(res => res.json()),
+    {
+      getNextPageParam: (lastPage, allPages) => {
+        const nextPage = allPages.length + 1;
+        return nextPage <= lastPage.totalPages ? nextPage : undefined;
+      },
+    },
+  );
+
+  return {
+    ...response,
+    isBillsLoading: response.isLoading,
+    isBillsSuccess: response.isSuccess,
+    bills: response.data,
+  };
+};
+
 // TODO: remove placeholders
 const estadoOptions = ['En comisión', 'En comisión2'];
 
-export default function Bills({ bills, metadata }) {
+export default function Bills() {
   const { isCommitteesLoading, isCommitteesSuccess, committees } =
     useCommittees();
   const { isLegislaturesLoading, isLegislaturesSuccess, legislatures } =
     useLegislatures();
+  const {
+    isBillsLoading,
+    isFetchingNextPage,
+    isBillsSuccess,
+    bills,
+    hasNextPage,
+    fetchNextPage,
+  } = useInfiniteBills();
+
+  useEffect(() => {
+    let fetching = false;
+    const onScroll = async event => {
+      const { scrollHeight, scrollTop, clientHeight } =
+        event.target.scrollingElement;
+
+      if (!fetching && scrollHeight - scrollTop <= clientHeight * 1.5) {
+        fetching = true;
+        if (hasNextPage) await fetchNextPage();
+        fetching = false;
+      }
+    };
+    document.addEventListener('scroll', onScroll);
+    return () => document.removeEventListener('scroll', onScroll);
+  }, [fetchNextPage, hasNextPage]);
 
   return (
     <SidebarLayout>
@@ -134,52 +183,70 @@ export default function Bills({ bills, metadata }) {
           </CUI.FormControl>
         </CUI.Grid>
       </CUI.Stack>
+      {isBillsLoading ? <BillsSkeleton /> : null}
       <CUI.List spacing="4">
-        {bills.map(
-          ({
-            id,
-            last_status,
-            authorship,
-            title,
-            last_committee,
-            presentation_date,
-            tracking,
-          }) => (
-            <BillCard
-              key={id}
-              authorship={authorship
-                .filter(author => author.authorship_type === 'AUTOR')
-                .map(
-                  ({
-                    congressperson: {
-                      congressperson_slug,
-                      id_name,
-                      id_first_surname,
-                      id_second_surname,
-                    },
-                  }) => ({
-                    slug: congressperson_slug,
-                    name: `${id_name} ${id_first_surname} ${id_second_surname}`,
-                  }),
-                )}
-              billId={id}
-              billTitle={title}
-              committeeName={last_committee ?? void 0}
-              publicationDate={presentation_date}
-              status={last_status ?? ''}
-              lastUpdate={last(tracking).date}
-              as={CUI.ListItem}
-            />
-          ),
-        )}
+        {isBillsSuccess &&
+          bills.pages.map(page =>
+            page.data.map(
+              ({
+                id,
+                last_status,
+                authorship,
+                title,
+                last_committee,
+                presentation_date,
+                tracking,
+              }) => (
+                <BillCard
+                  key={id}
+                  authorship={authorship
+                    .filter(author => author.authorship_type === 'AUTOR')
+                    .map(
+                      ({
+                        congressperson: {
+                          congressperson_slug,
+                          id_name,
+                          id_first_surname,
+                          id_second_surname,
+                        },
+                      }) => ({
+                        slug: congressperson_slug,
+                        name: `${id_name} ${id_first_surname} ${id_second_surname}`,
+                      }),
+                    )}
+                  billId={id}
+                  billTitle={title}
+                  committeeName={last_committee?.name}
+                  publicationDate={presentation_date}
+                  status={last_status}
+                  lastUpdate={last(tracking).date}
+                  as={CUI.ListItem}
+                />
+              ),
+            ),
+          )}
+        {isFetchingNextPage ? (
+          <CUI.Box textAlign="center">
+            <CUI.Spinner color="secondary" />
+          </CUI.Box>
+        ) : null}
       </CUI.List>
-      <Pagination numberOfPages={metadata.totalPages} active={1} />
     </SidebarLayout>
   );
 }
 
-export const getStaticProps = () =>
-  fetch(`${process.env.api}bill`)
-    .then(data => data.json())
-    .then(data => ({ props: { bills: data.data, metadata: data } }))
-    .catch(error => ({ props: { error: error.toString() } }));
+function BillsSkeleton() {
+  return (
+    <CUI.Stack w="full" mt="3" spacing="4">
+      {Array.from({ length: 3 }).map((_, idx) => (
+        <CUI.Skeleton
+          key={idx}
+          startColor="secondary.100"
+          endColor="secondary.300"
+          width="full"
+          height="209"
+        />
+      ))}
+    </CUI.Stack>
+  );
+}
