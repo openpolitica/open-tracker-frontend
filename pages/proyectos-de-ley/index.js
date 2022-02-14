@@ -1,9 +1,11 @@
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import * as CUI from '@chakra-ui/react';
 import last from 'lodash.last';
+import isInteger from 'lodash.isinteger';
 import Breadcrumb from 'components/Breadcrumb';
 import SidebarLayout from 'components/layout/SidebarLayout';
 import BillCard from 'components/BillCard';
-import Pagination from 'components/Pagination';
 import { useQuery } from 'react-query';
 
 const routes = [
@@ -42,11 +44,56 @@ const useLegislatures = () => {
 // TODO: remove placeholders
 const estadoOptions = ['En comisión', 'En comisión2'];
 
+const routeName = 'proyectos-de-ley';
+const isAValidPageNumber = (numberOfPages, pageNumber) => {
+  if (isNaN(+pageNumber)) {
+    return false;
+  }
+  if (
+    isInteger(+pageNumber) &&
+    +pageNumber >= 0 &&
+    +pageNumber <= numberOfPages
+  ) {
+    return true;
+  }
+  return false;
+};
+
 export default function Bills({ bills, metadata }) {
+  const router = useRouter();
+  const [apiError, setApiError] = useState(null);
+  const [pageSubset, setPageSubset] = useState(bills);
+  const [paginationFilter, setPaginationFilter] = useState(null);
   const { isCommitteesLoading, isCommitteesSuccess, committees } =
     useCommittees();
   const { isLegislaturesLoading, isLegislaturesSuccess, legislatures } =
     useLegislatures();
+
+  useEffect(() => {
+    if (paginationFilter === '') {
+      router.push(routeName, undefined, { shallow: true });
+      return;
+    }
+    if (paginationFilter) {
+      router.push(`${routeName}/?pagina=${paginationFilter}`, undefined, {
+        shallow: true,
+      });
+    }
+  }, [paginationFilter]);
+
+  useEffect(() => {
+    if (isAValidPageNumber(metadata.totalPages, router.query.pagina)) {
+      setPaginationFilter(router.query.pagina);
+      fetch(`${process.env.api}bill?page=${router.query.pagina}`)
+        .then(data => data.json())
+        .then(data => {
+          setPageSubset(data.data);
+        })
+        .catch(error => {
+          setApiError(error.toString());
+        });
+    }
+  }, [router.query.pagina]);
 
   return (
     <SidebarLayout>
@@ -135,7 +182,8 @@ export default function Bills({ bills, metadata }) {
         </CUI.Grid>
       </CUI.Stack>
       <CUI.List spacing="4">
-        {bills.map(
+        {apiError && <CUI.Text fontSize="md">Hubo un error</CUI.Text>}
+        {pageSubset.map(
           ({
             id,
             last_status,
@@ -173,7 +221,24 @@ export default function Bills({ bills, metadata }) {
           ),
         )}
       </CUI.List>
-      <Pagination numberOfPages={metadata.totalPages} active={1} />
+      <CUI.FormControl id="legislature">
+        <CUI.Text color="secondary.700" lineHeight="6" mb="2">
+          Cambiar página:
+        </CUI.Text>
+        <CUI.Select
+          onChange={event => setPaginationFilter(event.target.value)}
+          value={paginationFilter ?? ''}
+          w={{ base: 'full', md: '64' }}
+          cursor="pointer">
+          {[...Array(metadata.totalPages).keys()].map(page => {
+            return (
+              <option key={page} value={page}>
+                {page}
+              </option>
+            );
+          })}
+        </CUI.Select>
+      </CUI.FormControl>
     </SidebarLayout>
   );
 }

@@ -55,6 +55,7 @@
     "@emotion/styled": "^11.6.0",
     "downshift": "^6.1.7",
     "framer-motion": "^4.1.17",
+    "lodash.isinteger": "^4.0.4",
     "lodash.last": "^3.0.0",
     "next": "11.0.1",
     "react": "17.0.2",
