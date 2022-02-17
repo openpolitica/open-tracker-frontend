@@ -59,6 +59,32 @@ const isAValidPageNumber = (numberOfPages, pageNumber) => {
   return false;
 };
 
+const PaginationSelect = ({
+  paginationFilter,
+  totalPages,
+  setPaginationFilter,
+  ...props
+}) => (
+  <CUI.FormControl id="pagination" {...props}>
+    <CUI.Select
+      onChange={event => setPaginationFilter(event.target.value)}
+      value={paginationFilter ?? ''}
+      w={{ base: 'full', md: '64' }}
+      cursor="pointer">
+      <option key="no-select" value="">
+        Seleccionar página
+      </option>
+      {[...Array(totalPages).keys()].map(page => {
+        return (
+          <option key={page} value={page}>
+            {page}
+          </option>
+        );
+      })}
+    </CUI.Select>
+  </CUI.FormControl>
+);
+
 export default function Bills({ bills, metadata }) {
   const router = useRouter();
   const [apiError, setApiError] = useState(null);
@@ -181,6 +207,12 @@ export default function Bills({ bills, metadata }) {
           </CUI.FormControl>
         </CUI.Grid>
       </CUI.Stack>
+      <PaginationSelect
+        paginationFilter={paginationFilter}
+        totalPages={metadata.totalPages}
+        setPaginationFilter={setPaginationFilter}
+        mb="4"
+      />
       <CUI.List spacing="4">
         {apiError && <CUI.Text fontSize="md">Hubo un error</CUI.Text>}
         {pageSubset.map(
@@ -221,24 +253,12 @@ export default function Bills({ bills, metadata }) {
           ),
         )}
       </CUI.List>
-      <CUI.FormControl id="legislature">
-        <CUI.Text color="secondary.700" lineHeight="6" mb="2">
-          Cambiar página:
-        </CUI.Text>
-        <CUI.Select
-          onChange={event => setPaginationFilter(event.target.value)}
-          value={paginationFilter ?? ''}
-          w={{ base: 'full', md: '64' }}
-          cursor="pointer">
-          {[...Array(metadata.totalPages).keys()].map(page => {
-            return (
-              <option key={page} value={page}>
-                {page}
-              </option>
-            );
-          })}
-        </CUI.Select>
-      </CUI.FormControl>
+      <PaginationSelect
+        paginationFilter={paginationFilter}
+        totalPages={metadata.totalPages}
+        setPaginationFilter={setPaginationFilter}
+        mt="4"
+      />
     </SidebarLayout>
   );
 }
