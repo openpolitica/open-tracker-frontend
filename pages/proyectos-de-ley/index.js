@@ -142,7 +142,7 @@ export default function Bills() {
                 Filtrar por legislatura
               </CUI.FormLabel>
               <CUI.Select
-                placeholder="Select option"
+                placeholder="Selecciona una opcion"
                 bg="#fff"
                 fontSize="sm"
                 name="legislature"
@@ -168,7 +168,7 @@ export default function Bills() {
                   Filtrar por comisión
                 </CUI.FormLabel>
                 <CUI.Select
-                  placeholder="Select option"
+                  placeholder="Selecciona una opcion"
                   bg="#fff"
                   fontSize="sm"
                   name="committee"
@@ -186,7 +186,7 @@ export default function Bills() {
           )}
           {isBillStatusLoading ? (
             <CUI.Box textAlign="center">
-              <CUI.Spinner color="primary" />
+              <CUI.Spinner color="white" />
             </CUI.Box>
           ) : (
             isBillStatusSuccess && (
@@ -195,7 +195,7 @@ export default function Bills() {
                   Filtrar por estado
                 </CUI.FormLabel>
                 <CUI.Select
-                  placeholder="Select option"
+                  placeholder="Selecciona una opcion"
                   bg="#fff"
                   fontSize="sm"
                   name="billStatus"
@@ -215,7 +215,7 @@ export default function Bills() {
       </CUI.Stack>
       {isBillsLoading ? (
         <CUI.Box textAlign="center">
-          <CUI.Spinner color="white" />
+          <CUI.Spinner color="primary" />
         </CUI.Box>
       ) : isBillsSuccess && bills.length ? (
         <CUI.List spacing="4">
