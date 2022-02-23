@@ -27,6 +27,7 @@ export default function Bill({ bill }) {
 
   const authors = authorship
     .filter(author => author.authorship_type === 'AUTOR')
+    .filter(author => author.congressperson?.congressperson_slug)
     .map(
       ({
         congressperson: {
@@ -42,6 +43,7 @@ export default function Bill({ bill }) {
     );
   const coauthors = authorship
     .filter(author => author.authorship_type === 'COAUTOR')
+    .filter(author => author.congressperson?.congressperson_slug)
     .map(
       ({
         congressperson: {
