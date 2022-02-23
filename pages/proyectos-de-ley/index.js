@@ -1,9 +1,10 @@
+import React from 'react';
 import * as CUI from '@chakra-ui/react';
 import last from 'lodash.last';
 import Breadcrumb from 'components/Breadcrumb';
 import SidebarLayout from 'components/layout/SidebarLayout';
 import BillCard from 'components/BillCard';
-import Pagination from 'components/Pagination';
+// import Pagination from 'components/Pagination';
 import { useQuery } from 'react-query';
 
 const routes = [
@@ -50,13 +51,51 @@ const useBillStatus = () => {
   };
 };
 
-export default function Bills({ bills, metadata }) {
+const getQueryParamsString = params => {
+  return Object.keys(params)
+    .filter(key => params[key])
+    .map(key => `?${key}=${params[key]}`)
+    .join('&');
+};
+
+//TODO: add pagination query and sync filter state with url query
+const useBills = ({ filter, page }) => {
+  const response = useQuery({
+    queryKey: ['bills', filter],
+    queryFn: async () => {
+      const queryParams = getQueryParamsString(filter);
+      const url = `${process.env.api}bill` + queryParams;
+      return fetch(url).then(res => res.json());
+    },
+  });
+  return {
+    isBillsLoading: response.isLoading,
+    isBillsSuccess: response.isSuccess,
+    bills: response.data?.data ?? [],
+  };
+};
+
+export default function Bills() {
+  const [filter, setFilter] = React.useState({
+    committee: '',
+    legislature: '',
+    billStatus: '',
+  });
+
   const { isCommitteesLoading, isCommitteesSuccess, committees } =
     useCommittees();
   const { isLegislaturesLoading, isLegislaturesSuccess, legislatures } =
     useLegislatures();
   const { isBillStatusLoading, isBillStatusSuccess, billStatus } =
     useBillStatus();
+  const { isBillsLoading, isBillsSuccess, bills } = useBills({ filter });
+
+  const handleChange = e => {
+    setFilter({
+      ...filter,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   return (
     <SidebarLayout>
@@ -97,11 +136,16 @@ export default function Bills({ bills, metadata }) {
               <CUI.FormLabel fontWeight="bold">
                 Filtrar por legislatura
               </CUI.FormLabel>
-              <CUI.Select placeholder="Select option" bg="#fff" fontSize="sm">
+              <CUI.Select
+                placeholder="Select option"
+                bg="#fff"
+                fontSize="sm"
+                name="legislature"
+                onChange={handleChange}>
                 {legislatures.map(legislature => (
                   <option
                     key={legislature.legislature_id}
-                    value={legislature.legislature_id}>
+                    value={legislature.legislature_order}>
                     {legislature.legislature_period}
                   </option>
                 ))}
@@ -118,11 +162,16 @@ export default function Bills({ bills, metadata }) {
                 <CUI.FormLabel fontWeight="bold">
                   Filtrar por comisión
                 </CUI.FormLabel>
-                <CUI.Select placeholder="Select option" bg="#fff" fontSize="sm">
+                <CUI.Select
+                  placeholder="Select option"
+                  bg="#fff"
+                  fontSize="sm"
+                  name="committee"
+                  onChange={handleChange}>
                   {committees.map(committee => (
                     <option
                       key={committee.committee_id}
-                      value={committee.committee_id}>
+                      value={committee.committee_slug}>
                       {committee.committee_short_name}
                     </option>
                   ))}
@@ -132,7 +181,7 @@ export default function Bills({ bills, metadata }) {
           )}
           {isBillStatusLoading ? (
             <CUI.Box textAlign="center">
-              <CUI.Spinner color="white" />
+              <CUI.Spinner color="primary" />
             </CUI.Box>
           ) : (
             isBillStatusSuccess && (
@@ -140,12 +189,16 @@ export default function Bills({ bills, metadata }) {
                 <CUI.FormLabel fontWeight="bold">
                   Filtrar por estado
                 </CUI.FormLabel>
-
-                <CUI.Select placeholder="Select option" bg="#fff" fontSize="sm">
+                <CUI.Select
+                  placeholder="Select option"
+                  bg="#fff"
+                  fontSize="sm"
+                  name="billStatus"
+                  onChange={handleChange}>
                   {billStatus.map(status => (
                     <option
                       key={status.bill_status_id}
-                      value={status.bill_status_name}>
+                      value={status.bill_status_slug}>
                       {status.bill_status_name}
                     </option>
                   ))}
@@ -155,52 +208,54 @@ export default function Bills({ bills, metadata }) {
           )}
         </CUI.Grid>
       </CUI.Stack>
-      <CUI.List spacing="4">
-        {bills.map(
-          ({
-            id,
-            last_status,
-            authorship,
-            title,
-            last_committee,
-            presentation_date,
-            tracking,
-          }) => (
-            <BillCard
-              key={id}
-              authorship={authorship
-                .filter(author => author.authorship_type === 'AUTOR')
-                .map(
-                  ({
-                    congressperson: {
-                      congressperson_slug,
-                      id_name,
-                      id_first_surname,
-                      id_second_surname,
-                    },
-                  }) => ({
-                    slug: congressperson_slug,
-                    name: `${id_name} ${id_first_surname} ${id_second_surname}`,
-                  }),
-                )}
-              billId={id}
-              billTitle={title}
-              committeeName={last_committee ?? void 0}
-              publicationDate={presentation_date}
-              status={last_status ?? ''}
-              lastUpdate={last(tracking).date}
-              as={CUI.ListItem}
-            />
-          ),
-        )}
-      </CUI.List>
-      <Pagination numberOfPages={metadata.totalPages} active={1} />
+      {isBillsLoading ? (
+        <CUI.Box textAlign="center">
+          <CUI.Spinner color="white" />
+        </CUI.Box>
+      ) : isBillsSuccess && bills.length ? (
+        <CUI.List spacing="4">
+          {bills.map(
+            ({
+              id,
+              last_status,
+              authorship,
+              title,
+              last_committee,
+              presentation_date,
+              tracking,
+            }) => (
+              <BillCard
+                key={id}
+                authorship={authorship
+                  .filter(author => author.authorship_type === 'AUTOR')
+                  .map(
+                    ({
+                      congressperson: {
+                        congressperson_slug,
+                        id_name,
+                        id_first_surname,
+                        id_second_surname,
+                      },
+                    }) => ({
+                      slug: congressperson_slug,
+                      name: `${id_name} ${id_first_surname} ${id_second_surname}`,
+                    }),
+                  )}
+                billId={id}
+                billTitle={title}
+                committeeName={last_committee ?? void 0}
+                publicationDate={presentation_date}
+                status={last_status ?? ''}
+                lastUpdate={last(tracking).date}
+                as={CUI.ListItem}
+              />
+            ),
+          )}
+        </CUI.List>
+      ) : isBillsSuccess && !bills.length ? (
+        <CUI.Text>No se encontraron resultados</CUI.Text>
+      ) : null}
+      {/* <Pagination numberOfPages={metadata.totalPages} active={1} /> */}
     </SidebarLayout>
   );
 }
-
-export const getStaticProps = () =>
-  fetch(`${process.env.api}bill`)
-    .then(data => data.json())
-    .then(data => ({ props: { bills: data.data, metadata: data } }))
-    .catch(error => ({ props: { error: error.toString() } }));
