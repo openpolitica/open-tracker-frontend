@@ -6,6 +6,7 @@ import SidebarLayout from 'components/layout/SidebarLayout';
 import BillCard from 'components/BillCard';
 // import Pagination from 'components/Pagination';
 import { useQuery } from 'react-query';
+import { useRouter } from 'next/router';
 
 const routes = [
   { label: 'Inicio', route: '/' },
@@ -76,6 +77,10 @@ const useBills = ({ filter, page }) => {
 };
 
 export default function Bills() {
+  const route = useRouter();
+  const { query } = route;
+  console.log('🚀 ~ file: index.js ~ line 82 ~ Bills ~ query', query);
+
   const [filter, setFilter] = React.useState({
     committee: '',
     legislature: '',
