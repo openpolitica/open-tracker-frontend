@@ -18,7 +18,6 @@ const useCommittees = () => {
       fetch(`${process.env.api}committee`).then(res => res.json()),
   });
   return {
-    ...response,
     isCommitteesLoading: response.isLoading,
     isCommitteesSuccess: response.isSuccess,
     committees: response.data?.data ?? [],
@@ -32,21 +31,32 @@ const useLegislatures = () => {
       fetch(`${process.env.api}legislature`).then(res => res.json()),
   });
   return {
-    ...response,
     isLegislaturesLoading: response.isLoading,
     isLegislaturesSuccess: response.isSuccess,
     legislatures: response.data?.data ?? [],
   };
 };
 
-// TODO: remove placeholders
-const estadoOptions = ['En comisión', 'En comisión2'];
+const useBillStatus = () => {
+  const response = useQuery({
+    queryKey: 'bill-status',
+    queryFn: async () =>
+      fetch(`${process.env.api}bill-status`).then(res => res.json()),
+  });
+  return {
+    isBillStatusLoading: response.isLoading,
+    isBillStatusSuccess: response.isSuccess,
+    billStatus: response.data?.data ?? [],
+  };
+};
 
 export default function Bills({ bills, metadata }) {
   const { isCommitteesLoading, isCommitteesSuccess, committees } =
     useCommittees();
   const { isLegislaturesLoading, isLegislaturesSuccess, legislatures } =
     useLegislatures();
+  const { isBillStatusLoading, isBillStatusSuccess, billStatus } =
+    useBillStatus();
 
   return (
     <SidebarLayout>
@@ -85,7 +95,7 @@ export default function Bills({ bills, metadata }) {
           ) : isLegislaturesSuccess && legislatures.length ? (
             <CUI.FormControl id="legislature">
               <CUI.FormLabel fontWeight="bold">
-                Filtrar por Legislatura
+                Filtrar por legislatura
               </CUI.FormLabel>
               <CUI.Select placeholder="Select option" bg="#fff" fontSize="sm">
                 {legislatures.map(legislature => (
@@ -98,7 +108,6 @@ export default function Bills({ bills, metadata }) {
               </CUI.Select>
             </CUI.FormControl>
           ) : null}
-
           {isCommitteesLoading ? (
             <CUI.Box textAlign="center">
               <CUI.Spinner color="white" />
@@ -109,7 +118,6 @@ export default function Bills({ bills, metadata }) {
                 <CUI.FormLabel fontWeight="bold">
                   Filtrar por comisión
                 </CUI.FormLabel>
-
                 <CUI.Select placeholder="Select option" bg="#fff" fontSize="sm">
                   {committees.map(committee => (
                     <option
@@ -122,16 +130,29 @@ export default function Bills({ bills, metadata }) {
               </CUI.FormControl>
             )
           )}
-          <CUI.FormControl id="status">
-            <CUI.FormLabel fontWeight="bold">Estado</CUI.FormLabel>
-            <CUI.Select placeholder="Select option" bg="#fff" fontSize="sm">
-              {estadoOptions.map((item, i) => (
-                <option key={i} value={item}>
-                  {item}
-                </option>
-              ))}
-            </CUI.Select>
-          </CUI.FormControl>
+          {isBillStatusLoading ? (
+            <CUI.Box textAlign="center">
+              <CUI.Spinner color="white" />
+            </CUI.Box>
+          ) : (
+            isBillStatusSuccess && (
+              <CUI.FormControl id="comission">
+                <CUI.FormLabel fontWeight="bold">
+                  Filtrar por estado
+                </CUI.FormLabel>
+
+                <CUI.Select placeholder="Select option" bg="#fff" fontSize="sm">
+                  {billStatus.map(status => (
+                    <option
+                      key={status.bill_status_id}
+                      value={status.bill_status_name}>
+                      {status.bill_status_name}
+                    </option>
+                  ))}
+                </CUI.Select>
+              </CUI.FormControl>
+            )
+          )}
         </CUI.Grid>
       </CUI.Stack>
       <CUI.List spacing="4">
