@@ -55,17 +55,17 @@ const useBillStatus = () => {
 const getQueryParamsString = params => {
   return Object.keys(params)
     .filter(key => params[key])
-    .map(key => `?${key}=${params[key]}`)
+    .map(key => `${key}=${params[key]}`)
     .join('&');
 };
 
-//TODO: add pagination query and sync filter state with url query
+//TODO: add pagination query
 const useBills = ({ filter, page }) => {
   const response = useQuery({
     queryKey: ['bills', filter],
     queryFn: async () => {
       const queryParams = getQueryParamsString(filter);
-      const url = `${process.env.api}bill` + queryParams;
+      const url = `${process.env.api}bill?` + queryParams;
       return fetch(url).then(res => res.json());
     },
   });
@@ -79,13 +79,6 @@ const useBills = ({ filter, page }) => {
 export default function Bills() {
   const route = useRouter();
   const { query } = route;
-  console.log('🚀 ~ file: index.js ~ line 82 ~ Bills ~ query', query);
-
-  const [filter, setFilter] = React.useState({
-    committee: '',
-    legislature: '',
-    billStatus: '',
-  });
 
   const { isCommitteesLoading, isCommitteesSuccess, committees } =
     useCommittees();
@@ -93,12 +86,18 @@ export default function Bills() {
     useLegislatures();
   const { isBillStatusLoading, isBillStatusSuccess, billStatus } =
     useBillStatus();
-  const { isBillsLoading, isBillsSuccess, bills } = useBills({ filter });
+  const { isBillsLoading, isBillsSuccess, bills } = useBills({ filter: query });
 
   const handleChange = e => {
-    setFilter({
-      ...filter,
+    const newQuery = {
+      ...query,
       [e.target.name]: e.target.value,
+    };
+    const validatedQuery = removeEmptyAttrFromObject(newQuery);
+    route.push({
+      pathname: '/proyectos-de-ley',
+      query: validatedQuery,
+      options: { shallow: true },
     });
   };
 
@@ -142,11 +141,12 @@ export default function Bills() {
                 Filtrar por legislatura
               </CUI.FormLabel>
               <CUI.Select
-                placeholder="Selecciona una opcion"
                 bg="#fff"
                 fontSize="sm"
+                value={query.legislature ?? ''}
                 name="legislature"
                 onChange={handleChange}>
+                <option value="">Selecciona una opcion</option>
                 {legislatures.map(legislature => (
                   <option
                     key={legislature.legislature_id}
@@ -168,11 +168,12 @@ export default function Bills() {
                   Filtrar por comisión
                 </CUI.FormLabel>
                 <CUI.Select
-                  placeholder="Selecciona una opcion"
                   bg="#fff"
                   fontSize="sm"
                   name="committee"
+                  value={query.committee ?? ''}
                   onChange={handleChange}>
+                  <option value="">Selecciona una opcion</option>
                   {committees.map(committee => (
                     <option
                       key={committee.committee_id}
@@ -195,11 +196,12 @@ export default function Bills() {
                   Filtrar por estado
                 </CUI.FormLabel>
                 <CUI.Select
-                  placeholder="Selecciona una opcion"
                   bg="#fff"
                   fontSize="sm"
+                  value={query.billStatus ?? ''}
                   name="billStatus"
                   onChange={handleChange}>
+                  <option value="">Selecciona una opcion</option>
                   {billStatus.map(status => (
                     <option
                       key={status.bill_status_id}
@@ -264,3 +266,13 @@ export default function Bills() {
     </SidebarLayout>
   );
 }
+
+const removeEmptyAttrFromObject = obj => {
+  let newObj = { ...obj };
+  Object.keys(newObj).forEach(key => {
+    if (newObj[key] === '') {
+      delete newObj[key];
+    }
+  });
+  return newObj;
+};
