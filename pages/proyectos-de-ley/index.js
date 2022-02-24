@@ -51,7 +51,7 @@ const isAValidPageNumber = (numberOfPages, pageNumber) => {
   }
   if (
     isInteger(+pageNumber) &&
-    +pageNumber >= 0 &&
+    +pageNumber >= 1 &&
     +pageNumber <= numberOfPages
   ) {
     return true;
@@ -76,8 +76,8 @@ const PaginationSelect = ({
       </option>
       {[...Array(totalPages).keys()].map(page => {
         return (
-          <option key={page} value={page}>
-            {page}
+          <option key={page} value={page + 1}>
+            Página {page + 1}
           </option>
         );
       })}
