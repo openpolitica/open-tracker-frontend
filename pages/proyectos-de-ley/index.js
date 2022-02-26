@@ -85,7 +85,7 @@ const PaginationSelect = ({
   </CUI.FormControl>
 );
 
-export default function Bills({ bills, metadata }) {
+export default function Bills({ data: { data: bills, ...metadata } }) {
   const router = useRouter();
   const [apiError, setApiError] = useState(null);
   const [pageSubset, setPageSubset] = useState(bills);
@@ -266,5 +266,5 @@ export default function Bills({ bills, metadata }) {
 export const getStaticProps = () =>
   fetch(`${process.env.api}bill`)
     .then(data => data.json())
-    .then(data => ({ props: { bills: data.data, metadata: data } }))
+    .then(data => ({ props: { data } }))
     .catch(error => ({ props: { error: error.toString() } }));
