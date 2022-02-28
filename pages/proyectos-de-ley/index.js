@@ -7,6 +7,7 @@ import BillCard from 'components/BillCard';
 // import Pagination from 'components/Pagination';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
+import qs from 'qs';
 
 const routes = [
   { label: 'Inicio', route: '/' },
@@ -52,19 +53,12 @@ const useBillStatus = () => {
   };
 };
 
-const getQueryParamsString = params => {
-  return Object.keys(params)
-    .filter(key => params[key])
-    .map(key => `${key}=${params[key]}`)
-    .join('&');
-};
-
 //TODO: add pagination query
 const useBills = ({ filter, page }) => {
   const response = useQuery({
     queryKey: ['bills', filter],
     queryFn: async () => {
-      const queryParams = getQueryParamsString(filter);
+      const queryParams = qs.stringify(filter);
       const url = `${process.env.api}bill?` + queryParams;
       return fetch(url).then(res => res.json());
     },
@@ -91,9 +85,9 @@ export default function Bills() {
   const handleChange = e => {
     const newQuery = {
       ...query,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value === '' ? undefined : e.target.value,
     };
-    const validatedQuery = removeEmptyAttrFromObject(newQuery);
+    const validatedQuery = qs.stringify(newQuery, { skipNulls: true });
     route.push({
       pathname: '/proyectos-de-ley',
       query: validatedQuery,
@@ -142,6 +136,7 @@ export default function Bills() {
               </CUI.FormLabel>
               <CUI.Select
                 bg="#fff"
+                cursor="pointer"
                 fontSize="sm"
                 value={query.legislature ?? ''}
                 name="legislature"
@@ -169,6 +164,7 @@ export default function Bills() {
                 </CUI.FormLabel>
                 <CUI.Select
                   bg="#fff"
+                  curs
                   fontSize="sm"
                   name="committee"
                   value={query.committee ?? ''}
@@ -197,6 +193,7 @@ export default function Bills() {
                 </CUI.FormLabel>
                 <CUI.Select
                   bg="#fff"
+                  curs
                   fontSize="sm"
                   value={query.billStatus ?? ''}
                   name="billStatus"
@@ -266,13 +263,3 @@ export default function Bills() {
     </SidebarLayout>
   );
 }
-
-const removeEmptyAttrFromObject = obj => {
-  let newObj = { ...obj };
-  Object.keys(newObj).forEach(key => {
-    if (newObj[key] === '') {
-      delete newObj[key];
-    }
-  });
-  return newObj;
-};
