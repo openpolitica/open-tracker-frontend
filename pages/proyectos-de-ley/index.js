@@ -58,7 +58,11 @@ const useBills = ({ filter, page }) => {
   const response = useQuery({
     queryKey: ['bills', filter],
     queryFn: async () => {
-      const queryParams = qs.stringify(filter);
+      const queryParams = qs.stringify({
+        legislature: filter.legislatura,
+        committee: filter.comision,
+        status: filter.estado,
+      });
       const url = `${process.env.api}bill?` + queryParams;
       return fetch(url).then(res => res.json());
     },
@@ -80,7 +84,9 @@ export default function Bills() {
     useLegislatures();
   const { isBillStatusLoading, isBillStatusSuccess, billStatus } =
     useBillStatus();
-  const { isBillsLoading, isBillsSuccess, bills } = useBills({ filter: query });
+  const { isBillsLoading, isBillsSuccess, bills } = useBills({
+    filter: query,
+  });
 
   const handleChange = e => {
     const newQuery = {
@@ -138,8 +144,8 @@ export default function Bills() {
                 bg="#fff"
                 cursor="pointer"
                 fontSize="sm"
-                value={query.legislature ?? ''}
-                name="legislature"
+                value={query.legislatura ?? ''}
+                name="legislatura"
                 onChange={handleChange}>
                 <option value="">Selecciona una opcion</option>
                 {legislatures.map(legislature => (
@@ -166,8 +172,8 @@ export default function Bills() {
                   bg="#fff"
                   curs
                   fontSize="sm"
-                  name="committee"
-                  value={query.committee ?? ''}
+                  name="comision"
+                  value={query.comision ?? ''}
                   onChange={handleChange}>
                   <option value="">Selecciona una opcion</option>
                   {committees.map(committee => (
@@ -193,10 +199,10 @@ export default function Bills() {
                 </CUI.FormLabel>
                 <CUI.Select
                   bg="#fff"
-                  curs
+                  cursor="pointer"
                   fontSize="sm"
-                  value={query.billStatus ?? ''}
-                  name="billStatus"
+                  name="estado"
+                  value={query.estado ?? ''}
                   onChange={handleChange}>
                   <option value="">Selecciona una opcion</option>
                   {billStatus.map(status => (
