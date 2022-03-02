@@ -1,13 +1,16 @@
 import React from 'react';
 import * as CUI from '@chakra-ui/react';
 import last from 'lodash.last';
+import omit from 'lodash.omit';
+import omitBy from 'lodash.omitby';
+import isEmpty from 'lodash.isempty';
 import Breadcrumb from 'components/Breadcrumb';
 import SidebarLayout from 'components/layout/SidebarLayout';
 import BillCard from 'components/BillCard';
 // import Pagination from 'components/Pagination';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
-import qs from 'qs';
+import qs from 'querystring';
 
 const routes = [
   { label: 'Inicio', route: '/' },
@@ -53,16 +56,21 @@ const useBillStatus = () => {
   };
 };
 
-//TODO: add pagination query
 const useBills = ({ filter, page }) => {
   const response = useQuery({
     queryKey: ['bills', filter],
     queryFn: async () => {
-      const queryParams = qs.stringify({
-        legislature: filter.legislatura,
-        committee: filter.comision,
-        status: filter.estado,
-      });
+      const queryParams = qs.stringify(
+        omitBy(
+          {
+            legislature: filter.legislatura,
+            committee: filter.comision,
+            status: filter.estado,
+            page: filter.pagina,
+          },
+          isEmpty,
+        ),
+      );
       const url = `${process.env.api}bill?` + queryParams;
       return fetch(url).then(res => res.json());
     },
@@ -71,8 +79,31 @@ const useBills = ({ filter, page }) => {
     isBillsLoading: response.isLoading,
     isBillsSuccess: response.isSuccess,
     bills: response.data?.data ?? [],
+    metadata: omit(response?.data, ['data']) ?? [],
   };
 };
+
+const PaginationSelect = ({ totalPages, onChange, page, ...props }) => (
+  <CUI.FormControl id="pagination" {...props}>
+    <CUI.Select
+      name="pagina"
+      value={page ?? ''}
+      onChange={onChange}
+      w={{ base: 'full', md: '64' }}
+      cursor="pointer">
+      <option key="no-select" value="">
+        Seleccionar página
+      </option>
+      {[...Array(totalPages).keys()].map(page => {
+        return (
+          <option key={page} value={page + 1}>
+            Página {page + 1}
+          </option>
+        );
+      })}
+    </CUI.Select>
+  </CUI.FormControl>
+);
 
 export default function Bills() {
   const route = useRouter();
@@ -84,19 +115,21 @@ export default function Bills() {
     useLegislatures();
   const { isBillStatusLoading, isBillStatusSuccess, billStatus } =
     useBillStatus();
-  const { isBillsLoading, isBillsSuccess, bills } = useBills({
+  const { isBillsLoading, isBillsSuccess, bills, metadata } = useBills({
     filter: query,
   });
 
   const handleChange = e => {
     const newQuery = {
       ...query,
-      [e.target.name]: e.target.value === '' ? undefined : e.target.value,
+      [e.target.name]: e.target.value === '' ? null : e.target.value,
+      // Page reset
+      [e.target.name !== 'pagina' ? 'pagina' : '']:
+        e.target.name !== 'pagina' ? '1' : null,
     };
-    const validatedQuery = qs.stringify(newQuery, { skipNulls: true });
     route.push({
       pathname: '/proyectos-de-ley',
-      query: validatedQuery,
+      query: omitBy(newQuery, isEmpty),
       options: { shallow: true },
     });
   };
@@ -218,6 +251,12 @@ export default function Bills() {
           )}
         </CUI.Grid>
       </CUI.Stack>
+      <PaginationSelect
+        page={query.pagina}
+        totalPages={metadata.totalPages}
+        onChange={handleChange}
+        mb="4"
+      />
       {isBillsLoading ? (
         <CUI.Box textAlign="center">
           <CUI.Spinner color="primary" />
@@ -266,6 +305,12 @@ export default function Bills() {
         <CUI.Text>No se encontraron resultados</CUI.Text>
       ) : null}
       {/* <Pagination numberOfPages={metadata.totalPages} active={1} /> */}
+      <PaginationSelect
+        page={query.pagina}
+        totalPages={metadata.totalPages}
+        onChange={handleChange}
+        mt="4"
+      />
     </SidebarLayout>
   );
 }
