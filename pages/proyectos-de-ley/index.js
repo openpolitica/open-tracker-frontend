@@ -305,12 +305,14 @@ export default function Bills() {
         <CUI.Text>No se encontraron resultados</CUI.Text>
       ) : null}
       {/* <Pagination numberOfPages={metadata.totalPages} active={1} /> */}
-      <PaginationSelect
-        page={query.pagina}
-        totalPages={metadata.totalPages}
-        onChange={handleChange}
-        mt="4"
-      />
+      {isBillsSuccess && bills.length ? (
+        <PaginationSelect
+          page={query.pagina}
+          totalPages={metadata.totalPages}
+          onChange={handleChange}
+          mt="4"
+        />
+      ) : null}
     </SidebarLayout>
   );
 }
