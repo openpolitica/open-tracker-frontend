@@ -203,7 +203,7 @@ export default function Bills() {
                 </CUI.FormLabel>
                 <CUI.Select
                   bg="#fff"
-                  curs
+                  cursor="pointer"
                   fontSize="sm"
                   name="comision"
                   value={query.comision ?? ''}
