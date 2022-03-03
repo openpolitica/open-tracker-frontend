@@ -10,7 +10,6 @@ import BillCard from 'components/BillCard';
 // import Pagination from 'components/Pagination';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
-import qs from 'querystring';
 
 const routes = [
   { label: 'Inicio', route: '/' },
@@ -60,7 +59,7 @@ const useBills = ({ filter, page }) => {
   const response = useQuery({
     queryKey: ['bills', filter],
     queryFn: async () => {
-      const queryParams = qs.stringify(
+      const queryParams = new URLSearchParams(
         omitBy(
           {
             legislature: filter.legislatura,
@@ -70,7 +69,7 @@ const useBills = ({ filter, page }) => {
           },
           isEmpty,
         ),
-      );
+      ).toString();
       const url = `${process.env.api}bill?` + queryParams;
       return fetch(url).then(res => res.json());
     },
