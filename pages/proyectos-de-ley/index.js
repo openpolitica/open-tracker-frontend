@@ -82,27 +82,28 @@ const useBills = ({ filter, page }) => {
   };
 };
 
-const PaginationSelect = ({ totalPages, onChange, page, ...props }) => (
-  <CUI.FormControl id="pagination" {...props}>
-    <CUI.Select
-      name="pagina"
-      value={page ?? ''}
-      onChange={onChange}
-      w={{ base: 'full', md: '64' }}
-      cursor="pointer">
-      <option key="no-select" value="">
-        Seleccionar página
-      </option>
-      {[...Array(totalPages).keys()].map(page => {
-        return (
-          <option key={page} value={page + 1}>
-            Página {page + 1}
-          </option>
-        );
-      })}
-    </CUI.Select>
-  </CUI.FormControl>
-);
+const PaginationSelect = ({ totalPages, onChange, page, ...props }) =>
+  totalPages ? (
+    <CUI.FormControl id="pagination" {...props}>
+      <CUI.Select
+        name="pagina"
+        value={page ?? ''}
+        onChange={onChange}
+        w={{ base: 'full', md: '64' }}
+        cursor="pointer">
+        <option key="no-select" value="">
+          Seleccionar página
+        </option>
+        {[...Array(totalPages).keys()].map(page => {
+          return (
+            <option key={page} value={page + 1}>
+              Página {page + 1}
+            </option>
+          );
+        })}
+      </CUI.Select>
+    </CUI.FormControl>
+  ) : null;
 
 export default function Bills() {
   const route = useRouter();
@@ -252,7 +253,7 @@ export default function Bills() {
       </CUI.Stack>
       <PaginationSelect
         page={query.pagina}
-        totalPages={metadata.totalPages}
+        totalPages={metadata?.totalPages}
         onChange={handleChange}
         mb="4"
       />
@@ -307,7 +308,7 @@ export default function Bills() {
       {isBillsSuccess && bills.length ? (
         <PaginationSelect
           page={query.pagina}
-          totalPages={metadata.totalPages}
+          totalPages={metadata?.totalPages}
           onChange={handleChange}
           mt="4"
         />
