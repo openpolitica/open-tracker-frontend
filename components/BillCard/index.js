@@ -18,7 +18,7 @@ const BillCard = ({
   committeeName = 'Sin comisión',
   lastUpdate = '15/11/2021 - 13:46hrs',
   publicationDate = '15/11/2021',
-  status = { bill_status_slug: 'en comisión' },
+  status = { bill_status_name: 'en comisión' },
   as,
 }) => {
   return (
@@ -34,7 +34,7 @@ const BillCard = ({
         <CUI.Tag>{upperCaseFirstLetter(committeeName)}</CUI.Tag>
         <CUI.Tag variant={statusMap[status]?.variant}>
           {upperCaseFirstLetter(
-            applyPeruCapitalizations(status.bill_status_slug),
+            applyPeruCapitalizations(status.bill_status_name),
           )}
         </CUI.Tag>
       </CUI.HStack>

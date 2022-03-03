@@ -65,7 +65,7 @@ const useBills = ({ filter, page }) => {
           {
             legislature: filter.legislatura,
             committee: filter.comision,
-            status: filter.estado,
+            billStatus: filter.estado,
             page: filter.pagina,
           },
           isEmpty,
