@@ -85,6 +85,9 @@ const useBills = ({ filter, page }) => {
 const PaginationSelect = ({ totalPages, onChange, page, ...props }) =>
   totalPages ? (
     <CUI.FormControl id="pagination" {...props}>
+      <CUI.VisuallyHidden>
+        <CUI.FormLabel htmlFor="pagina">Seleccionar página</CUI.FormLabel>
+      </CUI.VisuallyHidden>
       <CUI.Select
         name="pagina"
         value={page ?? ''}
