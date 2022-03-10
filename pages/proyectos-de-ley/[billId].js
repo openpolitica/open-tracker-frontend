@@ -58,7 +58,7 @@ export default function Bill({ bill }) {
       }),
     );
 
-  const status = last_status.bill_status_name;
+  const status = last_status?.bill_status_name;
   const committeeName = last_committee?.name ?? 'Sin comisión';
   const routes = [
     { label: 'Inicio', route: '/' },
@@ -191,10 +191,9 @@ const Label = ({ children }) => {
 };
 
 export const getStaticPaths = async () => {
-  const response = await fetch(`${process.env.api}bill`);
-
+  const response = await fetch(`${process.env.api}/bill`);
   const data = await response.json();
-  const paths = data.data.map(bill => ({
+  const paths = data?.data.map(bill => ({
     params: {
       billId: bill.id,
     },
@@ -202,7 +201,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: 'blocking',
   };
 };
 
@@ -217,6 +216,7 @@ export const getStaticProps = async ({ params }) => {
     }
     return {
       props: { bill },
+      revalidate: 60,
     };
   } catch {
     return { notFound: true };
