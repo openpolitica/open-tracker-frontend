@@ -34,7 +34,7 @@ const BillCard = ({
         <CUI.Tag>{upperCaseFirstLetter(committeeName)}</CUI.Tag>
         <CUI.Tag variant={statusMap[status]?.variant}>
           {upperCaseFirstLetter(
-            applyPeruCapitalizations(status.bill_status_name),
+            applyPeruCapitalizations(status?.bill_status_name),
           )}
         </CUI.Tag>
       </CUI.HStack>

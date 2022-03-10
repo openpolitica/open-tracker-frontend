@@ -6,7 +6,7 @@ export const applyCountryCapitalizations =
   text =>
   (capitalizations = []) =>
     capitalizations.reduce(
-      (prev, current) => prev.replaceAll(current.keyword, current.as),
+      (prev, current) => prev?.replaceAll(current.keyword, current.as),
       text,
     );
 
