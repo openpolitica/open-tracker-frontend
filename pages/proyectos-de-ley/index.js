@@ -295,7 +295,7 @@ export default function Bills() {
                   )}
                 billId={id}
                 billTitle={title}
-                committeeName={last_committee ?? void 0}
+                committeeName={last_committee?.committee_name ?? void 0}
                 publicationDate={presentation_date}
                 status={last_status ?? ''}
                 lastUpdate={last(tracking).date}
