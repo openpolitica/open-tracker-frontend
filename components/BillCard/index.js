@@ -39,7 +39,7 @@ const BillCard = ({
         </CUI.Tag>
       </CUI.HStack>
       <CUI.Text fontSize="md" mb="4">
-        {billTitle}
+        {upperCaseFirstLetter(billTitle)}
       </CUI.Text>
       <CUI.Flex mb="1">
         <CUI.Text fontWeight="bold" fontSize="sm">
