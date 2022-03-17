@@ -45,8 +45,13 @@ const withHotjar = Component => props => {
   const { initHotjar } = useHotjar();
 
   useEffect(() => {
-    initHotjar(process.env.hotjar.id, process.env.hotjar.version, logger);
-  }, []);
+    initHotjar(
+      process.env.hotjar.id,
+      process.env.hotjar.version,
+      false,
+      logger,
+    );
+  }, [initHotjar]);
 
   return <Component {...props} />;
 };
