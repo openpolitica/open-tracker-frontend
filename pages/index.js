@@ -77,57 +77,55 @@ export default function Home({ congresspeople }) {
           mb="2">
           Últimas actualizaciones
         </CUI.Text>
-        {isBillsLoading ? (
-          <CUI.Box textAlign="center">
-            <CUI.Spinner color="primary" />
-          </CUI.Box>
-        ) : isBillsSuccess && bills.length ? (
-          <CUI.HStack
-            display={{ base: 'none', xl: 'flex' }}
-            align="stretch"
-            as="ul"
-            spacing="4">
-            {bills
-              .slice(0, 3)
-              .map(
-                ({
-                  id,
-                  last_status,
-                  authorship,
-                  title,
-                  last_committee,
-                  presentation_date,
-                  tracking,
-                }) => (
-                  <CUI.Flex as="li" key={id} flex="1">
-                    <BillCard
-                      authorship={authorship
-                        .filter(author => author.authorship_type === 'AUTOR')
-                        .map(
-                          ({
-                            congressperson: {
-                              congressperson_slug,
-                              id_name,
-                              id_first_surname,
-                              id_second_surname,
-                            },
-                          }) => ({
-                            slug: congressperson_slug,
-                            name: `${id_name} ${id_first_surname} ${id_second_surname}`,
-                          }),
-                        )}
-                      billId={id}
-                      billTitle={title}
-                      committeeName={last_committee?.committee_name ?? void 0}
-                      publicationDate={presentation_date}
-                      status={last_status ?? ''}
-                      lastUpdate={last(tracking).date}
-                    />
-                  </CUI.Flex>
-                ),
-              )}
-          </CUI.HStack>
-        ) : null}
+        <CUI.Box display={{ base: 'none', xl: 'block' }}>
+          {isBillsLoading ? (
+            <CUI.Box textAlign="center">
+              <CUI.Spinner color="primary" />
+            </CUI.Box>
+          ) : isBillsSuccess && bills.length ? (
+            <CUI.HStack align="stretch" as="ul" spacing="4">
+              {bills
+                .slice(0, 3)
+                .map(
+                  ({
+                    id,
+                    last_status,
+                    authorship,
+                    title,
+                    last_committee,
+                    presentation_date,
+                    tracking,
+                  }) => (
+                    <CUI.Flex as="li" key={id} flex="1">
+                      <BillCard
+                        authorship={authorship
+                          .filter(author => author.authorship_type === 'AUTOR')
+                          .map(
+                            ({
+                              congressperson: {
+                                congressperson_slug,
+                                id_name,
+                                id_first_surname,
+                                id_second_surname,
+                              },
+                            }) => ({
+                              slug: congressperson_slug,
+                              name: `${id_name} ${id_first_surname} ${id_second_surname}`,
+                            }),
+                          )}
+                        billId={id}
+                        billTitle={title}
+                        committeeName={last_committee?.committee_name ?? void 0}
+                        publicationDate={presentation_date}
+                        status={last_status ?? ''}
+                        lastUpdate={last(tracking).date}
+                      />
+                    </CUI.Flex>
+                  ),
+                )}
+            </CUI.HStack>
+          ) : null}
+        </CUI.Box>
       </CUI.Box>
       <CUI.Box mt="10">
         <CUI.Heading as="h2" mb="4" color="secondary.700" fontSize="xl">
