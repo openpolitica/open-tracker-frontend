@@ -76,7 +76,7 @@ export default function Bill({ bill }) {
           </CUI.Tag>
         </CUI.HStack>
         <CUI.Text maxW="56rem" fontSize="xl" mb="4">
-          {title}
+          {upperCaseFirstLetter(title)}
         </CUI.Text>
         <CUI.Box
           bg="secondary.50"
