@@ -11,7 +11,10 @@ module.exports = {
     return config;
   },
   env: {
-    api: `https://api.${process.env.NEXT_PUBLIC_ENVIRONMENT}.congreso.openpolitica.com/api/`,
+    api:
+      process.env.NEXT_PUBLIC_ENVIRONMENT === 'production'
+        ? 'https://api.congreso.openpolitica.com/api/'
+        : 'https://api.dev.congreso.openpolitica.com/api/',
     hotjar: {
       id: 2879782,
       version: 6,

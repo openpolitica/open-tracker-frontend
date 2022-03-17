@@ -78,6 +78,6 @@ const withHotjar = Component => props => {
   return <Component {...props} />;
 };
 
-export default process.env.NEXT_PUBLIC_ENVIRONMENT === 'dev'
+export default process.env.NEXT_PUBLIC_ENVIRONMENT === 'local'
   ? Tracker
   : withHotjar(Tracker);
