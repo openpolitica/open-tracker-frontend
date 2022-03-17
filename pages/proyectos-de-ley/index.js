@@ -55,17 +55,17 @@ const useBillStatus = () => {
   };
 };
 
-const useBills = ({ filter, page }) => {
+export const useBills = ({ filter } = {}) => {
   const response = useQuery({
     queryKey: ['bills', filter],
     queryFn: async () => {
       const queryParams = new URLSearchParams(
         omitBy(
           {
-            legislature: filter.legislatura,
-            committee: filter.comision,
-            billStatus: filter.estado,
-            page: filter.pagina,
+            legislature: filter?.legislatura,
+            committee: filter?.comision,
+            billStatus: filter?.estado,
+            page: filter?.pagina,
           },
           isEmpty,
         ),
