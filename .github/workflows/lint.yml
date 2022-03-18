@@ -29,6 +29,10 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
+      - name: prettier
+        run: |
+          npm run prettier
+
       - name: lint
         run: |
-          npm run eslint
+          npm run lint .
