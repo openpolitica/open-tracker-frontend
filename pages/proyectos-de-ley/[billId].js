@@ -59,7 +59,7 @@ export default function Bill({ bill }) {
     );
 
   const status = last_status?.bill_status_name;
-  const committeeName = last_committee?.name ?? 'Sin comisión';
+  const committeeName = last_committee?.committee_name ?? 'Sin comisión';
   const routes = [
     { label: 'Inicio', route: '/' },
     { label: 'Proyectos de ley', route: '/proyectos-de-ley' },
