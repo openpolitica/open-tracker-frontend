@@ -10,6 +10,14 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 const queryClient = new QueryClient();
 
+const meta = {
+  title: 'Tuku.pe',
+  description: 'Toda la información sobre el Congreso y las leyes que produce.',
+  image: 'https://tuku.pe/static/images/banner.png',
+  type: 'website',
+  websiteUrl: 'https://tuku.pe/',
+};
+
 function Tracker({ Component, pageProps }) {
   const router = useRouter();
 
@@ -26,7 +34,21 @@ function Tracker({ Component, pageProps }) {
   return (
     <Fragment>
       <Head>
-        <title>Tuku.pe</title>
+        <title>{meta.title}</title>
+        <meta name="robots" content="follow, index" />
+        <meta content={meta.description} name="description" />
+        <meta property="og:url" content={meta.websiteUrl} />
+        <link rel="canonical" href={meta.websiteUrl} />
+        <meta property="og:type" content={meta.type} />
+        <meta property="og:site_name" content={meta.title} />
+        <meta property="og:description" content={meta.description} />
+        <meta property="og:title" content={meta.title} />
+        <meta property="og:image" content={meta.image} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@openpolitica" />
+        <meta name="twitter:title" content={meta.title} />
+        <meta name="twitter:description" content={meta.description} />
+        <meta name="twitter:image" content={meta.image} />
       </Head>
       <QueryClientProvider client={queryClient}>
         <ChakraProvider resetCSS theme={theme}>
