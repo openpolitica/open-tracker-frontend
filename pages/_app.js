@@ -13,7 +13,7 @@ const queryClient = new QueryClient();
 const meta = {
   title: 'Tuku.pe',
   description: 'Toda la información sobre el Congreso y las leyes que produce.',
-  image: 'https://tuku.pe/static/images/banner.png',
+  image: 'https://tuku.pe/images/banner.png',
   type: 'website',
   websiteUrl: 'https://tuku.pe/',
 };
