@@ -10,6 +10,7 @@ const LinkItems = [
   { name: 'Bancadas', icon: UserIcon, href: '/bancadas' },
   { name: 'Congresistas', icon: UserIcon, href: '/congresistas' },
   { name: 'Proyectos de ley', icon: BillsIcon, href: '/proyectos-de-ley' },
+  { name: 'Data Lab', icon: BillsIcon, href: '/data-lab' },
 ];
 
 export default function SidebarContent({ ...rest }) {
