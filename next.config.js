@@ -19,5 +19,7 @@ module.exports = {
       id: 2879782,
       version: 6,
     },
+    grafanaDashboard:
+      'https://grafana.data.congreso.openpolitica.com/d/23_rPc87z/exploracion-asistencias-y-votaciones-plenos-2021-2026?orgId=1&kiosk&theme=light',
   },
 };
