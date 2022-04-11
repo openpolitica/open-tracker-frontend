@@ -14,18 +14,20 @@ export default function DataLab() {
       <Breadcrumb routes={routes} />
 
       <CUI.Flex w="full" align="stretch" flexDirection="column" mt="1rem">
-        <CUI.AspectRatio ratio={9 / 16} display={{ base: 'flex', md: 'none' }}>
-          <iframe
-            title="Exploración de datos de asistencias y votaciones"
-            src={process.env.grafanaDashboard}
-          />
-        </CUI.AspectRatio>
-        <CUI.AspectRatio ratio={16 / 9} display={{ base: 'none', md: 'block' }}>
-          <iframe
-            title="Exploración de datos de asistencias y votaciones"
-            src={process.env.grafanaDashboard}
-          />
-        </CUI.AspectRatio>
+        <CUI.Box
+          as="iframe"
+          title="Exploración de datos de asistencias y votaciones"
+          src={process.env.grafanaDashboard}
+          height={{
+            base: '500vw',
+            sm: '470vw',
+            md: '250vh',
+            lg: '200vh',
+            xl: '150vh',
+            '2xl': '120vh',
+          }}
+          allowFullScreen
+        />
       </CUI.Flex>
     </SidebarLayout>
   );
