@@ -7,6 +7,7 @@ import { getLogoByPGSlug, groupByKey } from 'utils';
 import NextCUILink from 'components/NextCUILink';
 import last from 'lodash.last';
 import { useBills } from 'pages/proyectos-de-ley';
+import BannerArrow from 'public/images/icons/banner-arrow.svg';
 
 export default function Home({ congresspeople }) {
   const { isBillsLoading, isBillsSuccess, bills } = useBills();
@@ -30,16 +31,19 @@ export default function Home({ congresspeople }) {
         backgroundPosition={{ base: 'left', md: 'center' }}>
         <CUI.Heading
           as="h1"
-          maxW={{ base: '85%', md: '55%' }}
+          w={{ base: '85%', md: '26rem' }}
+          mb={{ md: '6' }}
           textAlign={{ base: 'center', md: 'left' }}
-          color="white"
-          fontSize={{ base: 'xl', md: '3xl' }}>
-          La información mas relevante sobre el congreso peruano en un solo
-          lugar.
+          fontFamily="ClashDisplay"
+          fontSize={{ base: '1.3rem', md: '2rem' }}>
+          <CUI.Box mb="2" display={{ base: 'none', md: 'block' }}>
+            <BannerArrow />
+          </CUI.Box>
+          Toda la información sobre el Congreso peruano en un solo lugar.
         </CUI.Heading>
         <CUI.Image
           position={{ base: 'relative', md: 'absolute' }}
-          bottom={{ md: 4 }}
+          bottom={4}
           right={{ md: '5%' }}
           maxW={{ md: '40%' }}
           mt={{ base: 6, md: 0 }}
