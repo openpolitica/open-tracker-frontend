@@ -39,14 +39,13 @@ export default function Home({ congresspeople }) {
         </CUI.Heading>
         <CUI.Image
           position={{ base: 'relative', md: 'absolute' }}
-          bottom={{ md: -14 }}
+          bottom={{ md: 4 }}
           right={{ md: '5%' }}
           maxW={{ md: '40%' }}
           mt={{ base: 6, md: 0 }}
-          src="/images/home-illustration.png"
+          src="/images/home-illustration.svg"
           alt="Hero Image"
           fit="scale-down"
-          boxShadow="2xl"
         />
       </CUI.Flex>
       <CUI.Box mt="10" backgroundColor="blue.50" p="10">
