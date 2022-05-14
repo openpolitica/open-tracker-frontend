@@ -68,7 +68,8 @@ export default function Footer() {
             </SocialButton>
           </CUI.Box>
           <CUI.Text fontSize="sm" color="gray.500">
-            © 2021 Open Política. Todos los derechos reservados.
+            © {new Date().getUTCFullYear()} Open Política. Todos los derechos
+            reservados.
           </CUI.Text>
         </CUI.Stack>
         <CUI.Flex
