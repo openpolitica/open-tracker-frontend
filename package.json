@@ -45,6 +45,7 @@
     "lint-staged": "11.0.1",
     "postcss": "^8.3.6",
     "prettier": "2.3.2",
+    "puppeteer": "^14.1.1",
     "string.prototype.replaceall": "^1.0.6"
   },
   "dependencies": {
@@ -53,6 +54,7 @@
     "@chakra-ui/theme-tools": "^1.1.8",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
+    "chrome-aws-lambda": "1.6.3",
     "downshift": "^6.1.7",
     "framer-motion": "^4.1.17",
     "lodash.isempty": "^4.4.0",
@@ -60,6 +62,7 @@
     "lodash.omit": "^4.5.0",
     "lodash.omitby": "^4.6.0",
     "next": "11.0.1",
+    "next-api-og-image": "^4.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-icons": "^4.3.1",
