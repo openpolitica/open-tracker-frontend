@@ -15,6 +15,8 @@ module.exports = {
       process.env.NEXT_PUBLIC_ENVIRONMENT === 'production'
         ? 'https://api.congreso.openpolitica.com/api/'
         : 'https://api.dev.congreso.openpolitica.com/api/',
+    ogImage: 'https://open-tracker-og-image.vercel.app/api/og-image/',
+    baseURL: 'https://tuku.pe',
     hotjar: {
       id: 2879782,
       version: 6,
