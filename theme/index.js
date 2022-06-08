@@ -28,6 +28,9 @@ const defaultTheme = {
   breakpoints,
   colors,
   sizes,
+  fonts: {
+    ClashDisplay: `'ClashDisplay', sans-serif`,
+  },
   styles: {
     global: globalStyles,
   },
