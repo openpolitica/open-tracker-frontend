@@ -4,14 +4,14 @@ import { useRouter } from 'next/router';
 import UserIcon from '/public/images/icons/user.svg';
 import HomeIcon from '/public/images/icons/home.svg';
 import BillsIcon from '/public/images/icons/bills.svg';
-import DataIcon from '/public/images/icons/data.svg';
+//import DataIcon from '/public/images/icons/data.svg';
 
 const LinkItems = [
   { name: 'Inicio', icon: HomeIcon, href: '/' },
   { name: 'Bancadas', icon: UserIcon, href: '/bancadas' },
   { name: 'Congresistas', icon: UserIcon, href: '/congresistas' },
   { name: 'Proyectos de ley', icon: BillsIcon, href: '/proyectos-de-ley' },
-  { name: 'Data Lab', icon: DataIcon, href: '/data-lab' },
+  // { name: 'Data Lab', icon: DataIcon, href: '/data-lab' },
 ];
 
 export default function SidebarContent({ ...rest }) {
