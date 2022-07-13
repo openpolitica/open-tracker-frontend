@@ -7,7 +7,6 @@ import { getLogoByPGSlug, groupByKey } from 'utils';
 import NextCUILink from 'components/NextCUILink';
 import last from 'lodash.last';
 import { useBills } from 'pages/proyectos-de-ley';
-import BannerArrow from 'public/images/icons/banner-arrow.svg';
 
 export default function Home({ congresspeople }) {
   const { isBillsLoading, isBillsSuccess, bills } = useBills();
@@ -36,9 +35,6 @@ export default function Home({ congresspeople }) {
           textAlign={{ base: 'center', md: 'left' }}
           fontFamily="ClashDisplay"
           fontSize={{ base: '1.3rem', md: '2rem' }}>
-          <CUI.Box mb="2" display={{ base: 'none', md: 'block' }}>
-            <BannerArrow />
-          </CUI.Box>
           Toda la información sobre el Congreso peruano en un solo lugar.
         </CUI.Heading>
         <CUI.Image
