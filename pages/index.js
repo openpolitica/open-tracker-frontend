@@ -8,9 +8,12 @@ import NextCUILink from 'components/NextCUILink';
 import last from 'lodash.last';
 import { useBills } from 'pages/proyectos-de-ley';
 import BannerArrow from 'public/images/icons/banner-arrow.svg';
+// test
+import TukuGlossary from 'public/images/icons/tuku-glossary.svg';
 
 export default function Home({ congresspeople }) {
   const { isBillsLoading, isBillsSuccess, bills } = useBills();
+  const { isOpen, onOpen, onClose } = CUI.useDisclosure();
 
   return (
     <SidebarLayout>
@@ -57,8 +60,78 @@ export default function Home({ congresspeople }) {
           Proyectos de Ley
         </CUI.Heading>
         <CUI.Text fontSize="md" maxWidth="32rem" mb="4">
-          Conoce los proyectos presentados en las comisiones del Congreso, el
-          estado en el que se encuentran y sus respectivos autores.
+          Conoce los proyectos presentados en las{' '}
+          <CUI.Button variant="link" onClick={onOpen}>
+            comisiones
+          </CUI.Button>
+          <CUI.Drawer
+            isOpen={isOpen}
+            placement="right"
+            onClose={onClose}
+            // finalFocusRef={btnRef}
+          >
+            <CUI.DrawerOverlay />
+            <CUI.DrawerContent>
+              <CUI.DrawerCloseButton />
+              <CUI.DrawerHeader>
+                <TukuGlossary />
+              </CUI.DrawerHeader>
+              <CUI.DrawerBody>
+                <h2>Comisiones</h2>
+                <p>
+                  Son grupos de trabajo conformados por congresistas, en los
+                  cuales se abordan diferentes temas. Existen 4 tipos de
+                  comisiones:{' '}
+                </p>
+                <CUI.OrderedList>
+                  <CUI.ListItem>
+                    Comisiones ordinarias:
+                    <p>
+                      Se encargan del estudio y dictamen de asuntos del
+                      congreso, priorizando en esto los proyectos de ley y las
+                      funciones de fiscalización.
+                    </p>
+                  </CUI.ListItem>
+                  <CUI.ListItem>
+                    Comisiones de investigación:
+                    <p>
+                      Se encargan del estudio, investigación y dictamen sobre
+                      asuntos que sean considerados de interés público. Cabe
+                      resaltar que las conclusiones de estas no tienen ninguna
+                      injerencia ni obligación sobre el poder judicial.
+                    </p>
+                  </CUI.ListItem>
+                  <CUI.ListItem>
+                    {' '}
+                    Comisiones especiales:
+                    <p>
+                      Se constituyen con fines protocolares o ceremoniales o
+                      para la realización de cualquier estudio especial o
+                      trabajo conjunto con comisiones del Gobierno, según
+                      acuerde el Pleno a propuesta del Presidente del Congreso.
+                    </p>
+                  </CUI.ListItem>
+                  <CUI.ListItem>
+                    {' '}
+                    Comisión de ética parlamentaria:
+                    <p>
+                      Se encarga de resolver en primera instancia las denuncias
+                      presentadas a congresistas por violaciones al Código de
+                      Ética Parlamentaria
+                    </p>
+                  </CUI.ListItem>
+                </CUI.OrderedList>
+                <CUI.Box>
+                  <p>
+                    <strong>Fuente:</strong>Reglamento del congreso 2021,
+                    Artículos 34 y 35
+                  </p>
+                </CUI.Box>
+              </CUI.DrawerBody>
+            </CUI.DrawerContent>
+          </CUI.Drawer>{' '}
+          del Congreso, el estado en el que se encuentran y sus respectivos
+          autores.
         </CUI.Text>
         <CUI.Button
           as={NextCUILink}
